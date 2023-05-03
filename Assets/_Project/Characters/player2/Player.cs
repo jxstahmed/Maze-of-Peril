@@ -128,6 +128,7 @@ public class Player : MonoBehaviour
     {
         animator.SetBool("die", true);
         GameManager.Instance.StopEnemies(true);
+        lockMovement();
     }
 
     private void onGameEventListen(Hashtable payload)
