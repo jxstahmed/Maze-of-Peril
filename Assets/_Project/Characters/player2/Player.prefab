@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3161317874764801230}
   - component: {fileID: 3117983450984963999}
   - component: {fileID: 1100571179939461976}
-  - component: {fileID: 1876218058}
   - component: {fileID: 1876218057}
+  - component: {fileID: 1876218071}
   m_Layer: 20
   m_Name: Player
   m_TagString: Player
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3875743306818223435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.018, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 6.7061996, y: 5.8992, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3505766534716718798}
@@ -131,32 +131,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1876218058
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3875743306818223435}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.005355824, y: -0.16010863}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.48, y: 0.48}
-    newSize: {x: 0.48, y: 0.48}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.0894712, y: 0.021895275}
-  m_EdgeRadius: 0
 --- !u!114 &1876218057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +144,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  health: 100
   swordAttack: {fileID: 7726948036271209067}
+--- !u!70 &1876218071
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875743306818223435}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0067542973, y: 0.0063978927}
+  m_Size: {x: 0.09012967, y: 0.030727135}
+  m_Direction: 1
 --- !u!1 &4206969753155058343
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,10 +205,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09, y: -0.10000001}
+  m_Offset: {x: 0, y: -0.23}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -243,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
-  swordCollider: {fileID: 0}
-  rightAttackOffset: {x: 0, y: 0}
-  upAttackOffset: {x: 0, y: 0}
-  DownAttackOffset: {x: 0, y: 0}
+  swordCollider: {fileID: 7796136856985970057}
+  rightAttackOffset: {x: 0.09, y: -0.1}
+  upAttackOffset: {x: 0, y: 0.04}
+  DownAttackOffset: {x: 0, y: -0.23}

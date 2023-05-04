@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] public float health = 100;
 
     private bool can_move = true;
-    private float last_hit = 0;
 
     Animator animator;
 
@@ -122,17 +121,46 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("defeated");
     }
 
+    private float last_hit = 0;
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("First hit");
+            last_hit = Time.time;
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if(Time.time >= (attack_pause + last_hit)) {
-                Debug.Log("Touching somethin");
+            // Current time & delay
+            // First touch at second 2
+            // We test at second 5, attack pause is 2 => first touch + 2 => 5 > 4, we can hit
+            // set the time of last_hit to 5 and then retry 
+            // player gets away and OnExit is trigger
+            // player gets back at 7.2 and when he first touches => he gets hit
+
+            float allowed_hit_time = last_hit + attack_pause;
+            if(last_hit != 0 && Time.time > allowed_hit_time) {
+                // hitting 
+                Debug.Log("hitting");
                 last_hit = Time.time;
                 GameManager.Instance.AttackPlayer(damage);
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("out of the way");
+            last_hit = 0;
         }
     }
 

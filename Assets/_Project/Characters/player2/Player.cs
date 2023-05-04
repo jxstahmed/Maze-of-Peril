@@ -35,11 +35,14 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!can_move)
+        if (!can_move){
             return;
+        }
+            
 
         if (can_move && Input.GetKey(KeyCode.Space))
         {
+            lockMovement();
             animator.SetTrigger("sword_attack");
         }
         Vector2 dir = Vector2.zero;
@@ -77,6 +80,7 @@ public class Player : MonoBehaviour
 
     public void lockMovement()
     {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         can_move = false;
     }
     public void unlockMovement()
@@ -88,6 +92,7 @@ public class Player : MonoBehaviour
 
     public void SwordAttack_h()
     {
+
 
         lockMovement();
         if (spriteRenderer.flipX)
@@ -126,7 +131,6 @@ public class Player : MonoBehaviour
 
     private void stopPlayer()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         lockMovement();
     }
 
