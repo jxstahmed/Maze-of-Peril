@@ -36813,6 +36813,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1876218057, guid: e2e633495b7bddc449891cb33233922b, type: 3}
+      propertyPath: player_health
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1876218058, guid: e2e633495b7bddc449891cb33233922b, type: 3}
       propertyPath: m_Offset.y
       value: 0.01
@@ -60166,7 +60170,7 @@ PrefabInstance:
     - target: {fileID: 5795539211585154333, guid: 06767b75fca49ea4f89b7948ae458d99,
         type: 3}
       propertyPath: attack_pause
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5795539211585154333, guid: 06767b75fca49ea4f89b7948ae458d99,
         type: 3}

@@ -19,25 +19,21 @@ public class SwordAttack : MonoBehaviour
 
     public void AttackRight()
     {
-        print("right");
         swordCollider.enabled = true;
         swordCollider.offset = rightAttackOffset;
     }
     public void AttackLeft()
     {
-        print("left");
         swordCollider.enabled = true;
         swordCollider.offset = new Vector2(rightAttackOffset.x * -1, rightAttackOffset.y);
     }
     public void AttackUp()
     {
-        print("up");
         swordCollider.enabled = true;
         swordCollider.offset = upAttackOffset;
     }
     public void AttackDown()
     {
-        print("down");
         swordCollider.enabled = true;
         swordCollider.offset = DownAttackOffset;
     }
@@ -48,12 +44,11 @@ public class SwordAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print("enemy");
-        if (other.tag != "Enemy")
-            return;
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
-            enemy.Health -= damage;
-       
+        if(other.tag == "Enemy") {
+            Enemy enemy = other.GetComponent<Enemy>();
+            if(enemy != null) {
+                enemy.applyDamage(damage);
+            }
+        }
     }
 }

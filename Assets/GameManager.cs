@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AttackPlayer(int damage)
+    public void AttackPlayer(float damage)
     {
         Hashtable payload = new Hashtable();
         payload.Add("state", GameState.AttackPlayer);
@@ -53,10 +53,7 @@ public class GameManager : MonoBehaviour
         return pos;
     }
 
-    public IEnumerator DelayedAction(int seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-    }
+   
 }
 
 

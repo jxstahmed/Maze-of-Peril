@@ -12,12 +12,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] public float movement_speed = 0.6f;
     [SerializeField] public float max_follow_radius = 8f;
     [SerializeField] public float min_follow_radius = 0f;
-    [SerializeField] public int health = 100;
-    [SerializeField] public int damage = 20;
+    [SerializeField] public float damage = 20f;
     [SerializeField] public int attack_pause = 2;
+    [SerializeField] public float health = 100;
 
     private bool can_move = true;
-    
+    private float last_hit = 0;
 
     Animator animator;
 
@@ -91,25 +91,20 @@ public class Enemy : MonoBehaviour
         return pos;
     }
 
-    public float Health
+    public void applyDamage(float weaponDamage)
     {
-        set
+        if (health <= 0)
         {
-            health = (int) value;
-            if(Health <= 0)
-            {
-                Defeated();
-            }
+            return;
         }
-        get
-        {
-            return health;
-        }
-    }
 
-    public void Defeated()
-    {
-        animator.SetTrigger("defeated");
+        health -= weaponDamage;
+        Debug.Log("Enemy got hit with: " + weaponDamage + ", health is: " + health);
+
+        if (health <= 0)
+        {
+            killEnemy();
+        }
     }
 
     public void RemoveEnemy()
@@ -117,21 +112,36 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void stopEnemy() {
+        can_move = false;
+        origin.velocity = new Vector2(0, 0);
+    }
+
+    private void killEnemy() {
+        stopEnemy();
+        animator.SetTrigger("defeated");
+    }
+
+
+
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.AttackPlayer(damage);
-            StartCoroutine(GameManager.Instance.DelayedAction(attack_pause));
+            if(Time.time >= (attack_pause + last_hit)) {
+                Debug.Log("Touching somethin");
+                last_hit = Time.time;
+                GameManager.Instance.AttackPlayer(damage);
+            }
         }
     }
+
 
     private void onGameEventListen(Hashtable payload)
     {
         if ((GameState)payload["state"] == GameState.StopEnemies)
         {
-            origin.velocity = new Vector2(0, 0);
-            can_move = false;
+            stopEnemy();
         }
     }
 }

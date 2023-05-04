@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 1f;
-    public float player_health = 100;
+    public float health = 100;
 
     private Animator animator;
     SpriteRenderer spriteRenderer;
@@ -108,34 +108,41 @@ public class Player : MonoBehaviour
         swordAttack.AttackDown();
     }
 
-    public void applyDamage(int enemyDamage)
+    public void applyDamage(float enemyDamage)
     {
-        if (player_health <= 0)
+        if (health <= 0)
         {
             return;
         }
 
-        player_health -= enemyDamage;
-        Debug.Log("Player got hit with: " + enemyDamage + ", health is: " + player_health);
+        health -= enemyDamage;
+        Debug.Log("Player got hit with: " + enemyDamage + ", health is: " + health);
 
-        if (player_health <= 0)
+        if (health <= 0)
         {
             killPlayer();
         }
     }
 
-    private void killPlayer()
+    private void stopPlayer()
     {
-        animator.SetBool("die", true);
-        GameManager.Instance.StopEnemies(true);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         lockMovement();
     }
+
+    private void killPlayer()
+    {
+        stopPlayer();
+         GameManager.Instance.StopEnemies(true);
+        animator.SetBool("die", true);
+    }
+
 
     private void onGameEventListen(Hashtable payload)
     {
         if ((GameState)payload["state"] == GameState.AttackPlayer)
         {
-            applyDamage((int)payload["damage"]);
+            applyDamage((float)payload["damage"]);
         }
     }
 }
