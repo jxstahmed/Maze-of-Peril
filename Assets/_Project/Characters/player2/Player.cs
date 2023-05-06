@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public SwordAttack swordAttack;
     bool can_move = true;
+    private Rigidbody2D _rb;
 
     // subscribe
     private void Awake()
@@ -29,25 +30,23 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
 
 
     private void FixedUpdate()
     {
-        if (!can_move){
+        if (!can_move)
             return;
-        }
-            
 
         if (can_move && Input.GetKey(KeyCode.Space))
         {
             lockMovement();
             animator.SetTrigger("sword_attack");
         }
+
         Vector2 dir = Vector2.zero;
-
-
         //get WASD Input
         if (Input.GetKey(KeyCode.A))
             dir.x -= 1;
@@ -66,21 +65,14 @@ public class Player : MonoBehaviour
         animator.SetBool("P2_is_moving_down", (dir.x == 0) && (dir.y < 0));
 
         //set direction in which the player is facing
-        if (dir.x < 0)
-            spriteRenderer.flipX = true;
-
-        else if (dir.x > 0)
-            spriteRenderer.flipX = false;
-
-
-        if (!can_move)
-            dir = Vector2.zero;
-        GetComponent<Rigidbody2D>().velocity = speed * dir;
+        if(dir.x != 0)
+            spriteRenderer.flipX = dir.x < 0;
+        _rb.velocity = speed * dir;
     }
 
     public void lockMovement()
     {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        _rb.velocity = new Vector2(0, 0);
         can_move = false;
     }
     public void unlockMovement()

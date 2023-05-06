@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4283199817647115260}
   - component: {fileID: 4625211024546470864}
-  - component: {fileID: -8671557419066700134}
   - component: {fileID: 5795539211585154335}
   - component: {fileID: 5795539211585154334}
   - component: {fileID: 5795539211585154333}
@@ -89,19 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &-8671557419066700134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5687982669765723875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15fdc096428f0ec419aa9b707599e131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
 --- !u!50 &5795539211585154335
 Rigidbody2D:
   serializedVersion: 4
@@ -136,9 +122,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00092983246, y: -0.017667692}
-  m_Size: {x: 0.15448126, y: 0.15448126}
-  m_Direction: 0
+  m_Offset: {x: -0.00092982966, y: 0.024223559}
+  m_Size: {x: 0.15448135, y: 0.10597587}
+  m_Direction: 1
 --- !u!114 &5795539211585154333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fdc096428f0ec419aa9b707599e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  origin: {fileID: 5795539211585154335}
+  movement_speed: 0.6
+  max_follow_radius: 5
+  min_follow_radius: 0
+  damage: 50
+  attack_pause: 2
   health: 100
 --- !u!95 &8696136320195191740
 Animator:

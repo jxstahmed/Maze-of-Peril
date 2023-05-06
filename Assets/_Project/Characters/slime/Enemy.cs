@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
 
-    public Rigidbody2D target;
-    public Rigidbody2D origin;
+    [SerializeField] private Rigidbody2D target;
+    [SerializeField] private Rigidbody2D origin;
 
-    [SerializeField] public float movement_speed = 0.6f;
-    [SerializeField] public float max_follow_radius = 8f;
-    [SerializeField] public float min_follow_radius = 0f;
-    [SerializeField] public float damage = 20f;
-    [SerializeField] public int attack_pause = 2;
-    [SerializeField] public float health = 100;
+    [SerializeField] private float movement_speed = 0.6f;
+    [SerializeField] private float max_follow_radius = 8f;
+    [SerializeField] private float min_follow_radius = 0f;
+    [SerializeField] private float damage = 20f;
+    [SerializeField] private int attack_pause = 2;
+    [SerializeField] private float health = 100;
 
     private bool can_move = true;
 
@@ -49,34 +50,31 @@ public class Enemy : MonoBehaviour
 
     private void validateMovement()
     {
-        if (origin != null && target != null && can_move)
+        if (!can_move || origin == null || target == null)
+            return;
+
+        // Check position
+        Vector2 target_position = GameManager.Instance.getTargetPosition(origin.transform, target.transform);
+        bool isRight = target_position.x < 0;
+        bool isTop = target_position.y < 0;
+
+
+        // Flip if different position
+        spriteRenderer.flipX = !isRight;
+
+
+        if (
+            Vector2.Distance(origin.position, target.position) > min_follow_radius && Vector2.Distance(origin.position, target.position) < max_follow_radius)
         {
-
-            // Check position
-            Vector2 target_position = GameManager.Instance.getTargetPosition(origin.transform, target.transform);
-            bool isRight = target_position.x < 0;
-            bool isTop = target_position.y < 0;
-
-
-            // Flip if different position
-
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.flipX = !isRight;
-            }
-
-
-            if (
-                Vector2.Distance(origin.position, target.position) > min_follow_radius && Vector2.Distance(origin.position, target.position) < max_follow_radius)
-            {
-                // Keep going if inside the radius
-                origin.velocity = movement_speed * new Vector2(target_position.x * -1, target_position.y * -1);
-            }
-            else
-            {
-                // stop the movement if it's outside the radius
-                origin.velocity = new Vector2(0, 0);
-            }
+            // Keep going if inside the radius
+            Vector2 dir = new Vector2(target_position.x * -1, target_position.y * -1);
+            dir.Normalize();
+            origin.velocity = movement_speed * dir;
+        }
+        else
+        {
+            // stop the movement if it's outside the radius
+            origin.velocity = new Vector2(0, 0);
         }
     }
 
