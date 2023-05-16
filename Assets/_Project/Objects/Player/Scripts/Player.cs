@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player")]
     [SerializeField] public float Speed = 1f;
-    [SerializeField] float Health = 100;
-    [SerializeField] float Stamina = 100;
-    [SerializeField] SwordAttack SwordAttack;
+    [SerializeField] public float Health = 100;
+    [SerializeField] public float Stamina = 100;
+
+    [Header("Attachments")]
+    [SerializeField] public SwordAttack SwordAttack;
+    [SerializeField] public Light2D LightSpotDirectional;
+
+    [Header("Light")]
+    [SerializeField] public float playerDirectionalCameraPositionXDefault = 0f;
+    [SerializeField] public float playerDirectionalCameraPositionYDefault = 0f;
+
+    [SerializeField] public float playerDirectionalCameraPositionDistance = 0.09f;
 
     private Animator animator;
     private SpriteRenderer sprite_renderer;
@@ -21,6 +32,9 @@ public class Player : MonoBehaviour
     private KeyCode KeyMoveDown = KeyCode.S;
 
     private KeyCode KeySwordAttack = KeyCode.Space;
+
+    private Vector2 playerMovement;
+    private Vector2 playerMovementLast;
 
     // subscribe
     private void Awake()
@@ -48,20 +62,37 @@ public class Player : MonoBehaviour
         if (!can_move)
             return;
 
-        PlayerAttack();
+        playerMovement = PlayerMovement();
+
         PlayerMove();
+        PlayerLight();
+        PlayerAttack();
     }
 
-    private void PlayerAttack()
-    {
-        if (can_move && Input.GetKey(KeySwordAttack))
-        {
-            LockMovement();
-            animator.SetTrigger("sword_attack");
-        }
-    }
+
+
 
     private void PlayerMove()
+    {
+        if (playerMovement.x != 0 || playerMovement.y != 0)
+        {
+            playerMovementLast = playerMovement;
+        }
+
+        // set movement animation direction
+        animator.SetBool("P2_is_moving_h", playerMovement.x != 0);
+        animator.SetBool("P2_is_moving_up", (playerMovement.x == 0) && (playerMovement.y > 0));
+        animator.SetBool("P2_is_moving_down", (playerMovement.x == 0) && (playerMovement.y < 0));
+
+        // set direction in which the player is facing
+        if (playerMovement.x != 0)
+            sprite_renderer.flipX = playerMovement.x < 0;
+
+        rigidBody.velocity = Speed * playerMovement;
+    }
+
+
+    private Vector2 PlayerMovement()
     {
         Vector2 dir = Vector2.zero;
         // get WASD Input
@@ -76,15 +107,98 @@ public class Player : MonoBehaviour
 
         dir.Normalize();
 
-        // set movement animation direction
-        animator.SetBool("P2_is_moving_h", dir.x != 0);
-        animator.SetBool("P2_is_moving_up", (dir.x == 0) && (dir.y > 0));
-        animator.SetBool("P2_is_moving_down", (dir.x == 0) && (dir.y < 0));
 
-        // set direction in which the player is facing
-        if (dir.x != 0)
-            sprite_renderer.flipX = dir.x < 0;
-        rigidBody.velocity = Speed * dir;
+        return dir;
+    }
+
+    private bool IsPlayerMoving(PLAYER_DIRECTIONS direction, bool useLastSaved)
+    {
+        Vector2 movement;
+        if(useLastSaved)
+        {
+            movement = playerMovementLast;
+        } else
+        {
+            movement = playerMovement;
+        }
+
+        switch(direction)
+        {
+            case PLAYER_DIRECTIONS.RIGHT:
+                return movement.x > 0;
+            case PLAYER_DIRECTIONS.LEFT:
+                return movement.x < 0;
+            case PLAYER_DIRECTIONS.UP:
+                return movement.y > 0;
+            case PLAYER_DIRECTIONS.DOWN:
+                return movement.y < 0;
+            case PLAYER_DIRECTIONS.UP_RIGHT:
+                return IsPlayerMoving(PLAYER_DIRECTIONS.UP, useLastSaved) && IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, useLastSaved);
+            case PLAYER_DIRECTIONS.UP_LEFT:
+                return IsPlayerMoving(PLAYER_DIRECTIONS.UP, useLastSaved) && IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, useLastSaved);
+            case PLAYER_DIRECTIONS.DOWN_RIGHT:
+                return IsPlayerMoving(PLAYER_DIRECTIONS.DOWN, useLastSaved) && IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, useLastSaved);
+            case PLAYER_DIRECTIONS.DOWN_LEFT:
+                return IsPlayerMoving(PLAYER_DIRECTIONS.DOWN, useLastSaved) && IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, useLastSaved);
+        }
+
+        return false;
+    }
+
+    private float PlayerMovingAngle(bool useLastSaved)
+    {
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.UP_RIGHT, useLastSaved)) return -45;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.DOWN_RIGHT, useLastSaved)) return -135;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.DOWN_LEFT, useLastSaved)) return -225;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.UP_LEFT, useLastSaved)) return -315;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, useLastSaved)) return -90;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.UP, useLastSaved)) return 0;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, useLastSaved)) return -270;
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.DOWN, useLastSaved)) return -180;
+
+        return 0;
+    }
+
+    private void PlayerAttack()
+    {
+        if (can_move && Input.GetKey(KeySwordAttack))
+        {
+            LockMovement();
+            animator.SetTrigger("sword_attack");
+        }
+    }
+
+    private void PlayerLight()
+    {
+
+        // -90 => right, -180 => bottom, -270 => left, 0 => up
+        float player_direction_z = PlayerMovingAngle(true);
+        float player_position_x = playerDirectionalCameraPositionXDefault;
+        float player_position_y = playerDirectionalCameraPositionYDefault;
+
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, true))
+        {
+            player_position_x = -playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionXDefault;
+        }
+        
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, true))
+        {
+            player_position_x = playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionXDefault;
+        }
+
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.UP, true))
+        {
+            player_position_y = -playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionYDefault;
+        }
+
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.DOWN, true))
+        {
+            player_position_y = playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionYDefault;
+        }
+
+        LightSpotDirectional.transform.localRotation = Quaternion.Euler(LightSpotDirectional.transform.rotation.x, LightSpotDirectional.transform.rotation.y, player_direction_z);
+
+        LightSpotDirectional.transform.localPosition = new Vector3(player_position_x, player_position_y, transform.localPosition.z);
     }
 
     public void LockMovement()
@@ -155,5 +269,17 @@ public class Player : MonoBehaviour
         {
             applyDamage((float)payload["damage"]);
         }
+    }
+
+    enum PLAYER_DIRECTIONS
+    {
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT,
+        UP_RIGHT,
+        UP_LEFT,
+        DOWN_RIGHT,
+        DOWN_LEFT
     }
 }
