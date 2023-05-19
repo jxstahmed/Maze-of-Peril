@@ -1,37 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] public float Speed = 1f;
-    [SerializeField] public float Health = 100;
-    [SerializeField] public float Stamina = 100;
+    [SerializeField] public PlayerStats PlayerData;
+    [SerializeField] public Slider PlayerUIHealth;
+    [SerializeField] public Slider PlayerUIStamina;
 
     [Header("Attachments")]
-    [SerializeField] public SwordAttack SwordAttack;
-    [SerializeField] public Light2D LightSpotDirectional;
+    [SerializeField] public GameObject Weapon;
+    [SerializeField] public WeaponController WeaponController;
 
-    [Header("Light")]
-    [SerializeField] public float playerDirectionalCameraPositionXDefault = 0f;
-    [SerializeField] public float playerDirectionalCameraPositionYDefault = 0f;
+    [Header("States")]
+    [SerializeField] public bool isWeaponShown = true;
+    [SerializeField] public bool isPlayerMoving = false;
+    [SerializeField] public bool isPlayerRunning = false;
+    [SerializeField] public bool isPlayerAttacking = false;
 
-    [SerializeField] public float playerDirectionalCameraPositionDistance = 0.09f;
+    [Header("Controlls")]
+    [SerializeField] private KeyCode KeyMoveRight = KeyCode.D;
+    [SerializeField] private KeyCode KeyMoveUp = KeyCode.W;
+    [SerializeField] private KeyCode KeyMoveLeft = KeyCode.A;
+    [SerializeField] private KeyCode KeyMoveDown = KeyCode.S;
+    [SerializeField] private KeyCode KeyMoveSprint = KeyCode.LeftShift;
+    [SerializeField] private KeyCode KeyShowWeapon = KeyCode.F;
+
+    [SerializeField] private KeyCode KeySwordAttack = KeyCode.Space;
 
     private Animator animator;
     private SpriteRenderer sprite_renderer;
     private Rigidbody2D rigidBody;
 
-    private bool can_move = true;
-
-    private KeyCode KeyMoveRight = KeyCode.D;
-    private KeyCode KeyMoveUp = KeyCode.W;
-    private KeyCode KeyMoveLeft = KeyCode.A;
-    private KeyCode KeyMoveDown = KeyCode.S;
-
-    private KeyCode KeySwordAttack = KeyCode.Space;
+    private bool canMove = true;
+    private bool hasToggledWeaponKey = false;
+    
 
     private Vector2 playerMovement;
     private Vector2 playerMovementLast;
@@ -54,23 +58,110 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
+
+        PlayerData.Stamina = 100f;
+        PlayerData.Health = 100f;
     }
 
 
     private void FixedUpdate()
     {
-        if (!can_move)
+        if (!canMove)
             return;
 
-        playerMovement = PlayerMovement();
 
+        PlayerDirection();
         PlayerMove();
-        PlayerLight();
-        PlayerAttack();
+        PlayerAnimation();
+        PlayerWeapon();
+        PlayerStatsIncrement();
+        PlayerUI();
+    }
+
+    private void Update()
+    {
+        PlayerControlls();
+    }
+
+    private void PlayerControlls()
+    {
+        if (Input.GetKeyDown(KeyShowWeapon))
+        {
+            hasToggledWeaponKey = true;
+            isWeaponShown = !isWeaponShown;
+        }
+
+
+        if (Input.GetKeyDown(KeySwordAttack))
+        {
+            // The player wants to attack, we check the current ability to hit (stamina check up)
+            if(PlayerData.Stamina > 0)
+            {
+                WeaponStats activeWeapon = GameManager.Instance.GetActiveWeaponProfile();
+                if (activeWeapon != null)
+                {
+                    float availableStamina = PlayerData.Stamina - activeWeapon.StaminaReductionRate;
+
+                    if (availableStamina >= 0)
+                    {
+                        Debug.Log("Stamina is available, providing an attack.");
+                        WeaponController.ActivateAttackAllowance();
+                    }
+                    else
+                    {
+                        Debug.Log("Stamina isn't enough.");
+                    }
+                } else
+                {
+                    Debug.Log("Can't attack, active weapon isn't found.");
+                }
+            }
+        }
+            
+
+
+        // Movement
+        Vector2 dir = Vector2.zero;
+        // get WASD Input
+        if (Input.GetKey(KeyMoveLeft))
+            dir.x = -1;
+        if (Input.GetKey(KeyMoveRight))
+            dir.x = 1;
+        if (Input.GetKey(KeyMoveUp))
+            dir.y = 1;
+        if (Input.GetKey(KeyMoveDown))
+            dir.y = -1;
+
+        isPlayerMoving = playerMovement.x != 0 || playerMovement.y != 0;
+        isPlayerRunning = Input.GetKey(KeyMoveSprint) && isPlayerMoving && (PlayerData.Stamina - PlayerData.SpeedStaminaReductionRate) >= 0;
+
+        dir.Normalize();
+
+        playerMovement = dir;
     }
 
 
+    private void PlayerDirection()
+    {
+        if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, true))
+        {
+            sprite_renderer.flipX = false;
 
+            if (Weapon != null && isWeaponShown)
+            {
+                Weapon.transform.localScale = new Vector3(1, Weapon.transform.localScale.y, Weapon.transform.localScale.z);
+            }
+        }
+        else if (IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, true))
+        {
+            sprite_renderer.flipX = true;
+
+            if(Weapon != null && isWeaponShown)
+            {
+                Weapon.transform.localScale = new Vector3(-1, Weapon.transform.localScale.y, Weapon.transform.localScale.z);
+            }
+        }
+    }
 
     private void PlayerMove()
     {
@@ -79,39 +170,55 @@ public class Player : MonoBehaviour
             playerMovementLast = playerMovement;
         }
 
-        // set movement animation direction
-        animator.SetBool("P2_is_moving_h", playerMovement.x != 0);
-        animator.SetBool("P2_is_moving_up", (playerMovement.x == 0) && (playerMovement.y > 0));
-        animator.SetBool("P2_is_moving_down", (playerMovement.x == 0) && (playerMovement.y < 0));
 
-        // set direction in which the player is facing
-        if (playerMovement.x != 0)
-            sprite_renderer.flipX = playerMovement.x < 0;
 
-        rigidBody.velocity = Speed * playerMovement;
+        rigidBody.velocity = PlayerMovementMultiplier() * playerMovement;
     }
 
 
-    private Vector2 PlayerMovement()
+    private void PlayerAnimation()
     {
-        Vector2 dir = Vector2.zero;
-        // get WASD Input
-        if (Input.GetKey(KeyMoveLeft))
-            dir.x -= 1;
-        if (Input.GetKey(KeyMoveRight))
-            dir.x += 1;
-        if (Input.GetKey(KeyMoveUp))
-            dir.y += 1;
-        if (Input.GetKey(KeyMoveDown))
-            dir.y -= 1;
-
-        dir.Normalize();
-
-
-        return dir;
+        animator.SetBool("isWalking", isPlayerMoving && !isPlayerRunning);
+        animator.SetBool("isRunning", isPlayerMoving && isPlayerRunning);
     }
 
-    private bool IsPlayerMoving(PLAYER_DIRECTIONS direction, bool useLastSaved)
+    private void PlayerWeapon()
+    {
+        if (Weapon == null) return;
+
+
+        if (hasToggledWeaponKey)
+        {
+            hasToggledWeaponKey = false;
+            Weapon.SetActive(isWeaponShown);
+        }
+    }
+
+
+
+    private float PlayerMovementMultiplier()
+    {
+        float base_speed = PlayerData.Speed;
+
+        if (PlayerData.WalkFactor > 0)
+        {
+            // Factor to increase the walk
+            base_speed += (base_speed * PlayerData.WalkFactor);
+        }
+
+        if (isPlayerRunning)
+        {
+            // Factor to increase the run
+            base_speed += (base_speed * PlayerData.RunFactor);
+            Debug.Log("Player is running, reducing: -" + PlayerData.SpeedStaminaReductionRate);
+            AffectStamina(-PlayerData.SpeedStaminaReductionRate);
+
+        }
+
+        return base_speed;
+    }
+
+    public bool IsPlayerMoving(PLAYER_DIRECTIONS direction, bool useLastSaved)
     {
         Vector2 movement;
         if(useLastSaved)
@@ -145,7 +252,7 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    private float PlayerMovingAngle(bool useLastSaved)
+    public float PlayerMovingAngle(bool useLastSaved)
     {
         if (IsPlayerMoving(PLAYER_DIRECTIONS.UP_RIGHT, useLastSaved)) return -45;
         if (IsPlayerMoving(PLAYER_DIRECTIONS.DOWN_RIGHT, useLastSaved)) return -135;
@@ -159,92 +266,41 @@ public class Player : MonoBehaviour
         return 0;
     }
 
-    private void PlayerAttack()
+    private void PlayerStatsIncrement()
     {
-        if (can_move && Input.GetKey(KeySwordAttack))
-        {
-            LockMovement();
-            animator.SetTrigger("sword_attack");
-        }
+        AffectHealth(PlayerData.HealthRegenerationRate);
+        AffectStamina(PlayerData.StaminaRegenerationRate);
     }
 
-    private void PlayerLight()
+    private void PlayerUI()
     {
-
-        // -90 => right, -180 => bottom, -270 => left, 0 => up
-        float player_direction_z = PlayerMovingAngle(true);
-        float player_position_x = playerDirectionalCameraPositionXDefault;
-        float player_position_y = playerDirectionalCameraPositionYDefault;
-
-        if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, true))
-        {
-            player_position_x = -playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionXDefault;
-        }
-        
-        if (IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, true))
-        {
-            player_position_x = playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionXDefault;
-        }
-
-        if (IsPlayerMoving(PLAYER_DIRECTIONS.UP, true))
-        {
-            player_position_y = -playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionYDefault;
-        }
-
-        if (IsPlayerMoving(PLAYER_DIRECTIONS.DOWN, true))
-        {
-            player_position_y = playerDirectionalCameraPositionDistance + playerDirectionalCameraPositionYDefault;
-        }
-
-        LightSpotDirectional.transform.localRotation = Quaternion.Euler(LightSpotDirectional.transform.rotation.x, LightSpotDirectional.transform.rotation.y, player_direction_z);
-
-        LightSpotDirectional.transform.localPosition = new Vector3(player_position_x, player_position_y, transform.localPosition.z);
+        PlayerUIHealth.value = PlayerData.Health / 100;
+        PlayerUIStamina.value = PlayerData.Stamina / 100;
     }
+
 
     public void LockMovement()
     {
         rigidBody.velocity = new Vector2(0, 0);
-        can_move = false;
+        canMove = false;
     }
     public void UnlockMovement()
     {
-        can_move = true;
-        SwordAttack.StopAttack();
-        animator.SetTrigger("sword_attack_reset");
+        canMove = true;
     }
 
-    public void SwordAttack_h()
-    {
-        LockMovement();
-        if (sprite_renderer.flipX)
-            SwordAttack.AttackLeft();
-        else
-            SwordAttack.AttackRight();
-
-    }
-    public void SwordAttack_up()
-    {
-
-        LockMovement();
-        SwordAttack.AttackUp();
-    }
-    public void SwordAttack_down()
-    {
-        LockMovement();
-        SwordAttack.AttackDown();
-    }
 
     public void applyDamage(float enemyDamage)
     {
-        if (Health <= 0)
+        if (PlayerData.Health <= 0)
         {
             return;
         }
 
-        Health -= enemyDamage;
-        Debug.Log("Player got hit with: " + enemyDamage + ", health is: " + Health);
+        PlayerData.Health -= enemyDamage;
+        Debug.Log("Player got hit with: " + enemyDamage + ", health is: " + PlayerData.Health);
 
-        if (Health <= 0)
+        if (PlayerData.Health <= 0)
         {
             killPlayer();
         }
@@ -258,20 +314,46 @@ public class Player : MonoBehaviour
     private void killPlayer()
     {
         stopPlayer();
-         GameManager.Instance.StopEnemies(true);
+        GameManager.Instance.StopEnemies(true);
         animator.SetBool("die", true);
     }
 
+    public void AffectHealth(float health)
+    {
+        float newHealth = PlayerData.Health + health;
+
+        if (newHealth > 100) newHealth = 100;
+        else if (newHealth < 0) newHealth = 0;
+        
+        PlayerData.Health = newHealth;
+    }
+
+    public void AffectStamina(float stamina)
+    {
+        float newstamina = PlayerData.Stamina + stamina;
+
+        if (newstamina > 100) newstamina = 100;
+        else if (newstamina < 0) newstamina = 0;
+
+        PlayerData.Stamina = newstamina;
+    }
 
     private void onGameEventListen(Hashtable payload)
     {
         if ((GameState)payload["state"] == GameState.AttackPlayer)
         {
             applyDamage((float)payload["damage"]);
+        } else if ((GameState)payload["state"] == GameState.AffectStamina)
+        {
+            Debug.Log("received stamina reduction request in player, reduction is: " + (float)payload["stamina"]);
+            AffectStamina((float)payload["stamina"]);
+        } else if ((GameState)payload["state"] == GameState.AffectHealth)
+        {
+            AffectHealth((float)payload["health"]);
         }
     }
 
-    enum PLAYER_DIRECTIONS
+    public enum PLAYER_DIRECTIONS
     {
         UP,
         DOWN,
@@ -282,4 +364,5 @@ public class Player : MonoBehaviour
         DOWN_RIGHT,
         DOWN_LEFT
     }
+
 }

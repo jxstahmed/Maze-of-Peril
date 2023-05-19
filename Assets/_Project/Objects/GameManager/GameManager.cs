@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     // list of killed enemies
     [SerializeField] public List<ScriptableEnemy> KilledEnemies;
 
-    
+    // 
+    [SerializeField] public WeaponsPack WeaponsData;
+    [SerializeField] public PlayerStats PlayerData;
 
     void Awake()
     {
@@ -35,6 +37,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public void ChangePlayerStamina(float staminaRate)
+    {
+        Debug.Log("Reducing stamina via GameManager");
+        Hashtable payload = new Hashtable();
+        payload.Add("state", GameState.AffectStamina);
+        payload.Add("stamina", staminaRate);
+        GameEvent?.Invoke(payload);
+    }
+
     public void AttackPlayer(float damage)
     {
         Hashtable payload = new Hashtable();
@@ -42,6 +54,8 @@ public class GameManager : MonoBehaviour
         payload.Add("damage", damage);
         GameEvent?.Invoke(payload);
     } 
+
+
     
     public void StopEnemies(bool isPlayerDead)
     {
@@ -87,12 +101,32 @@ public class GameManager : MonoBehaviour
     }
 
    
+    public WeaponStats GetActiveWeaponProfile()
+    {
+        if(PlayerData == null || WeaponsData == null || PlayerData.WeaponId == null) return null;
+
+        WeaponStats weaponStatsProfile = null;
+
+        WeaponsData.Swords.ForEach(weapon =>
+        {
+            if(weapon.ID == PlayerData.WeaponId)
+            {
+                Debug.Log("Weapon has been found");
+                weaponStatsProfile = weapon;
+                return;
+            }
+        });
+
+        return weaponStatsProfile;
+    }
 }
 
 
 
 public enum GameState
 {
+    AffectStamina,
+    AffectHealth,
     AttackPlayer,
     StopEnemies
 }

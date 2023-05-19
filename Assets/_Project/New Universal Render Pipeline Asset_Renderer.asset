@@ -70,3 +70,19 @@ MonoBehaviour:
     type: 2}
   m_DefaultMaskMaterial: {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5,
     type: 2}
+--- !u!114 &8349652987481698843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868b5615eaac00b4791f79645ef1e354, type: 3}
+  m_Name: BlurScreenSpaceShadowsFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _blurRadius: 5.58
+  _maxDepthDiff: 1.77
+  _maxNormalDiff: 1.36

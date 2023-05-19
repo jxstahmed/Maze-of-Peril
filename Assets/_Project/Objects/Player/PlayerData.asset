@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e449639d61fb0ea4da02d96f84cac857, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  CurrentLevel: 0
+  Health: 100
+  Stamina: 94.0992
+  Speed: 1
+  StaminaRegenerationRate: 0.2
+  HealthRegenerationRate: 0
+  SpeedStaminaReductionRate: 0.5
+  WalkFactor: 0.75
+  RunFactor: 0.75
+  DamageFactor: 0.1
+  WeaponId: SwordCherry

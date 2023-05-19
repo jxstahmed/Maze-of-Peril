@@ -143,9 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c88c5e1bae8cd4faf25967ce42a95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  health: 100
-  swordAttack: {fileID: 7726948036271209067}
+  Speed: 1
+  Health: 100
+  Stamina: 100
+  SwordAttack: {fileID: 0}
 --- !u!70 &1876218071
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
