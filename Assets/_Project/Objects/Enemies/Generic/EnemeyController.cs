@@ -9,8 +9,9 @@ public class EnemeyController : MonoBehaviour
 
     [Header("Overall")]
     [SerializeField] bool CanMove = true;
-
+    
     [Header("Attachments")]
+    [SerializeField] EnemiesStats EnemyData;
     [SerializeField] Rigidbody2D TargetPlayer;
     [SerializeField] Light2D SelfSpot;
     [SerializeField] Light2D SightSpot;
@@ -19,23 +20,26 @@ public class EnemeyController : MonoBehaviour
     [SerializeField] bool EnableSelfLamp = true;
     [SerializeField] bool EnableSightLamp = true;
 
+
     [Header("Follow")]
     [SerializeField] string PlayerTag = "Player";
     [SerializeField] bool CanFollowPlayer = true;
     [SerializeField] bool SightInMovingDirection = false;
-    [SerializeField] float MaxSightRadius = 6f;
-    [SerializeField] float FollowSpeed = 0.2f;
+    [SerializeField] float ClosestRadiusToPlayer = 0.2f;
+    [Tooltip("The enemy can either return to their original patroling point or resetart it in the same location where they last saw the player.")]
+    [SerializeField] bool ResetCompassPointAfterChase = false;
+    [Tooltip("In case the player is near the enemy, and there's a wall, the enemy will try to find the shorest path to the player and chase them")]
+    [SerializeField] bool ChaseAfterWallWithPathfinding = false;
 
     [Header("Follow States")]
     [SerializeField] Rigidbody2D PlayerFoundBody;
     [SerializeField] bool CanSeePlayer = false;
     [SerializeField] bool IsFollowing = false;
+    [SerializeField] float LastLockedSightTimer = 0f;
 
     [Header("Patrol")]
     [SerializeField] string CollisionTag = "Walls";
     [SerializeField] bool CanPatrol = true;
-    [SerializeField] float PatrolSpeed = 0.6f;
-    [SerializeField] float PatrolRadius = 25f;
     [SerializeField] bool RandomizeDirectionAtStart = false;
     [SerializeField] bool RandomizeDirectionAfterEnd = false;
     [SerializeField] List<Vector2> PatrolAvailablePoints = new List<Vector2>();
@@ -52,6 +56,21 @@ public class EnemeyController : MonoBehaviour
 
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
+    private float LastPlayerAttackTime = 0;
+    private float internalIncrementTimer = 0f;
+    private float internalHealthCooldowTimer = 0f;
+    private bool isEnemyBeingAttacked = false;
+
+    private void Awake()
+    {
+        GameManager.GameEvent += onGameEventListen;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GameEvent -= onGameEventListen;
+
+    }
 
     void Start() {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -64,6 +83,20 @@ public class EnemeyController : MonoBehaviour
             new Vector2(0, 0),
             new Vector2(0, 0),
         });
+    }
+
+    private void Update()
+    {
+        LastLockedSightTimer += Time.deltaTime;
+        internalIncrementTimer += Time.deltaTime;
+        internalHealthCooldowTimer += Time.deltaTime;
+
+
+        if (internalIncrementTimer >= EnemyData.IncrementEverySeconds)
+        {
+            internalIncrementTimer = 0;
+            EnemeytatsIncrement();
+        }
     }
 
     void FixedUpdate() {
@@ -83,6 +116,8 @@ public class EnemeyController : MonoBehaviour
         // Do patroling
         if (IsPatroling && !IsFollowing)
         {
+            // Reset timer of locked state
+            LastLockedSightTimer = 0;
             Debug.Log("Patroling");
             Patrol();
         } else if(IsFollowing)
@@ -95,6 +130,28 @@ public class EnemeyController : MonoBehaviour
         SelfLight();
         SightLight();
     }
+
+    void ValidateStartingComapssPoint()
+    {
+        if (!IsPatrolReady)
+        {
+            IsPatrolReady = true;
+            LocalPatrolStartingPoint = transform.localPosition;
+            GlobalPatrolStartingPoint = transform.position;
+
+            // Randomize the upcoming starting point
+            if (RandomizeDirectionAtStart)
+            {
+                int length = System.Enum.GetValues(typeof(PATROL_POINTS)).Length;
+                System.Random r = new System.Random();
+                int index = r.Next(0, length - 1);
+                PatrolUpcomingPoint = (PATROL_POINTS)System.Enum.GetValues(typeof(PATROL_POINTS)).GetValue(index);
+            }
+
+            FindAvailableDirectionPoints();
+        }
+    }
+
 
     void DirectionalAdjustments()
     {
@@ -123,47 +180,12 @@ public class EnemeyController : MonoBehaviour
 
     }
 
-    void FollowPlayer()
-    {
-        if(!CanSeePlayer || PlayerFoundBody == null)
-        {
-            return;
-        }
-
-
-        rigidBody.position = Vector2.MoveTowards(transform.position, PlayerFoundBody.transform.position, FollowSpeed * Time.deltaTime);
-    }
-
-    void SelfLight()
-    {
-        if (SelfSpot != null) SelfSpot.gameObject.SetActive(EnableSelfLamp);
-    }
-
-    void SightLight()
-    {
-        if (SightSpot != null) SightSpot.gameObject.SetActive(EnableSightLamp);
-        if (!EnableSightLamp || SightSpot == null)
-        {
-            return;
-        }
-
-
-        Vector2 currentUpcomingPoint = PatrolAvailablePoints[(int)PatrolUpcomingPoint];
-        Vector2 currentPosition = transform.localPosition;
-
-        float movingAngle = Mathf.Atan2(currentUpcomingPoint.y - currentPosition.y, currentUpcomingPoint.x - currentPosition.x) * Mathf.Rad2Deg;
-
-
-        SightSpot.pointLightOuterRadius = PatrolRadius;
-        SightSpot.transform.rotation = Quaternion.Euler(SightSpot.transform.localRotation.x, SightSpot.transform.localRotation.y, movingAngle -90);
-    }
+   
 
     void SeePlayer()
     {
         // Provide initial information for the all-directional raycast
-        
-
-        Vector2 currentUpcomingPoint = PatrolAvailablePoints[(int)PatrolUpcomingPoint];
+                Vector2 currentUpcomingPoint = PatrolAvailablePoints[(int)PatrolUpcomingPoint];
         Vector2 currentPosition = transform.localPosition;
 
         float movingAngle = 0f;
@@ -198,7 +220,7 @@ public class EnemeyController : MonoBehaviour
             float calculatedAngle = angle * Mathf.Deg2Rad;
             Vector2 direction = new Vector2(Mathf.Cos(calculatedAngle), Mathf.Sin(calculatedAngle));
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.parent.TransformDirection(direction), MaxSightRadius);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.parent.TransformDirection(direction), EnemyData.MaxSightRadius);
 
             
 
@@ -222,14 +244,12 @@ public class EnemeyController : MonoBehaviour
 
             if(!hasHitCollision && playerHitrb != null)
             {
-                Debug.DrawRay(transform.position, transform.parent.TransformDirection(direction) * MaxSightRadius, Color.red);
+                Debug.DrawRay(transform.position, transform.parent.TransformDirection(direction) * EnemyData.MaxSightRadius, Color.red);
 
                 PlayerFoundBody = playerHitrb;
                 playerSeen = true;
             } 
 
-
-            //Debug.DrawRay(transform.position, direction * MaxSightRadius, Color.yellow);
 
             if (playerSeen) break;
         }
@@ -242,29 +262,52 @@ public class EnemeyController : MonoBehaviour
 
     }
 
+    void FollowPlayer()
+    {
+        if (!CanSeePlayer || PlayerFoundBody == null)
+        {
+            Debug.Log("Return");
+            return;
+        }
+
+        // Provide a new value when this prop is enabled
+        if(ResetCompassPointAfterChase)
+        {
+            LocalPatrolStartingPoint = transform.localPosition;
+            GlobalPatrolStartingPoint = transform.position;
+        }
+
+        if(!(LastLockedSightTimer >= EnemyData.FollowAfterLockedSightingForSeconds))
+
+
+
+        if (Vector2.Distance(transform.position, rigidBody.transform.position) >= ClosestRadiusToPlayer)
+        {
+            Debug.Log("Move towards");
+            
+        }
+
+
+
+        rigidBody.position = Vector2.MoveTowards(transform.position, PlayerFoundBody.transform.position, EnemyData.FollowSpeed * Time.deltaTime);
+    }
+
+   
+
     void Patrol()
     {
         Vector2 currentUpcomingPoint = PatrolAvailablePoints[(int)PatrolUpcomingPoint];
         Vector2 currentPosition = transform.localPosition;
 
 
-
-        // Debug.Log("Current position: [x:" + currentPosition.x + "|y:" + currentPosition.y + "]");
-
-        //Debug.Log("Upcoming position: [x:" + currentUpcomingPoint.x + "|y:" + currentUpcomingPoint.y + "]");
-
         if(IsResetting)
         {
             if(currentPosition == LocalPatrolStartingPoint)
             {
-                // reached reset point
-                Debug.Log("Reached reset point");
                 IsResetting = false;
             } else
             {
-                Debug.Log("Velocity: " + rigidBody.velocity);
-
-                rigidBody.position = Vector2.MoveTowards(transform.position, transform.parent.TransformPoint(LocalPatrolStartingPoint), PatrolSpeed * Time.deltaTime);
+                rigidBody.position = Vector2.MoveTowards(transform.position, transform.parent.TransformPoint(LocalPatrolStartingPoint), EnemyData.PatrolSpeed * Time.deltaTime);
                 return;
             }
             
@@ -303,29 +346,11 @@ public class EnemeyController : MonoBehaviour
         }
 
      
-        rigidBody.position = Vector2.MoveTowards(transform.position, transform.parent.TransformPoint(currentUpcomingPoint), PatrolSpeed * Time.deltaTime);
+        rigidBody.position = Vector2.MoveTowards(transform.position, transform.parent.TransformPoint(currentUpcomingPoint), EnemyData.PatrolSpeed * Time.deltaTime);
     }
 
 
-    void ValidateStartingComapssPoint() {
-        if(!IsPatrolReady) {
-            IsPatrolReady = true;
-            LocalPatrolStartingPoint = transform.localPosition;
-            GlobalPatrolStartingPoint = transform.position;
-
-            // Randomize the upcoming starting point
-            if(RandomizeDirectionAtStart)
-            {
-                int length = System.Enum.GetValues(typeof(PATROL_POINTS)).Length;
-                System.Random r = new System.Random();
-                int index = r.Next(0, length - 1);
-                PatrolUpcomingPoint = (PATROL_POINTS) System.Enum.GetValues(typeof(PATROL_POINTS)).GetValue(index);
-            }
-
-            FindAvailableDirectionPoints();
-        }
-    }
-
+   
     void FindAvailableDirectionPoints() {
         foreach(PATROL_POINTS patrolDirection in System.Enum.GetValues(typeof(PATROL_POINTS))) {
             Vector2 availablePoint = FindAvailableDirectionPoint(patrolDirection);
@@ -335,27 +360,20 @@ public class EnemeyController : MonoBehaviour
 
     Vector2 FindAvailableDirectionPoint(PATROL_POINTS direction) {
         Vector2 directionPoint = new Vector2(0, 0);
-        Debug.Log(direction);
-
-        //Physics.RaycastAll(myPoint, rayDirections[i], hits[i])
 
         switch(direction) {
             case PATROL_POINTS.TOP:
-                Debug.Log("TOP");
                 directionPoint = getRaycastVector(Vector2.up);
                 break;
             case PATROL_POINTS.RIGHT:
-                Debug.Log("RIGHT");
                 directionPoint = getRaycastVector(Vector2.right);
 
                 break;
             case PATROL_POINTS.LEFT:
-                Debug.Log("LEFT");
                 directionPoint = getRaycastVector(Vector2.left);
 
                 break;
             case PATROL_POINTS.BOTTOM:
-                Debug.Log("BOTTOM");
                 directionPoint = getRaycastVector(Vector2.down);
 
                 break;
@@ -367,16 +385,15 @@ public class EnemeyController : MonoBehaviour
     Vector2 getRaycastVector(Vector2 direction)
     {
         Vector2 hitPoint = new Vector2(0, 0);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(GlobalPatrolStartingPoint, direction, PatrolRadius);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(GlobalPatrolStartingPoint, direction, EnemyData.PatrolRadius);
 
-        Debug.DrawRay(transform.position, direction * PatrolRadius, Color.yellow);
+        Debug.DrawRay(transform.position, direction * EnemyData.PatrolRadius, Color.yellow);
 
 
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.tag.Contains(CollisionTag))
             {
-                Debug.Log("Hit name: " + hit.collider.name + ", y: " + hit.point.y);
                 // Convert from world point to local point
                 hitPoint = transform.parent.InverseTransformPoint(hit.point);
                 break;
@@ -388,9 +405,61 @@ public class EnemeyController : MonoBehaviour
 
     }
 
-    void FindPatrolPath() {
-        
+    void SelfLight()
+    {
+        if (SelfSpot != null) SelfSpot.gameObject.SetActive(EnableSelfLamp);
     }
+
+    void SightLight()
+    {
+        if (SightSpot != null) SightSpot.gameObject.SetActive(EnableSightLamp);
+        if (!EnableSightLamp || SightSpot == null)
+        {
+            return;
+        }
+
+
+        Vector2 currentUpcomingPoint = PatrolAvailablePoints[(int)PatrolUpcomingPoint];
+        Vector2 currentPosition = transform.localPosition;
+
+        float movingAngle = Mathf.Atan2(currentUpcomingPoint.y - currentPosition.y, currentUpcomingPoint.x - currentPosition.x) * Mathf.Rad2Deg;
+
+
+        SightSpot.pointLightOuterRadius = EnemyData.PatrolRadius;
+        SightSpot.transform.rotation = Quaternion.Euler(SightSpot.transform.localRotation.x, SightSpot.transform.localRotation.y, movingAngle - 90);
+    }
+
+    void StopMovement()
+    {
+        CanMove = false;
+        CanPatrol = false;
+        CanFollowPlayer = false;
+    }
+
+    void EnemeytatsIncrement()
+    {
+
+        if (isEnemyBeingAttacked) internalHealthCooldowTimer = 0;
+       
+
+        if (internalHealthCooldowTimer >= EnemyData.RegenerateHealthCooldownWhenHit)
+        {
+            internalHealthCooldowTimer = 0;
+            AffectHealth(EnemyData.HealthRegenerationRate);
+        }
+
+    }
+
+    public void AffectHealth(float health)
+    {
+        float newHealth = EnemyData.Health + health;
+
+        if (newHealth > 100) newHealth = 100;
+        else if (newHealth < 0) newHealth = 0;
+
+        EnemyData.Health = newHealth;
+    }
+
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -402,7 +471,33 @@ public class EnemeyController : MonoBehaviour
         else if (col.gameObject.tag == PlayerTag && CanFollowPlayer && CanSeePlayer)
         {
 
-            
+            Debug.Log("Collided with player");
+            float allowedPlayerAttackTime = LastPlayerAttackTime + EnemyData.AttackCooldown;
+            if (LastPlayerAttackTime != 0 && Time.time > allowedPlayerAttackTime)
+            {
+                // hitting 
+                Debug.Log("OnTriggerStay2D");
+                LastPlayerAttackTime = Time.time;
+                GameManager.Instance.AttackPlayer(EnemyData.Damage);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("OnTriggerExit2D");
+            LastPlayerAttackTime = 0;
+        }
+    }
+
+
+    private void onGameEventListen(Hashtable payload)
+    {
+        if ((GameState)payload["state"] == GameState.StopEnemies)
+        {
+            StopMovement();
         }
     }
 

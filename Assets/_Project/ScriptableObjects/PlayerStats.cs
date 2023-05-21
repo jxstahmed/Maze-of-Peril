@@ -22,5 +22,12 @@ public class PlayerStats : ScriptableObject
     public float RunFactor;
     public float DamageFactor;
 
+    [Header("Values")]
+    public float IncrementEverySeconds = 1;
+    public float RegenerateHealthCooldownWhenHit = 2f;
+    public float RegenerateStaminaCooldownWhenRun = 2f;
+
+    [Header("Weapons")]
+
     public string WeaponId;
 }

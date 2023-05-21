@@ -9,20 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e449639d61fb0ea4da02d96f84cac857, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 0e3bb30c48889d24e9d1489516b25ae4, type: 3}
+  m_Name: Slime
   m_EditorClassIdentifier: 
-  CurrentLevel: 0
+  Name: SimpleSlime
+  Rank: 0
   Health: 100
-  Stamina: 21.5
-  Speed: 1
-  StaminaRegenerationRate: 5
+  Damage: 20
+  FollowSpeed: 0.75
+  MaxSightRadius: 6
+  FollowAfterLockedSightingForSeconds: 3
+  PatrolSpeed: 0.95
+  PatrolRadius: 25
+  StaminaRegenerationRate: 0
   HealthRegenerationRate: 0
-  SpeedStaminaReductionRate: 0.5
-  WalkFactor: 0.75
-  RunFactor: 0.75
-  DamageFactor: 0.1
+  SpeedStaminaReductionRate: 0
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  WeaponId: SwordCherry
+  AttackCooldown: 2

@@ -40037,22 +40037,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanMove: 1
+  EnemyData: {fileID: 11400000, guid: 274e7cbd910ca44b4b72d32f8ccd6162, type: 2}
   TargetPlayer: {fileID: 1925205735}
   SelfSpot: {fileID: 841996852}
   SightSpot: {fileID: 13395503}
   EnableSelfLamp: 1
   EnableSightLamp: 1
   PlayerTag: Player
-  CanFollowPlayer: 0
+  CanFollowPlayer: 1
   SightInMovingDirection: 1
-  MaxSightRadius: 6
-  FollowSpeed: 0.5
-  PlayerFoundBody: {fileID: 0}
+  ClosestRadiusToPlayer: 0.2
+  ResetCompassPointAfterChase: 0
+  ChaseAfterWallWithPathfinding: 0
+  PlayerFoundBody: {fileID: 1925205735}
   CanSeePlayer: 0
+  IsFollowing: 0
+  LastLockedSightTimer: 0
   CollisionTag: Walls
   CanPatrol: 1
-  PatrolSpeed: 3
-  PatrolRadius: 15
   RandomizeDirectionAtStart: 0
   RandomizeDirectionAfterEnd: 0
   PatrolAvailablePoints: []

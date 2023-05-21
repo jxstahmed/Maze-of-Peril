@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField] public bool isPlayerMoving = false;
     [SerializeField] public bool isPlayerRunning = false;
     [SerializeField] public bool isPlayerAttacking = false;
+    [SerializeField] public bool isPlayerBeingAttacked = false;
+    [SerializeField] public float lastAttackedTime = 0;
 
     [Header("Controlls")]
     [SerializeField] private KeyCode KeyMoveRight = KeyCode.D;
@@ -32,6 +34,9 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sprite_renderer;
     private Rigidbody2D rigidBody;
+    private float internalIncrementTimer = 0f;
+    private float internalStaminaCooldownTimer = 0f;
+    private float internalHealthCooldowTimer = 0f;
 
     private bool canMove = true;
     private bool hasToggledWeaponKey = false;
@@ -74,13 +79,28 @@ public class Player : MonoBehaviour
         PlayerMove();
         PlayerAnimation();
         PlayerWeapon();
-        PlayerStatsIncrement();
         PlayerUI();
     }
 
+
+
     private void Update()
     {
+        internalIncrementTimer += Time.deltaTime;
+        internalStaminaCooldownTimer += Time.deltaTime;
+        internalHealthCooldowTimer += Time.deltaTime;
+
+        if (isPlayerBeingAttacked) internalHealthCooldowTimer = 0;
+        if (isPlayerRunning) internalHealthCooldowTimer = 0;
+
+
         PlayerControlls();
+
+        if(internalIncrementTimer >= PlayerData.IncrementEverySeconds)
+        {
+            internalIncrementTimer = 0;
+            PlayerStatsIncrement();
+        }
     }
 
     private void PlayerControlls()
@@ -268,8 +288,19 @@ public class Player : MonoBehaviour
 
     private void PlayerStatsIncrement()
     {
-        AffectHealth(PlayerData.HealthRegenerationRate);
-        AffectStamina(PlayerData.StaminaRegenerationRate);
+  
+
+         if(internalStaminaCooldownTimer >= PlayerData.RegenerateStaminaCooldownWhenRun)
+        {
+            AffectStamina(PlayerData.StaminaRegenerationRate);
+        }
+
+        if (internalHealthCooldowTimer >= PlayerData.RegenerateHealthCooldownWhenHit)
+        {
+            AffectHealth(PlayerData.HealthRegenerationRate);
+        }
+
+
     }
 
     private void PlayerUI()
@@ -290,7 +321,7 @@ public class Player : MonoBehaviour
     }
 
 
-    public void applyDamage(float enemyDamage)
+    public void ApplyDamage(float enemyDamage)
     {
         if (PlayerData.Health <= 0)
         {
@@ -302,18 +333,18 @@ public class Player : MonoBehaviour
 
         if (PlayerData.Health <= 0)
         {
-            killPlayer();
+            KillPlayer();
         }
     }
 
-    private void stopPlayer()
+    private void StopPlayer()
     {
         LockMovement();
     }
 
-    private void killPlayer()
+    private void KillPlayer()
     {
-        stopPlayer();
+        StopPlayer();
         GameManager.Instance.StopEnemies(true);
         animator.SetBool("die", true);
     }
@@ -342,7 +373,7 @@ public class Player : MonoBehaviour
     {
         if ((GameState)payload["state"] == GameState.AttackPlayer)
         {
-            applyDamage((float)payload["damage"]);
+            ApplyDamage((float)payload["damage"]);
         } else if ((GameState)payload["state"] == GameState.AffectStamina)
         {
             Debug.Log("received stamina reduction request in player, reduction is: " + (float)payload["stamina"]);
