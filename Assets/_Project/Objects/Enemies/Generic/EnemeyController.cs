@@ -471,7 +471,22 @@ public class EnemeyController : MonoBehaviour
         else if (col.gameObject.tag == PlayerTag && CanFollowPlayer && CanSeePlayer)
         {
 
-            Debug.Log("Collided with player");
+            LastPlayerAttackTime = Time.time;
+
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag(PlayerTag))
+        {
+            // Current time & delay
+            // First touch at second 2
+            // We test at second 5, attack pause is 2 => first touch + 2 => 5 > 4, we can hit
+            // set the time of last_hit to 5 and then retry 
+            // player gets away and OnExit is trigger
+            // player gets back at 7.2 and when he first touches => he gets hit
+
             float allowedPlayerAttackTime = LastPlayerAttackTime + EnemyData.AttackCooldown;
             if (LastPlayerAttackTime != 0 && Time.time > allowedPlayerAttackTime)
             {
@@ -485,7 +500,7 @@ public class EnemeyController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(PlayerTag))
         {
             Debug.Log("OnTriggerExit2D");
             LastPlayerAttackTime = 0;

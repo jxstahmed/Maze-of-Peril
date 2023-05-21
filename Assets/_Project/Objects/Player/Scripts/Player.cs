@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
             return;
 
 
+
         PlayerDirection();
         PlayerMove();
         PlayerAnimation();
@@ -89,9 +90,9 @@ public class Player : MonoBehaviour
         internalIncrementTimer += Time.deltaTime;
         internalStaminaCooldownTimer += Time.deltaTime;
         internalHealthCooldowTimer += Time.deltaTime;
-
         if (isPlayerBeingAttacked) internalHealthCooldowTimer = 0;
-        if (isPlayerRunning) internalHealthCooldowTimer = 0;
+        if (isPlayerRunning) internalStaminaCooldownTimer = 0;
+
 
 
         PlayerControlls();
@@ -288,14 +289,15 @@ public class Player : MonoBehaviour
 
     private void PlayerStatsIncrement()
     {
-  
 
-         if(internalStaminaCooldownTimer >= PlayerData.RegenerateStaminaCooldownWhenRun)
+        
+
+        if (internalStaminaCooldownTimer > PlayerData.RegenerateStaminaCooldownWhenRun)
         {
             AffectStamina(PlayerData.StaminaRegenerationRate);
         }
 
-        if (internalHealthCooldowTimer >= PlayerData.RegenerateHealthCooldownWhenHit)
+        if (internalHealthCooldowTimer > PlayerData.RegenerateHealthCooldownWhenHit)
         {
             AffectHealth(PlayerData.HealthRegenerationRate);
         }
