@@ -39832,7 +39832,7 @@ MonoBehaviour:
   PlayerTag: Player
   CanFollowPlayer: 1
   SightInMovingDirection: 1
-  ClosestRadiusToPlayer: 0.2
+  ClosestRadiusToPlayer: 0.3
   ResetCompassPointAfterChase: 0
   ChaseAfterWallWithPathfinding: 0
   PlayerFoundBody: {fileID: 3117983450868627556}

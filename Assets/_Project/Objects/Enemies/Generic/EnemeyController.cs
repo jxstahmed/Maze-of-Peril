@@ -25,7 +25,7 @@ public class EnemeyController : MonoBehaviour
     [SerializeField] string PlayerTag = "Player";
     [SerializeField] bool CanFollowPlayer = true;
     [SerializeField] bool SightInMovingDirection = false;
-    [SerializeField] float ClosestRadiusToPlayer = 0.2f;
+    [SerializeField] float ClosestRadiusToPlayer = 0.3f;
     [Tooltip("The enemy can either return to their original patroling point or resetart it in the same location where they last saw the player.")]
     [SerializeField] bool ResetCompassPointAfterChase = false;
     [Tooltip("In case the player is near the enemy, and there's a wall, the enemy will try to find the shorest path to the player and chase them")]
@@ -113,18 +113,23 @@ public class EnemeyController : MonoBehaviour
         IsPatroling = IsPatrolReady && CanPatrol;
         IsFollowing = CanFollowPlayer && CanSeePlayer;
 
-        // Do patroling
-        if (IsPatroling && !IsFollowing)
+        if(CanMove)
         {
-            // Reset timer of locked state
-            LastLockedSightTimer = 0;
-            Debug.Log("Patroling");
-            Patrol();
-        } else if(IsFollowing)
-        {
-            Debug.Log("Following player");
-            FollowPlayer();
+            // Do patroling
+            if (IsPatroling && !IsFollowing)
+            {
+                // Reset timer of locked state
+                LastLockedSightTimer = 0;
+                Debug.Log("Patroling");
+                Patrol();
+            }
+            else if (IsFollowing)
+            {
+                Debug.Log("Following player");
+                FollowPlayer();
+            }
         }
+
 
 
         SelfLight();
@@ -277,19 +282,15 @@ public class EnemeyController : MonoBehaviour
             GlobalPatrolStartingPoint = transform.position;
         }
 
-        if(!(LastLockedSightTimer >= EnemyData.FollowAfterLockedSightingForSeconds))
+
+        if (!(LastLockedSightTimer >= EnemyData.FollowAfterLockedSightingForSeconds)) return;
 
 
 
-        if (Vector2.Distance(transform.position, rigidBody.transform.position) >= ClosestRadiusToPlayer)
+        if (Vector2.Distance(transform.position, PlayerFoundBody.transform.position) >= ClosestRadiusToPlayer)
         {
-            Debug.Log("Move towards");
-            
+            rigidBody.position = Vector2.MoveTowards(transform.position, PlayerFoundBody.transform.position, EnemyData.FollowSpeed * Time.deltaTime);
         }
-
-
-
-        rigidBody.position = Vector2.MoveTowards(transform.position, PlayerFoundBody.transform.position, EnemyData.FollowSpeed * Time.deltaTime);
     }
 
    
