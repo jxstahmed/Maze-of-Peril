@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] public Slider PlayerUIStamina;
 
     [Header("Attachments")]
-    [SerializeField] public GameObject Weapon;
+    [SerializeField] public GameObject WeaponObject;
     [SerializeField] public WeaponController WeaponController;
 
     [Header("States")]
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] private KeyCode KeyMoveDown = KeyCode.S;
     [SerializeField] private KeyCode KeyMoveSprint = KeyCode.LeftShift;
     [SerializeField] private KeyCode KeyShowWeapon = KeyCode.F;
+    [SerializeField] private KeyCode KeyToggleWeapon = KeyCode.R;
 
     [SerializeField] private KeyCode KeySwordAttack = KeyCode.Space;
 
@@ -64,29 +65,34 @@ public class Player : MonoBehaviour
         sprite_renderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
 
-        PlayerData.Stamina = 100f;
-        PlayerData.Health = 100f;
+        PlayerData.Health = PlayerData.OverallHealth;
+        PlayerData.Stamina = PlayerData.OverallStamina;
+
+        ApplyEquippedWeapon();
     }
 
 
     private void FixedUpdate()
     {
+        PlayerUI();
+
         if (!canMove)
             return;
-
 
 
         PlayerDirection();
         PlayerMove();
         PlayerAnimation();
         PlayerWeapon();
-        PlayerUI();
     }
 
 
 
     private void Update()
     {
+        if (!canMove) return;
+
+
         internalIncrementTimer += Time.deltaTime;
         internalStaminaCooldownTimer += Time.deltaTime;
         internalHealthCooldowTimer += Time.deltaTime;
@@ -94,7 +100,7 @@ public class Player : MonoBehaviour
         if (isPlayerRunning) internalStaminaCooldownTimer = 0;
 
 
-
+        
         PlayerControlls();
 
         if(internalIncrementTimer >= PlayerData.IncrementEverySeconds)
@@ -108,17 +114,22 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyShowWeapon))
         {
-            hasToggledWeaponKey = true;
-            isWeaponShown = !isWeaponShown;
+            ToggleWeapon();
+        }
+        
+        if (Input.GetKeyDown(KeyToggleWeapon))
+        {
+            ToggleWeaponSelection();
         }
 
+        
 
         if (Input.GetKeyDown(KeySwordAttack))
         {
             // The player wants to attack, we check the current ability to hit (stamina check up)
             if(PlayerData.Stamina > 0)
             {
-                WeaponStats activeWeapon = GameManager.Instance.GetActiveWeaponProfile();
+                WeaponStats activeWeapon = GetActiveWeaponProfile();
                 if (activeWeapon != null)
                 {
                     float availableStamina = PlayerData.Stamina - activeWeapon.StaminaReductionRate;
@@ -168,19 +179,16 @@ public class Player : MonoBehaviour
         {
             sprite_renderer.flipX = false;
 
-            if (Weapon != null && isWeaponShown)
-            {
-                Weapon.transform.localScale = new Vector3(1, Weapon.transform.localScale.y, Weapon.transform.localScale.z);
-            }
+           
         }
         else if (IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, true))
         {
             sprite_renderer.flipX = true;
+        }
 
-            if(Weapon != null && isWeaponShown)
-            {
-                Weapon.transform.localScale = new Vector3(-1, Weapon.transform.localScale.y, Weapon.transform.localScale.z);
-            }
+        if (WeaponObject != null && isWeaponShown)
+        {
+            WeaponObject.transform.localScale = new Vector3(sprite_renderer.flipX ? -1 : 1, WeaponObject.transform.localScale.y, WeaponObject.transform.localScale.z);
         }
     }
 
@@ -205,13 +213,13 @@ public class Player : MonoBehaviour
 
     private void PlayerWeapon()
     {
-        if (Weapon == null) return;
+        if (WeaponObject == null) return;
 
 
         if (hasToggledWeaponKey)
         {
             hasToggledWeaponKey = false;
-            Weapon.SetActive(isWeaponShown);
+            WeaponObject.SetActive(isWeaponShown);
         }
     }
 
@@ -305,10 +313,22 @@ public class Player : MonoBehaviour
 
     }
 
+    private void ToggleWeapon()
+    {
+        hasToggledWeaponKey = true;
+        isWeaponShown = !isWeaponShown;
+    }
+
+    public void HideWeapon()
+    {
+        hasToggledWeaponKey = true;
+        isWeaponShown = false;
+    }
+
     private void PlayerUI()
     {
-        PlayerUIHealth.value = PlayerData.Health / 100;
-        PlayerUIStamina.value = PlayerData.Stamina / 100;
+        PlayerUIHealth.value = PlayerData.Health > 0 ? PlayerData.Health / PlayerData.OverallHealth : 0;
+        PlayerUIStamina.value = PlayerData.Stamina > 0 ? PlayerData.Stamina / PlayerData.OverallStamina : 0;
     }
 
 
@@ -325,13 +345,8 @@ public class Player : MonoBehaviour
 
     public void ApplyDamage(float enemyDamage)
     {
-        if (PlayerData.Health <= 0)
-        {
-            return;
-        }
-
-        PlayerData.Health -= enemyDamage;
-        Debug.Log("Player got hit with: " + enemyDamage + ", health is: " + PlayerData.Health);
+        Debug.Log("Damage is: " + enemyDamage);
+        AffectHealth(enemyDamage);
 
         if (PlayerData.Health <= 0)
         {
@@ -348,12 +363,14 @@ public class Player : MonoBehaviour
     {
         StopPlayer();
         GameManager.Instance.StopEnemies(true);
-        animator.SetBool("die", true);
+        animator.SetBool("isDead", true);
     }
 
     public void AffectHealth(float health)
     {
         float newHealth = PlayerData.Health + health;
+
+        Debug.Log("New health is: " + newHealth);
 
         if (newHealth > 100) newHealth = 100;
         else if (newHealth < 0) newHealth = 0;
@@ -371,8 +388,147 @@ public class Player : MonoBehaviour
         PlayerData.Stamina = newstamina;
     }
 
+    public void PickWeapon(WeaponStats weaponData)
+    {
+
+        if (PlayerData.WeaponsIDsList.Contains(weaponData.ID))
+        {
+            Debug.Log("WeaponSystem: Contains");
+            SelectWeapon(FindWeaponIndex(weaponData.ID));
+            return;
+        };
+        Debug.Log("WeaponSystem: Added");
+        PlayerData.WeaponsIDsList.Add(weaponData.ID);
+        ToggleWeaponSelection();
+    }
+
+    public void ApplyEquippedWeapon()
+    {
+        Debug.Log("WeaponSystem: ApplyEquippedWeapon, ID: " + PlayerData.EquippedWeaponID);
+        // ID is empty
+        if (PlayerData.EquippedWeaponID == null) return;
+        // ID doesn't exist in the list
+        if (!PlayerData.WeaponsIDsList.Contains(PlayerData.EquippedWeaponID)) return;
+        SelectWeapon(FindWeaponIndex(PlayerData.EquippedWeaponID));
+
+    }
+
+    public int FindWeaponIndex(string id)
+    {
+        Debug.Log("WeaponSystem: FindWeaponIndex(" + id + ")");
+        if (id == null) return -1;
+
+        int index = -1;
+
+        for (int i = 0; i < GameManager.Instance.WeaponsPackData.Swords.Count; i++)
+        {
+            if(GameManager.Instance.WeaponsPackData.Swords[i].ID.Contains(id))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public void SelectWeapon(int index)
+    {
+        Debug.Log("WeaponSystem: Index is " + index);
+        if (!(index >= 0)) return;
+
+        WeaponStats pr = GameManager.Instance.WeaponsPackData.Swords[index];
+        // Select the weapon and initiate it
+        ApplySelectedWeapon(pr);
+    }
+
+    public void ToggleWeaponSelection()
+    {
+        WeaponStats weaponStatsProfile = GameManager.Instance.WeaponsPackData.Swords[FindWeaponIndex(GetNextWeaponProfile())];
+        ApplySelectedWeapon(weaponStatsProfile);
+    }
+
+    public void ApplySelectedWeapon(WeaponStats weaponStatsProfile)
+    {
+        PlayerData.EquippedWeaponID = weaponStatsProfile.ID;
+        Debug.Log("WeaponSystem: Weapon toggled");
+
+        if(WeaponObject.transform.childCount > 0)
+        {
+            Destroy(WeaponObject.transform.GetChild(0).gameObject);
+        }
+
+        
+        GameObject obj = Instantiate(weaponStatsProfile.prefab, Vector2.zero, weaponStatsProfile.prefab.transform.rotation);
+        obj.transform.SetParent(WeaponObject.transform, true);
+        obj.transform.localPosition = weaponStatsProfile.Position;
+        obj.transform.localScale = new Vector3(sprite_renderer.flipX ? 1 : -1, obj.transform.localScale.y, obj.transform.localScale.z);
+    }
+
+    public WeaponStats GetActiveWeaponProfile()
+    {
+        if (PlayerData == null || GameManager.Instance.WeaponsPackData == null || PlayerData.EquippedWeaponID == null) return null;
+
+        WeaponStats weaponStatsProfile = null;
+
+        GameManager.Instance.WeaponsPackData.Swords.ForEach(weapon =>
+        {
+            if (weapon.ID == PlayerData.EquippedWeaponID)
+            {
+                Debug.Log("Weapon has been found");
+                weaponStatsProfile = weapon;
+                return;
+            }
+        });
+
+        return weaponStatsProfile;
+    }
+
+    public string GetNextWeaponProfile()
+    {
+        if (PlayerData == null || GameManager.Instance.WeaponsPackData == null) return null;
+
+        string weaponStatsProfile = null;
+
+        int nextWeaponIndex = 0;
+
+        for(int i = 0; i < PlayerData.WeaponsIDsList.Count; i++)
+        {
+            string pr = PlayerData.WeaponsIDsList[i];
+            if(PlayerData.EquippedWeaponID == null)
+            {
+                nextWeaponIndex = i;
+                break;
+            } else if(PlayerData.EquippedWeaponID != null && pr == PlayerData.EquippedWeaponID)
+            {
+
+                if (PlayerData.WeaponsIDsList.Count == 1) break;
+
+                if((i + 1) >= PlayerData.WeaponsIDsList.Count)
+                {
+                    nextWeaponIndex = 0;
+                }
+                else
+                {
+                    nextWeaponIndex = (i + 1);
+                }
+                break;
+            }
+        }
+
+        if(nextWeaponIndex >= 0)
+        weaponStatsProfile = PlayerData.WeaponsIDsList[nextWeaponIndex];
+
+
+
+        return weaponStatsProfile;
+    }
+
+
     private void onGameEventListen(Hashtable payload)
     {
+        Debug.Log("Got event");
+        Debug.Log(payload["state"]);
         if ((GameState)payload["state"] == GameState.AttackPlayer)
         {
             ApplyDamage((float)payload["damage"]);
@@ -382,6 +538,7 @@ public class Player : MonoBehaviour
             AffectStamina((float)payload["stamina"]);
         } else if ((GameState)payload["state"] == GameState.AffectHealth)
         {
+            Debug.Log("Affecting health");
             AffectHealth((float)payload["health"]);
         }
     }

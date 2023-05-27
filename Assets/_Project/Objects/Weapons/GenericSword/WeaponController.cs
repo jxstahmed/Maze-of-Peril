@@ -1,15 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour
 {
     [Header("Attachments")]
-    [SerializeField] public Player PlayerScript;
     [SerializeField] public WeaponStats WeaponData;
+    [SerializeField] public Player PlayerScript;
+
+    [Header("Payload")]
+    [SerializeField] public float AttackingSafeZoneTime = 2f;
 
     [Header("States")]
     [SerializeField] public bool HasPressedAttack = false;
-    [SerializeField] public bool IsAttacking = false;
+    [SerializeField] public float IsAttackingTime;
+    [SerializeField] public List<int> AttackedEnemiesList = new List<int>();
 
     [Header("Stats")]
     [SerializeField] public int EnemyComboHitsCount = 0;
@@ -37,17 +42,9 @@ public class WeaponController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         WeaponAnimation();
-
-        if(IsAttacking)
-          WeaponHits();
     }
 
-    private void WeaponAttack()
-    {
-
-    }
 
     private void WeaponAnimation()
     {
@@ -58,83 +55,91 @@ public class WeaponController : MonoBehaviour
 
         animator.SetBool("isRunning", !HasPressedAttack && PlayerScript.isPlayerMoving && PlayerScript.isPlayerRunning);
 
+        animator.SetBool("isFlipped", transform.localScale.x < 0);
 
         animator.SetInteger("swingType", WeaponData.SwingType);
-
-        if(IsAttacking)
-        {
-            if (HasPressedAttack)
-            {
-                Debug.Log("Pressed attack, should trigger");
-                animator.SetTrigger("isAttacking");
-                animator.SetInteger("hitsCount", (EnemyComboHitsCount + 1));
-                ResetAttackPress();
-            }
-            else
-            {
-                animator.SetInteger("hitsCount", 0);
-            }
-        } 
-
-        
-
-    }
-
-    private void WeaponHits()
-    {
-        float lastComboDelay = WeaponData.ComboInbetweenTime + LastEnemyComboHitTime;
-        if(Time.time > lastComboDelay)
-        {
-            //Debug.Log("No more combo time");
-            ResetCombo();
-        } else
-        {
-            Debug.Log("COMBO TIME ACTIVE");
-        }
     }
 
     public void ActivateAttackAllowance()
     {
-     
-
-        Debug.Log("Attack activated");
-        IsAttacking = true;
+        Debug.Log("SwordAttack: Attack activated");
+        IsAttackingTime = Time.time;
         HasPressedAttack = true;
 
-        // Reduce stamina
+        EnemyComboHitsCount++;
+        animator.SetInteger("hitsCountIndex", EnemyComboHitsCount % WeaponData.MaxCombos);
+        Debug.Log("SwordAttack: ActivateAttackAllowance, EnemyComboHitsCount: " + (EnemyComboHitsCount % WeaponData.MaxCombos));
+        animator.SetBool("isAttacking", true);
+
+        // Reduce stamina of player
         GameManager.Instance.ChangePlayerStamina(-WeaponData.StaminaReductionRate);
     }
 
-
-    public void HitEnemy(WeaponStats weapon, Enemy enemy)
+    public bool IsAttacking()
     {
-        if(!IsAttacking) return;
-
-        Debug.Log("Weapon[" + weapon.ID + "] has hit an enemy [" + enemy.name + "]");
-        // Save time
-        LastEnemyComboHitTime = Time.time;
-        IncreaseCombo();
+        //Debug.Log((IsAttackingTime + AttackingSafeZoneTime) + " >= " + Time.time);
+        // return ((IsAttackingTime + AttackingSafeZoneTime) >= Time.time) && HasPressedAttack;
+        return HasPressedAttack;
+        //return animator.GetBool("IsAttacking") == true;
     }
 
-    public void ResetAttackPress()
+    public void ValidateComboTime()
     {
-        Debug.Log("Resetting attack press");
-        HasPressedAttack = false;
+        float lastComboDelay = WeaponData.ComboInbetweenTime + LastEnemyComboHitTime;
+        if (Time.time > lastComboDelay)
+        {
+            Debug.Log("SwordAttack: ComboReset");
+            LastEnemyComboHitTime = 0f;
+            EnemyComboHitsCount = 0;
+        } else
+        {
+            Debug.Log("SwordAttack: ComboAllowed");
+        }
     }
 
-    public void ResetCombo()
+    public void HitEnemy(WeaponStats weapon, EnemyController enemy)
     {
-        EnemyComboHitsCount = 0;
-    }
 
-    public void IncreaseCombo()
-    {
+        Debug.Log("SwordAttack: " + enemy.GetInstanceID());
+
+        if (CanAttackEnemy(enemy.GetInstanceID()))
+        {
+            return;
+        }
+
+        if (!IsAttacking())
+        {
+            Debug.Log("SwordAttack: Requested to hit enemy, but not allowed. IsAttacking: " + IsAttackingTime + ", time: " + Time.time);
+            return;
+        }
+       
+
+        AddAttackedEnemy(enemy.GetInstanceID());
+
+        // validate the combo
+        ValidateComboTime();
+
+        
+
+        // increase the combo;
         EnemyComboHitsCount++;
+        LastEnemyComboHitTime = Time.time;
+
+        // Affect the health of the nemy
+        enemy.AttackEnemy(-weapon.Damage);
+
+        Debug.Log("SwordAttack: Weapon[" + weapon.ID + "] has hit an enemy [" + enemy.name + "]");
     }
 
+
+    // Used by the animation swing0 | swing0flipped
     public void ResetAttackState()
     {
-        IsAttacking = false;
+        Debug.Log("SwordAttack: Reset Attack, " + Time.time);
+        IsAttackingTime = 0f;
+        HasPressedAttack = false;
+        animator.SetBool("isAttacking", false);
+        RemoveAttackedEnemies();
     }
 
     private void onGameEventListen(Hashtable payload)
@@ -143,5 +148,20 @@ public class WeaponController : MonoBehaviour
         {
            
         }
+    }
+
+    private void AddAttackedEnemy(int enemyId)
+    {
+        AttackedEnemiesList.Add(enemyId);
+    }
+
+    private void RemoveAttackedEnemies()
+    {
+        AttackedEnemiesList.Clear();
+    }
+
+    private bool CanAttackEnemy(int enemyID)
+    {
+        return AttackedEnemiesList.Contains(enemyID);
     }
 }

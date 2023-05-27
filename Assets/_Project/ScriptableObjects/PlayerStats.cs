@@ -9,7 +9,9 @@ public class PlayerStats : ScriptableObject
     public int CurrentLevel;
     
     [Header("Stats")]
+    public float OverallHealth;
     public float Health;
+    public float OverallStamina;
     public float Stamina;
     public float Speed;
 
@@ -28,6 +30,6 @@ public class PlayerStats : ScriptableObject
     public float RegenerateStaminaCooldownWhenRun = 2f;
 
     [Header("Weapons")]
-
-    public string WeaponId;
+    public string EquippedWeaponID;
+    public List<string> WeaponsIDsList;
 }

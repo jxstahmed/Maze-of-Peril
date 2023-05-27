@@ -10,6 +10,7 @@ public class EnemiesStats : ScriptableObject
     public int Rank;
 
     [Header("Stats")]
+    public float OverallHealth;
     public float Health;
     public float Damage = 20f;
 

@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: SimpleSlime
   Rank: 0
-  Health: 100
-  Damage: 20
+  OverallHealth: 80
+  Health: 80
+  Damage: 25
   FollowSpeed: 0.75
   MaxSightRadius: 6
-  FollowAfterLockedSightingForSeconds: 3
+  FollowAfterLockedSightingForSeconds: 1
   PatrolSpeed: 0.95
   PatrolRadius: 25
   StaminaRegenerationRate: 0

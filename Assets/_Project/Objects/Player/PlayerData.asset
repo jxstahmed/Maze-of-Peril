@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   CurrentLevel: 0
+  OverallHealth: 100
   Health: 100
-  Stamina: 21.5
+  OverallStamina: 100
+  Stamina: 100
   Speed: 1
-  StaminaRegenerationRate: 5
+  StaminaRegenerationRate: 50
   HealthRegenerationRate: 0
   SpeedStaminaReductionRate: 0.5
   WalkFactor: 0.75
@@ -25,4 +27,6 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  WeaponId: SwordCherry
+  EquippedWeaponID: SwordCherry
+  WeaponsIDsList:
+  - SwordCherry

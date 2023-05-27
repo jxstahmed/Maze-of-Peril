@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<ScriptableEnemy> KilledEnemies;
 
     // 
-    [SerializeField] public WeaponsPack WeaponsData;
+    [SerializeField] public WeaponsPack WeaponsPackData;
     [SerializeField] public PlayerStats PlayerData;
+    [SerializeField] public Player PlayerScript;
+
+    [SerializeField] public string PlayerTag = "Player";
+    [SerializeField] public string EnemyTag = "Enemy";
 
     void Awake()
     {
@@ -52,6 +56,7 @@ public class GameManager : MonoBehaviour
         Hashtable payload = new Hashtable();
         payload.Add("state", GameState.AttackPlayer);
         payload.Add("damage", damage);
+        Debug.Log("Applying damage to player");
         GameEvent?.Invoke(payload);
     } 
 
@@ -65,29 +70,7 @@ public class GameManager : MonoBehaviour
         GameEvent?.Invoke(payload);
     }
 
-    public void CollectKey(string ID, string Label)
-    {
-        ScriptableKey collectedKey = new ScriptableKey(ID, Label);
-        CollectedKeys.Add(collectedKey);
-        Debug.Log("CollectKey");
-        Debug.Log(collectedKey.ToString());
-    }
-
-    public bool hasCollectedKey(string ID)
-    {
-        if (CollectedKeys == null || CollectedKeys.Count == 0) return false;
-        bool hasFound = false;
-        CollectedKeys.ForEach(collectedKey =>
-        {
-            if(collectedKey.getID() == ID)
-            {
-                hasFound = true;
-                return;
-            }
-        });
-
-        return hasFound;
-    }
+  
 
 
     public Vector2 getTargetPosition(Transform origin, Transform target)
@@ -101,24 +84,7 @@ public class GameManager : MonoBehaviour
     }
 
    
-    public WeaponStats GetActiveWeaponProfile()
-    {
-        if(PlayerData == null || WeaponsData == null || PlayerData.WeaponId == null) return null;
-
-        WeaponStats weaponStatsProfile = null;
-
-        WeaponsData.Swords.ForEach(weapon =>
-        {
-            if(weapon.ID == PlayerData.WeaponId)
-            {
-                Debug.Log("Weapon has been found");
-                weaponStatsProfile = weapon;
-                return;
-            }
-        });
-
-        return weaponStatsProfile;
-    }
+ 
 }
 
 
