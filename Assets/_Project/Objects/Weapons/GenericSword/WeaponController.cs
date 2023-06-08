@@ -62,7 +62,9 @@ public class WeaponController : MonoBehaviour
 
     public void ActivateAttackAllowance()
     {
+        if (IsAttacking()) return;
         Debug.Log("SwordAttack: Attack activated");
+
         IsAttackingTime = Time.time;
         HasPressedAttack = true;
 
@@ -97,7 +99,7 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void HitEnemy(WeaponStats weapon, EnemyController enemy)
+    public void HitEnemy(WeaponStats weapon, EnemyAgentController enemy)
     {
 
         Debug.Log("SwordAttack: " + enemy.GetInstanceID());

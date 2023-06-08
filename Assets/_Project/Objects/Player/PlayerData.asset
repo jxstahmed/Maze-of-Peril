@@ -27,6 +27,7 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  EquippedWeaponID: SwordCherry
+  EquippedWeaponID: SwordFruity
   WeaponsIDsList:
   - SwordCherry
+  - SwordFruity

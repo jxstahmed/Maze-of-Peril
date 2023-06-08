@@ -361,6 +361,8 @@ public class Player : MonoBehaviour
 
     private void KillPlayer()
     {
+        hasToggledWeaponKey = true;
+        isWeaponShown = false;
         StopPlayer();
         GameManager.Instance.StopEnemies(true);
         animator.SetBool("isDead", true);
@@ -372,7 +374,7 @@ public class Player : MonoBehaviour
 
         Debug.Log("New health is: " + newHealth);
 
-        if (newHealth > 100) newHealth = 100;
+        if (newHealth > PlayerData.OverallHealth) newHealth = PlayerData.OverallHealth;
         else if (newHealth < 0) newHealth = 0;
         
         PlayerData.Health = newHealth;
@@ -382,7 +384,7 @@ public class Player : MonoBehaviour
     {
         float newstamina = PlayerData.Stamina + stamina;
 
-        if (newstamina > 100) newstamina = 100;
+        if (newstamina > PlayerData.OverallStamina) newstamina = PlayerData.OverallStamina;
         else if (newstamina < 0) newstamina = 0;
 
         PlayerData.Stamina = newstamina;
@@ -394,7 +396,7 @@ public class Player : MonoBehaviour
         if (PlayerData.WeaponsIDsList.Contains(weaponData.ID))
         {
             Debug.Log("WeaponSystem: Contains");
-            SelectWeapon(FindWeaponIndex(weaponData.ID));
+            SelectWeapon(WeaponsManager.Instance.FindWeaponIndex(weaponData.ID));
             return;
         };
         Debug.Log("WeaponSystem: Added");
@@ -409,28 +411,11 @@ public class Player : MonoBehaviour
         if (PlayerData.EquippedWeaponID == null) return;
         // ID doesn't exist in the list
         if (!PlayerData.WeaponsIDsList.Contains(PlayerData.EquippedWeaponID)) return;
-        SelectWeapon(FindWeaponIndex(PlayerData.EquippedWeaponID));
+        SelectWeapon(WeaponsManager.Instance.FindWeaponIndex(PlayerData.EquippedWeaponID));
 
     }
 
-    public int FindWeaponIndex(string id)
-    {
-        Debug.Log("WeaponSystem: FindWeaponIndex(" + id + ")");
-        if (id == null) return -1;
 
-        int index = -1;
-
-        for (int i = 0; i < GameManager.Instance.WeaponsPackData.Swords.Count; i++)
-        {
-            if(GameManager.Instance.WeaponsPackData.Swords[i].ID.Contains(id))
-            {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
 
     public void SelectWeapon(int index)
     {
@@ -444,7 +429,9 @@ public class Player : MonoBehaviour
 
     public void ToggleWeaponSelection()
     {
-        WeaponStats weaponStatsProfile = GameManager.Instance.WeaponsPackData.Swords[FindWeaponIndex(GetNextWeaponProfile())];
+        if (PlayerData.WeaponsIDsList.Count == 0) return;
+
+        WeaponStats weaponStatsProfile = GameManager.Instance.WeaponsPackData.Swords[WeaponsManager.Instance.FindWeaponIndex(GetNextWeaponProfile())];
         ApplySelectedWeapon(weaponStatsProfile);
     }
 
@@ -457,12 +444,13 @@ public class Player : MonoBehaviour
         {
             Destroy(WeaponObject.transform.GetChild(0).gameObject);
         }
+        WeaponStatsProfile controller = weaponStatsProfile.prefab.GetComponent<WeaponStatsProfile>();
+        controller.isEquipEnabled = false;
 
-        
         GameObject obj = Instantiate(weaponStatsProfile.prefab, Vector2.zero, weaponStatsProfile.prefab.transform.rotation);
         obj.transform.SetParent(WeaponObject.transform, true);
         obj.transform.localPosition = weaponStatsProfile.Position;
-        obj.transform.localScale = new Vector3(sprite_renderer.flipX ? 1 : -1, obj.transform.localScale.y, obj.transform.localScale.z);
+        obj.transform.localScale = new Vector3(1, obj.transform.localScale.y, obj.transform.localScale.z);
     }
 
     public WeaponStats GetActiveWeaponProfile()

@@ -27,7 +27,7 @@ public class WeaponStatsProfile : MonoBehaviour
     {
         if (other.tag == GameManager.Instance.EnemyTag)
         {
-            EnemyController enemy = other.GetComponent<EnemyController>();
+            EnemyAgentController enemy = other.GetComponent<EnemyAgentController>();
             if (enemy != null)
             {
                 // Debug.Log("SwordAttack: Collided with enemy, time: " + Time.time);
@@ -38,6 +38,7 @@ public class WeaponStatsProfile : MonoBehaviour
             Debug.Log("WeaponSystem: TouchedPlayer");
             Player player = other.GetComponent<Player>();
             player.PickWeapon(WeaponStats);
+            // todo, delete parent creates an issue, but we cant delete the parent
             Destroy(gameObject);
         }
     }
@@ -45,7 +46,7 @@ public class WeaponStatsProfile : MonoBehaviour
     {
         if (other.tag == GameManager.Instance.EnemyTag)
         {
-            EnemyController enemy = other.GetComponent<EnemyController>();
+            EnemyAgentController enemy = other.GetComponent<EnemyAgentController>();
             if (enemy != null)
             {
                 //Debug.Log("SwordAttack: Collided with enemy, time: " + Time.time);

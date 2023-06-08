@@ -6,7 +6,10 @@ public class ChestController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public string[] NeedsIDs;
+    [SerializeField] public List<string> PushesWeaponsIDs = new List<string>();
+    [SerializeField] public GameObject GoodiesObject;
     [SerializeField] public bool IsOpen = false;
+    [SerializeField] public bool Trigger = false;
 
     private SpriteRenderer openObject;
     private SpriteRenderer closeObject;
@@ -39,9 +42,20 @@ public class ChestController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        if(Trigger)
+        {
+            if (IsOpen)
+            {
+                SetOpened();
+            }
+            else
+            {
+                SetClosed();
+            }
+            Trigger = false;
+        }
     }
 
     private void prepareGate()
@@ -80,8 +94,39 @@ public class ChestController : MonoBehaviour
         IsOpen = true;
         closeObject.enabled = false;
         openObject.enabled = true;
+        pushWeapons();
     }
 
+    public void pushWeapons()
+    {
+        if(PushesWeaponsIDs != null && PushesWeaponsIDs.Count > 0)
+        {
+           
+            for(int i = 0; i < PushesWeaponsIDs.Count; i++)
+            {
+                Debug.Log(PushesWeaponsIDs[i]);
+                int weaponIndex = WeaponsManager.Instance.FindWeaponIndex(PushesWeaponsIDs[i]);
+                WeaponStats weaponStatsProfile = GameManager.Instance.WeaponsPackData.Swords[weaponIndex];
+
+                if (weaponStatsProfile != null)
+                {
+                    //weaponStatsProfile.prefab.
+                    WeaponStatsProfile controller = weaponStatsProfile.prefab.GetComponent<WeaponStatsProfile>();
+                    controller.isEquipEnabled = true;
+
+                    GameObject obj = Instantiate(weaponStatsProfile.prefab, Vector2.zero, weaponStatsProfile.prefab.transform.rotation);
+
+
+                    obj.transform.SetParent(GoodiesObject.transform, true);
+                    obj.transform.localPosition = weaponStatsProfile.Position;
+                   
+                }
+
+                PushesWeaponsIDs.RemoveAt(i);
+                i--;
+            }
+        }
+    }
 
 
     private bool HasIDs()

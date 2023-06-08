@@ -8,6 +8,7 @@ TagManager:
   - Key
   - Walls
   - Floors
+  - PatrolPoint
   layers:
   - Default
   - TransparentFX
