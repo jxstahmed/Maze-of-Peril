@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1056857537280721295}
   - component: {fileID: 1056857537280721294}
   - component: {fileID: 4979248513629934228}
+  - component: {fileID: 439934019861537509}
   m_Layer: 20
   m_Name: SwordCherry
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: ab0bd2a9d98e1c94883ad6f15633314e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -130,7 +131,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056857537280721285}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 9537f960b98b88446be9d7b5cda3ef0a, type: 2}
   m_IsTrigger: 1
@@ -170,3 +171,38 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &439934019861537509
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056857537280721285}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 9537f960b98b88446be9d7b5cda3ef0a, type: 2}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.13, y: 0.16}
+    newSize: {x: 0.13, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.045973346, y: 0.08071096}
+      - {x: 0.017039783, y: 0.050757512}
+      - {x: -0.034213483, y: -0.010306214}
+      - {x: -0.06464451, y: -0.051282268}
+      - {x: -0.065, y: -0.08}
+      - {x: -0.03486035, y: -0.079644516}
+      - {x: 0.006515015, y: -0.04857808}
+      - {x: 0.025501026, y: -0.018443521}
+      - {x: 0.065, y: 0.02203978}
+      - {x: 0.065, y: 0.08}

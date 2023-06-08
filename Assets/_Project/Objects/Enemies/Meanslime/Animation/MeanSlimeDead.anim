@@ -87,7 +87,7 @@ AnimationClip:
   - time: 0.5833333
     functionName: RemoveEnemy
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 2a9877ef45b6a4aceb8bba43a84157a4,
+    objectReferenceParameter: {fileID: 11500000, guid: 032930ab7c9e81c44a87e3783000e8db,
       type: 3}
     floatParameter: 0
     intParameter: 0

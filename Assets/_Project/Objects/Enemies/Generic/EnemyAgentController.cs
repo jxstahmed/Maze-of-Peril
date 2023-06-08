@@ -11,7 +11,6 @@ public class EnemyAgentController : MonoBehaviour
     [Header("Overall")]
     [Tooltip("This ID will be used as a reference for the ObjectiveManager")]
     [SerializeField] string ID;
-    [SerializeField] Transform DestinationTarget;
 
     [Header("States")]
     [SerializeField] bool CanMove = false;
@@ -22,7 +21,9 @@ public class EnemyAgentController : MonoBehaviour
 
     [Header("Attachments")]
     [SerializeField] EnemiesStats EnemyData;
-    [SerializeField] public Slider UIHealth;
+    [SerializeField] Slider UIHealth;
+    [SerializeField] SpriteRenderer AttachmentWeapon;
+    [SerializeField] SpriteRenderer DropShadowAttachment;
     [SerializeField] Light2D SelfSpot;
     [SerializeField] Light2D SightSpot;
 
@@ -32,10 +33,11 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] bool EnableSightLamp = true;
 
     [Header("Follow")]
-    [SerializeField] float LastLockedSightTimer = 0f;
+    [SerializeField] string FollowCollisionTag = "Walls";
     [SerializeField] bool LookBehindWalls = false;
     [SerializeField] bool SightInMovingDirection = false;
     [SerializeField] float ClosestRadiusToPlayer = 0.3f;
+    [SerializeField] float WaitAfterChaseEndDuration = 1f;
 
 
     [Header("Patrol")]
@@ -46,6 +48,9 @@ public class EnemyAgentController : MonoBehaviour
 
 
     [Header("Feedback")]
+    [SerializeField] Transform DestinationTarget;
+    [SerializeField] float LastLockedSightTimer = 0f;
+    [SerializeField] bool IsWaitingAfterChaseEnd = false;
     [SerializeField] bool CanSeePlayer = false;
     [SerializeField] bool IsMoving = false;
     [SerializeField] bool IsFollowing = false;
@@ -53,6 +58,8 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] bool HasCollided = false;
     [SerializeField] bool HasSetPatrolStopTime = false;
     [SerializeField] Rigidbody2D FoundPlayerBySight;
+    [SerializeField] bool isEnemyBeingAttacked = false;
+    [SerializeField] bool isAttacking = false;
 
 
     private Rigidbody2D rigidBody;
@@ -60,10 +67,10 @@ public class EnemyAgentController : MonoBehaviour
     private NavMeshAgent agent;
 
     private float PatrolDurationTimer = 0;
+    private float WaitAfterChaseEndTimer = 0;
     private float LastPlayerAttackTime = 0;
     private float internalIncrementTimer = 0f;
     private float internalHealthCooldowTimer = 0f;
-    private bool isEnemyBeingAttacked = false;
     private Animator animator;
 
 
@@ -79,10 +86,16 @@ public class EnemyAgentController : MonoBehaviour
     }
 
 
+    private Shader shaderGUItext;
+    private Shader shaderSpritesDefault;
 
     // Start is called before the first frame update
     void Start()
     {
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default"); // or whatever sprite shader is being used
+
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
@@ -91,16 +104,23 @@ public class EnemyAgentController : MonoBehaviour
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-
-        agent.speed = EnemyData.FollowSpeed;
     }
 
     private void Update()
     {
         if (IsDead) return;
 
-        PatrolDurationTimer += Time.deltaTime;
-        LastLockedSightTimer += Time.deltaTime;
+        if(HasSetPatrolStopTime)
+            PatrolDurationTimer += Time.deltaTime;
+        
+        if(IsWaitingAfterChaseEnd)
+            WaitAfterChaseEndTimer += Time.deltaTime;
+
+        if(CanFollow)
+            LastLockedSightTimer += Time.deltaTime;
+
+
+
         internalIncrementTimer += Time.deltaTime;
         internalHealthCooldowTimer += Time.deltaTime;
 
@@ -116,30 +136,59 @@ public class EnemyAgentController : MonoBehaviour
     {
         UpdateUI();
 
+        bool OldCanSeePlayer = CanSeePlayer;
+        
         SeePlayer();
+
+        bool ShouldWaitForChaseEnd = (WaitAfterChaseEndDuration > 0 && OldCanSeePlayer && !CanSeePlayer) || IsWaitingAfterChaseEnd;
 
 
         IsPatroling = CanMove && CanPatrol && !CanSeePlayer;
         IsFollowing = CanMove && CanFollow && CanSeePlayer && FoundPlayerBySight != null;
 
 
-        animator.SetBool("isMoving", IsPatroling || IsFollowing);
+        animator.SetBool("isMoving", (IsPatroling || IsFollowing) && !(IsWaitingAfterChaseEnd && !CanSeePlayer) && !isAttacking);
 
         if (IsDead || !CanMove) return;
 
-        if(IsPatroling)
+        if(ShouldWaitForChaseEnd && !CanSeePlayer)
         {
-            Patrol();
-        } 
-        
-        if (IsFollowing)
+            if((WaitAfterChaseEndDuration > 0 && OldCanSeePlayer && !CanSeePlayer))
+            {
+                // first frame
+                WaitAfterChaseEndTimer = 0;
+                IsWaitingAfterChaseEnd = true;
+            }
+
+            ValidateEndChaseWait();
+        } else
         {
-            Follow();
+            if (IsPatroling)
+            {
+                Patrol();
+            }
+
+            if (IsFollowing)
+            {
+                Follow();
+            }
         }
+
 
         AdjustDirection();
         SelfLight();
         SightLight();
+    }
+
+    void ValidateEndChaseWait()
+    {
+        if(WaitAfterChaseEndTimer >= WaitAfterChaseEndDuration)
+        {
+            IsWaitingAfterChaseEnd = false;
+        } else
+        {
+            agent.SetDestination(gameObject.transform.position);
+        }
     }
 
     void AdjustDirection()
@@ -159,6 +208,30 @@ public class EnemyAgentController : MonoBehaviour
 
         // Flip if different position
         spriteRenderer.flipX = isRight;
+
+        if(AttachmentWeapon != null)
+        {
+            AttachmentWeapon.flipX = !isRight;
+            float x = Mathf.Abs(AttachmentWeapon.transform.localPosition.x);
+            if (!isRight)
+            {
+                x = -1 * x;
+            }
+
+            AttachmentWeapon.transform.localPosition = new Vector2(x, AttachmentWeapon.transform.localPosition.y);
+        }
+
+        if(DropShadowAttachment != null)
+        {
+            DropShadowAttachment.flipX = isRight;
+            float x = Mathf.Abs(DropShadowAttachment.transform.localPosition.x);
+            if (isRight)
+            {
+                x = -1 * x;
+            }
+
+            DropShadowAttachment.transform.localPosition = new Vector2(x, DropShadowAttachment.transform.localPosition.y);
+        }
 
     }
 
@@ -213,7 +286,7 @@ public class EnemyAgentController : MonoBehaviour
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.tag.Contains(CollisionTag) && !LookBehindWalls)
+                if (hit.collider.CompareTag(FollowCollisionTag) && !LookBehindWalls)
                 {
                     hasHitCollision = true;
                     break;
@@ -251,6 +324,8 @@ public class EnemyAgentController : MonoBehaviour
             return;
         }
 
+        agent.speed = EnemyData.FollowSpeed;
+
         if (!(LastLockedSightTimer >= EnemyData.FollowAfterLockedSightingForSeconds)) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, FoundPlayerBySight.transform.position);
@@ -271,8 +346,10 @@ public class EnemyAgentController : MonoBehaviour
             return;
         }
 
+        agent.speed = EnemyData.PatrolSpeed;
+
         // set initial point
-        if(UpcomingPatrolPointIndex == -1 || UpcomingPatrolPointIndex >= PatrolPoints.Count)
+        if (UpcomingPatrolPointIndex == -1 || UpcomingPatrolPointIndex >= PatrolPoints.Count)
         {
             UpcomingPatrolPointIndex = 0;
         }
@@ -454,8 +531,12 @@ public class EnemyAgentController : MonoBehaviour
                 Debug.Log("OnTriggerStay2D");
                 LastPlayerAttackTime = Time.time;
                 Debug.Log("Attacking Player");
-                animator.SetTrigger("attack");
-                GameManager.Instance.AttackPlayer(-EnemyData.Damage);
+                if(CanMove)
+                {
+                    isAttacking = false;
+                    animator.SetTrigger("attack");
+                    GameManager.Instance.AttackPlayer(-EnemyData.Damage);
+                }
             }
         }
     }
@@ -467,6 +548,39 @@ public class EnemyAgentController : MonoBehaviour
             Debug.Log("OnTriggerExit2D");
             LastPlayerAttackTime = 0;
         }
+    }
+
+    public void ResetAttack()
+    {
+        isAttacking = false;
+    }
+
+    public void HideAttachment()
+    {
+        if (AttachmentWeapon != null)
+        {
+            AttachmentWeapon.enabled = false;
+        }
+    }
+
+    public void ShowAttachment()
+    {
+        if(AttachmentWeapon != null)
+        {
+            AttachmentWeapon.enabled = true;
+        }
+    }
+
+    void WhiteSprite()
+    {
+        spriteRenderer.material.shader = shaderGUItext;
+        spriteRenderer.color = Color.white;
+    }
+
+    void NormalSprite()
+    {
+        spriteRenderer.material.shader = shaderSpritesDefault;
+        spriteRenderer.color = Color.white;
     }
 
     private void onGameEventListen(Hashtable payload)

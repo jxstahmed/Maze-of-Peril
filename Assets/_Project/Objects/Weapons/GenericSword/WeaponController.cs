@@ -7,6 +7,7 @@ public class WeaponController : MonoBehaviour
     [Header("Attachments")]
     [SerializeField] public WeaponStats WeaponData;
     [SerializeField] public Player PlayerScript;
+    [SerializeField] public GameObject WeaponAnimationAnimator;
 
     [Header("Payload")]
     [SerializeField] public float AttackingSafeZoneTime = 2f;
@@ -21,6 +22,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] public float LastEnemyComboHitTime = 0;
 
     private Animator animator;
+    private Animator weaponAnimator;
 
     private void Awake()
     {
@@ -37,12 +39,13 @@ public class WeaponController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        weaponAnimator = WeaponAnimationAnimator.GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
         WeaponAnimation();
+        slashAnimationDirection();
     }
 
 
@@ -55,9 +58,31 @@ public class WeaponController : MonoBehaviour
 
         animator.SetBool("isRunning", !HasPressedAttack && PlayerScript.isPlayerMoving && PlayerScript.isPlayerRunning);
 
+        weaponAnimator.SetBool("isFlipped", transform.localScale.x < 0);
         animator.SetBool("isFlipped", transform.localScale.x < 0);
 
         animator.SetInteger("swingType", WeaponData.SwingType);
+    }
+
+    private void slashAnimationDirection()
+    {
+        bool isFlipped = transform.localScale.x < 0;
+        SpriteRenderer spriteR = WeaponAnimationAnimator.GetComponent<SpriteRenderer>();
+        spriteR.flipX = isFlipped;
+
+        float x = Mathf.Abs(WeaponAnimationAnimator.transform.localPosition.x);
+        if(isFlipped)
+        {
+            x = -1 * x;
+        }
+
+        WeaponAnimationAnimator.transform.localPosition = new Vector2(x, WeaponAnimationAnimator.transform.localPosition.y);
+
+    }
+
+    public void TriggerSlash()
+    {
+        weaponAnimator.SetTrigger("strike0");
     }
 
     public void ActivateAttackAllowance()
@@ -69,8 +94,14 @@ public class WeaponController : MonoBehaviour
         HasPressedAttack = true;
 
         EnemyComboHitsCount++;
+
+        
         animator.SetInteger("hitsCountIndex", EnemyComboHitsCount % WeaponData.MaxCombos);
+
+
+
         Debug.Log("SwordAttack: ActivateAttackAllowance, EnemyComboHitsCount: " + (EnemyComboHitsCount % WeaponData.MaxCombos));
+
         animator.SetBool("isAttacking", true);
 
         // Reduce stamina of player

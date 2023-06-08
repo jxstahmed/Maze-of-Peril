@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] public WeaponController WeaponController;
 
     [Header("States")]
-    [SerializeField] public bool isWeaponShown = true;
+    [SerializeField] public bool IsWeaponShown = true;
     [SerializeField] public bool isPlayerMoving = false;
     [SerializeField] public bool isPlayerRunning = false;
     [SerializeField] public bool isPlayerAttacking = false;
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
             sprite_renderer.flipX = true;
         }
 
-        if (WeaponObject != null && isWeaponShown)
+        if (WeaponObject != null && IsWeaponShown)
         {
             WeaponObject.transform.localScale = new Vector3(sprite_renderer.flipX ? -1 : 1, WeaponObject.transform.localScale.y, WeaponObject.transform.localScale.z);
         }
@@ -219,7 +219,7 @@ public class Player : MonoBehaviour
         if (hasToggledWeaponKey)
         {
             hasToggledWeaponKey = false;
-            WeaponObject.SetActive(isWeaponShown);
+            WeaponObject.SetActive(IsWeaponShown);
         }
     }
 
@@ -316,13 +316,13 @@ public class Player : MonoBehaviour
     private void ToggleWeapon()
     {
         hasToggledWeaponKey = true;
-        isWeaponShown = !isWeaponShown;
+        IsWeaponShown = !IsWeaponShown;
     }
 
     public void HideWeapon()
     {
         hasToggledWeaponKey = true;
-        isWeaponShown = false;
+        IsWeaponShown = false;
     }
 
     private void PlayerUI()
@@ -362,7 +362,7 @@ public class Player : MonoBehaviour
     private void KillPlayer()
     {
         hasToggledWeaponKey = true;
-        isWeaponShown = false;
+        IsWeaponShown = false;
         StopPlayer();
         GameManager.Instance.StopEnemies(true);
         animator.SetBool("isDead", true);
@@ -455,7 +455,7 @@ public class Player : MonoBehaviour
 
     public WeaponStats GetActiveWeaponProfile()
     {
-        if (PlayerData == null || GameManager.Instance.WeaponsPackData == null || PlayerData.EquippedWeaponID == null) return null;
+        if (PlayerData == null || GameManager.Instance.WeaponsPackData == null || PlayerData.EquippedWeaponID == null || !IsWeaponShown) return null;
 
         WeaponStats weaponStatsProfile = null;
 

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3bb30c48889d24e9d1489516b25ae4, type: 3}
+  m_Name: RedBoi
+  m_EditorClassIdentifier: 
+  Name: RedBoi
+  Rank: 0
+  OverallHealth: 180
+  Health: 65
+  Damage: 20
+  FollowSpeed: 0.9
+  MaxSightRadius: 12
+  FollowAfterLockedSightingForSeconds: 0.1
+  PatrolSpeed: 0.95
+  PatrolRadius: 40
+  StaminaRegenerationRate: 0
+  HealthRegenerationRate: 0
+  SpeedStaminaReductionRate: 0
+  IncrementEverySeconds: 1
+  RegenerateHealthCooldownWhenHit: 2
+  RegenerateStaminaCooldownWhenRun: 2
+  AttackCooldown: 1

@@ -74,4 +74,12 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.33333334
+    functionName: ResetAttack
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 032930ab7c9e81c44a87e3783000e8db,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
