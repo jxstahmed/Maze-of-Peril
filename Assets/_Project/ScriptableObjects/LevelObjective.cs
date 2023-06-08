@@ -14,9 +14,10 @@ public class LevelObjective : ScriptableObject
     public List<string> collectedIDs = new List<string>();
     
 
-    [Header("States")]
-    public bool isAccomplished = false;
-
+    public bool isAccomplished()
+    {
+        return collectedIDs != null && needIDs != null && collectedIDs.Count == needIDs.Count;
+    }
     public bool IsActive()
     {
         return collectedIDs != null && collectedIDs.Count > 0;

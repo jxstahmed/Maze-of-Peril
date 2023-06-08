@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public string PlayerTag = "Player";
     [SerializeField] public string EnemyTag = "Enemy";
 
+    [SerializeField] public GameObject PauseMenu;
+    [SerializeField] public int SCENE_MAIN = 0;
+    [SerializeField] public int SCENE_LEVEL_1 = 1;
+    [SerializeField] public int SCENE_LEVEL_2 = 2;
+
     void Awake()
     {
         if (Instance == null)
@@ -39,6 +44,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+    }
+
+    private void Start()
+    {
+
+        PauseMenu = GameObject.Find("Menus").transform.GetChild(0).gameObject;
     }
 
 
@@ -83,9 +95,44 @@ public class GameManager : MonoBehaviour
         return pos;
     }
 
-   
- 
+    public void StartGame()
+    {
+        SceneManager.LoadScene(SCENE_LEVEL_1);
+    }
+    public void StartLevel(int level)
+    {
+        if(level == 1)
+        {
+            SceneManager.LoadScene(SCENE_LEVEL_1);
+        } else if (level == 2)
+        {
+            SceneManager.LoadScene(SCENE_LEVEL_2);
+        }
+    }
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene(SCENE_MAIN);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        PauseMenu.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        PauseMenu.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }
+
 
 
 

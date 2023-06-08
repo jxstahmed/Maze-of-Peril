@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class ObjectiveManager : MonoBehaviour
     public static ObjectiveManager Instance;
     [SerializeField] public List<LevelObjective> LevelObjectives = new List<LevelObjective>();
     [SerializeField] public List<string> GenericKeys = new List<string>();
-   
+
+    [SerializeField] TMPro.TextMeshProUGUI ObjectiveTitle;
+    
     void Awake()
     {
         if (Instance == null)
@@ -25,12 +28,24 @@ public class ObjectiveManager : MonoBehaviour
         }
     }
 
+    public void FixedUpdate()
+    {
+        if(ObjectiveTitle != null)
+        {
+            LevelObjective obj = GetCurrentActiveObjective();
+            if(obj != null)
+            {
+                ObjectiveTitle.text = obj.title + "\n" + "<size=70%><voffset=2em><i>" + obj.description + "</i>";
+            }
+        }
+    }
+
     public int GetCurrentObjectiveNumber()
     {
         int firstMatch = -1;
         for(int i = 0; i < LevelObjectives.Count; i++)
         {
-            if (LevelObjectives[i].IsActive())
+            if (!LevelObjectives[i].isAccomplished())
             {
                 firstMatch = i;
                 break;
@@ -39,12 +54,12 @@ public class ObjectiveManager : MonoBehaviour
 
         return firstMatch;
     }
-    public LevelObjective GetCurrentObjective()
+    public LevelObjective GetCurrentActiveObjective()
     {
         LevelObjective levelObjective = null;
 
         LevelObjectives.ForEach(e => { 
-            if(e.IsActive())
+            if(!e.isAccomplished())
             {
                 levelObjective = e;
                 return;
@@ -53,7 +68,7 @@ public class ObjectiveManager : MonoBehaviour
 
         return levelObjective;
     }
-
+    
     public void CollectKey(string ID, string Label)
     {
         Debug.Log("CollectKey, ID: " + ID);
