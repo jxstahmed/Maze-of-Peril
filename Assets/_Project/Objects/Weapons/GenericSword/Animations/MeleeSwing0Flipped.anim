@@ -252,7 +252,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.06666667
-    functionName: 
+    functionName: TriggerSlash
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 23b9c7e92737bc343907dde546e7d4d9,
       type: 3}
