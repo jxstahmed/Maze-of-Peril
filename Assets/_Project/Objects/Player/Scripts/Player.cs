@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     [Header("Attachments")]
     [SerializeField] public GameObject WeaponObject;
     [SerializeField] public WeaponController WeaponController;
+    [SerializeField] public ParticleSystem MovingDust;
 
     [Header("States")]
+    [SerializeField] public bool IsDead = false;
     [SerializeField] public bool IsWeaponShown = true;
     [SerializeField] public bool isPlayerMoving = false;
     [SerializeField] public bool isPlayerRunning = false;
@@ -76,7 +78,13 @@ public class Player : MonoBehaviour
     {
         PlayerUI();
 
-        if (!canMove)
+        if(!IsDead && PlayerData.Health <= 0)
+        {
+            KillPlayer();
+        }
+       
+
+        if (!canMove || IsDead)
             return;
 
 
@@ -84,13 +92,18 @@ public class Player : MonoBehaviour
         PlayerMove();
         PlayerAnimation();
         PlayerWeapon();
+
+        if(isPlayerRunning)
+        {
+            CreateDust();
+        }
     }
 
 
 
     private void Update()
     {
-        if (!canMove) return;
+        if (!canMove || IsDead) return;
 
 
         internalIncrementTimer += Time.deltaTime;
@@ -363,6 +376,7 @@ public class Player : MonoBehaviour
     {
         hasToggledWeaponKey = true;
         IsWeaponShown = false;
+        IsDead = true;
         StopPlayer();
         GameManager.Instance.StopEnemies(true);
         animator.SetBool("isDead", true);
@@ -512,6 +526,11 @@ public class Player : MonoBehaviour
         return weaponStatsProfile;
     }
 
+    void CreateDust()
+    {
+        if(MovingDust != null)
+            MovingDust.Play();
+    }
 
     private void onGameEventListen(Hashtable payload)
     {

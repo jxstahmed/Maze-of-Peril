@@ -289,8 +289,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6747792094901988320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.005, y: -0.16, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.13, z: 0.22}
+  m_LocalPosition: {x: -0.00152, y: -0.1393, z: 0}
+  m_LocalScale: {x: 0.2691675, y: 0.13, z: 0.22}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6747792095420642860}
@@ -864,7 +864,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.01561584, y: -0.0055605676}
-  m_Size: {x: 0.3673503, y: 0.28002942}
+  m_Size: {x: 0.3988053, y: 0.3988053}
   m_Direction: 1
 --- !u!95 &6747792095420642849
 Animator:
@@ -937,7 +937,7 @@ MonoBehaviour:
   FollowCollisionTag: Walls
   LookBehindWalls: 1
   SightInMovingDirection: 0
-  ClosestRadiusToPlayer: 0.9
+  ClosestRadiusToPlayer: 1.2
   WaitAfterChaseEndDuration: 1
   CollisionTag: PatrolPoint
   PatrolPoints:

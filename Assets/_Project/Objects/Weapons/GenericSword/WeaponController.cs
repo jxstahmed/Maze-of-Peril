@@ -45,7 +45,7 @@ public class WeaponController : MonoBehaviour
     void FixedUpdate()
     {
         WeaponAnimation();
-        slashAnimationDirection();
+        SlashAnimationDirection();
     }
 
 
@@ -64,7 +64,7 @@ public class WeaponController : MonoBehaviour
         animator.SetInteger("swingType", WeaponData.SwingType);
     }
 
-    private void slashAnimationDirection()
+    private void SlashAnimationDirection()
     {
         bool isFlipped = transform.localScale.x < 0;
         SpriteRenderer spriteR = WeaponAnimationAnimator.GetComponent<SpriteRenderer>();
