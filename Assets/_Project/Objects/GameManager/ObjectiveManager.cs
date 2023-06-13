@@ -86,6 +86,18 @@ public class ObjectiveManager : MonoBehaviour
         AddIDToObjective(ID);
     }
 
+    public void CollectChest(string ID)
+    {
+        Debug.Log("CollectChest, ID: " + ID);
+        AddIDToObjective(ID);
+    }
+    
+    public void CollectGate(string ID)
+    {
+        Debug.Log("CollectGate, ID: " + ID);
+        AddIDToObjective(ID);
+    }
+
     public void AddIDToObjective(string ID)
     {
         if (ID == null) return;

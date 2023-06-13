@@ -13,13 +13,8 @@ MonoBehaviour:
   m_Name: WeaponsData
   m_EditorClassIdentifier: 
   Swords:
-  - {fileID: 11400000, guid: fc9e51aca70e90d4bb81f5071e20efe8, type: 2}
-  - {fileID: 11400000, guid: f86899d14f25f424aa8f87ed54100afa, type: 2}
-  - {fileID: 11400000, guid: b5f1c26e423dfb84281a0742b54eb86d, type: 2}
   - {fileID: 11400000, guid: 9dadaccfe6f693442ab89a68feccc8a9, type: 2}
-  - {fileID: 11400000, guid: 45865ad397877514d9faaaa42cb5ac0c, type: 2}
   - {fileID: 11400000, guid: 8651088d17352874eaea00125fafee39, type: 2}
   - {fileID: 11400000, guid: 15f14343cd50c9b49b09cc1dcac12c69, type: 2}
   - {fileID: 11400000, guid: 6b6df28143c19c04a9efdb2218f5e2e8, type: 2}
   - {fileID: 11400000, guid: 1f44a4d5d06cc5f4e9495bf885249401, type: 2}
-  - {fileID: 11400000, guid: fdfd318033a64ca4db050e6472fd2be7, type: 2}

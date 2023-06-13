@@ -15,10 +15,10 @@ MonoBehaviour:
   Name: MeanSlime
   Rank: 0
   OverallHealth: 140
-  Health: 65
+  Health: 140
   Damage: 15
   FollowSpeed: 0.8
-  MaxSightRadius: 8
+  MaxSightRadius: 6
   FollowAfterLockedSightingForSeconds: 0.25
   PatrolSpeed: 0.95
   PatrolRadius: 40

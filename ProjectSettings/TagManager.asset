@@ -9,6 +9,7 @@ TagManager:
   - Walls
   - Floors
   - PatrolPoint
+  - MoveableTriggerPoint
   layers:
   - Default
   - TransparentFX

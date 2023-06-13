@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChestController : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] public string ID;
     [SerializeField] public string[] NeedsIDs;
     [SerializeField] public List<string> PushesWeaponsIDs = new List<string>();
     [SerializeField] public GameObject GoodiesObject;
@@ -13,6 +14,7 @@ public class ChestController : MonoBehaviour
 
     private SpriteRenderer openObject;
     private SpriteRenderer closeObject;
+    private bool hasAddedID = false;
     [SerializeField]
     public bool ANIMATOR_TRIGGER_OPEN
     {
@@ -95,6 +97,12 @@ public class ChestController : MonoBehaviour
         closeObject.enabled = false;
         openObject.enabled = true;
         pushWeapons();
+
+        if(!hasAddedID)
+        {
+            hasAddedID = true;
+            ObjectiveManager.Instance.CollectChest(ID);
+        }
     }
 
     public void pushWeapons()

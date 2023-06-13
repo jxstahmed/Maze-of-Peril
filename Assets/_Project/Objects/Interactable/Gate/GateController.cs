@@ -5,11 +5,13 @@ using UnityEngine;
 public class GateController : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] public string ID;
     [SerializeField] public string[] NeedsIDs;
     [Tooltip("Player's weapon can look ugly. You may disable their weapon once they collide with the door when it's open.")]
     [SerializeField] public bool ShouldHidePlayerWeapon = false;
     [SerializeField] public bool IsOpen = false;
-    
+
+    private bool hasAddedID = false;
     private GameObject openObject;
     private GameObject closeObject;
     [SerializeField] public bool ANIMATOR_TRIGGER_OPEN
@@ -79,6 +81,11 @@ public class GateController : MonoBehaviour
         IsOpen = true;
         closeObject.SetActive(false);
         openObject.SetActive(true);
+        if (!hasAddedID)
+        {
+            hasAddedID = true;
+            ObjectiveManager.Instance.CollectGate(ID);
+        }
     }
 
 

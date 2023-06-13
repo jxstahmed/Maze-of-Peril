@@ -16,7 +16,7 @@ MonoBehaviour:
   OverallHealth: 100
   Health: 100
   OverallStamina: 100
-  Stamina: 100
+  Stamina: 20.5
   Speed: 1
   StaminaRegenerationRate: 50
   HealthRegenerationRate: 0
@@ -27,15 +27,5 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  EquippedWeaponID: SwordOnFire
-  WeaponsIDsList:
-  - SwordFruity
-  - SwordCherry
-  - SwordMeaty
-  - SwordOnFire
-  - SwordBurns
-  - SwordLava
-  - SwordPrince
-  - SwordChunky
-  - SwordBlue
-  - SwordGolden
+  EquippedWeaponID: 
+  WeaponsIDsList: []
