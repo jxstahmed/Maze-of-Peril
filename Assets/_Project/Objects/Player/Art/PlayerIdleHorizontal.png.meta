@@ -117,127 +117,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PLAYER_RIGHT_0
+      name: PlayerIdleHorizontal_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 15
         height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a263d5c57c3a8743b5f99a00d157a2c
-      internalID: -1364200020
+      spriteID: e53d0d30a47afe04599a1bb0abbebc0a
+      internalID: 1014910671
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PLAYER_RIGHT_1
+      name: PlayerIdleHorizontal_1
       rect:
         serializedVersion: 2
         x: 48
         y: 0
         width: 15
         height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7de1b69ca8abfc04cafbf833bcfcffa6
-      internalID: 590173446
+      spriteID: 846ceca2207d39e418dbd96a99237327
+      internalID: 2112686302
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PLAYER_RIGHT_2
+      name: PlayerIdleHorizontal_2
       rect:
         serializedVersion: 2
         x: 96
         y: 0
         width: 15
         height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d0bcc0c7832bc249bfbb51785207fc3
-      internalID: -231586471
+      spriteID: 6bd778a19c80ab74ab5c4f59f6b05964
+      internalID: 2057689618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PLAYER_RIGHT_3
+      name: PlayerIdleHorizontal_3
       rect:
         serializedVersion: 2
         x: 144
         y: 0
         width: 15
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ab460ca27f8f2b42bb0fc1e2e13745d
-      internalID: 708130959
+      spriteID: 169b138c6b89df447ac94483b56ec18d
+      internalID: 1336509059
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PLAYER_RIGHT_4
+      name: PlayerIdleHorizontal_4
       rect:
         serializedVersion: 2
         x: 192
         y: 0
         width: 15
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7cb0c3bfcca461347824ee8d77976852
-      internalID: -493390581
+      spriteID: a6e73c33721783847b88042067f25d75
+      internalID: -1037075640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PLAYER_RIGHT_5
+      name: PlayerIdleHorizontal_5
       rect:
         serializedVersion: 2
         x: 240
         y: 0
         width: 15
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a34b0f7d33602546a1fb86b4a38b91c
-      internalID: 332720800
+      spriteID: 5bcce7912a4760e45a3721307c3a1244
+      internalID: -89950099
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PLAYER_RIGHT_0: -1364200020
-      PLAYER_RIGHT_1: 590173446
-      PLAYER_RIGHT_2: -231586471
-      PLAYER_RIGHT_3: 708130959
-      PLAYER_RIGHT_4: -493390581
-      PLAYER_RIGHT_5: 332720800
+      PlayerIdleHorizontal_0: 1014910671
+      PlayerIdleHorizontal_1: 2112686302
+      PlayerIdleHorizontal_2: 2057689618
+      PlayerIdleHorizontal_3: 1336509059
+      PlayerIdleHorizontal_4: -1037075640
+      PlayerIdleHorizontal_5: -89950099
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
