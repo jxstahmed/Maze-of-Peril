@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: MEANSLIME
+  Health: 0
   CanMove: 1
   CanFollow: 1
   CanPatrol: 1
@@ -288,15 +289,15 @@ MonoBehaviour:
   SightSpot: {fileID: 7860374409651042967}
   EnableSelfLamp: 1
   EnableSightLamp: 1
-  FollowCollisionTag: Walls
+  FollowCollisionTag:
+  - Walls
+  - Static
   LookBehindWalls: 1
   SightInMovingDirection: 0
   ClosestRadiusToPlayer: 1.2
   WaitAfterChaseEndDuration: 1
   CollisionTag: PatrolPoint
-  PatrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  PatrolPoints: []
   UpcomingPatrolPointIndex: 0
   PatrolStopToLookDuration: 3
   DestinationTarget: {fileID: 0}
@@ -369,7 +370,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -44025399
+  m_SortingLayerID: -1869315837
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &7860374409476070417
@@ -548,7 +549,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 0
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000003819490c93960fda15c8009
+  m_ApplyToSortingLayers: 03819490
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

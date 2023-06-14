@@ -97,6 +97,12 @@ public class ObjectiveManager : MonoBehaviour
         Debug.Log("CollectGate, ID: " + ID);
         AddIDToObjective(ID);
     }
+    
+    public void CollectMoveableTriggerPoint(string ID)
+    {
+        Debug.Log("CollectGate, ID: " + ID);
+        AddIDToObjective(ID);
+    }
 
     public void AddIDToObjective(string ID)
     {

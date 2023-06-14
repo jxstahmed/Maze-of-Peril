@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b9f997d67996743974eda02dc48513, type: 3}
+  m_Name: SwordChunky
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 9007045009335953814, guid: 89a428e993e9a8c41b3f3de4901703bb, type: 3}
+  ID: SwordChunky
+  SwingType: 0
+  Damage: 50
+  StaminaReductionRate: 15
+  ComboInbetweenTime: 0.25
+  MaxCombos: 1
+  Position: {x: 0, y: 0}
+  HitsCount: 0
+  KilledEnemies: 0
+  HighestComboCount: 0
+  CombosCount: 0

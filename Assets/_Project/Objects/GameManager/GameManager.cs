@@ -24,11 +24,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public string PlayerTag = "Player";
     [SerializeField] public string EnemyTag = "Enemy";
+    [SerializeField] public string StaticTag = "Static";
 
     [SerializeField] public GameObject PauseMenu;
     [SerializeField] public int SCENE_MAIN = 0;
     [SerializeField] public int SCENE_LEVEL_1 = 1;
     [SerializeField] public int SCENE_LEVEL_2 = 2;
+
+    [SerializeField] public float slowMotionTimeScale = 0.1f;
+    private float startTimeScale;
+    private float startFixedDeltaTime;
 
     void Awake()
     {
@@ -49,6 +54,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        startTimeScale = Time.timeScale;
+        startFixedDeltaTime = Time.fixedDeltaTime;
 
         PauseMenu = GameObject.Find("Menus").transform.GetChild(0).gameObject;
     }
@@ -72,6 +79,15 @@ public class GameManager : MonoBehaviour
         GameEvent?.Invoke(payload);
     } 
 
+    
+
+    public void ShakeCamera()
+    {
+        Hashtable payload = new Hashtable();
+        payload.Add("state", GameState.ShakeCamera);
+        GameEvent?.Invoke(payload);
+    } 
+
 
     
     public void StopEnemies(bool isPlayerDead)
@@ -82,7 +98,12 @@ public class GameManager : MonoBehaviour
         GameEvent?.Invoke(payload);
     }
 
-  
+    public void CreateSlowMotionEffect(float duration, bool shouldShake = false)
+    {
+        StopCoroutine(SlowMotion(duration, shouldShake));
+        StartCoroutine(SlowMotion(duration, shouldShake));
+    }
+
 
 
     public Vector2 getTargetPosition(Transform origin, Transform target)
@@ -94,6 +115,34 @@ public class GameManager : MonoBehaviour
 
         return pos;
     }
+
+
+    private IEnumerator SlowMotion(float duration, bool shouldShake)
+    {
+        StartSlowMotion();
+        yield return new WaitForSeconds(duration);
+        StopSlowMotion();
+
+        if(shouldShake)
+        {
+            ShakeCamera();
+        }
+    }
+
+
+    private void StartSlowMotion()
+    {
+        Time.timeScale = slowMotionTimeScale;
+        Time.fixedDeltaTime = startFixedDeltaTime * slowMotionTimeScale;
+    }
+
+    private void StopSlowMotion()
+    {
+        Time.timeScale = startTimeScale;
+        Time.fixedDeltaTime = startFixedDeltaTime;
+    }
+
+
 
     public void StartGame()
     {
@@ -141,5 +190,6 @@ public enum GameState
     AffectStamina,
     AffectHealth,
     AttackPlayer,
-    StopEnemies
+    StopEnemies,
+    ShakeCamera
 }

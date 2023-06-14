@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class WeaponStatsProfile : MonoBehaviour
 {
-
-    [SerializeField] public WeaponStats WeaponStats;
+    [Header("Overall")]
     [SerializeField] public bool isEquipEnabled;
+
+
+    [Header("Attachments")]
+    [SerializeField] public WeaponStats WeaponStats;
+    [SerializeField] public List<TrailRenderer> TrailRenderers = new List<TrailRenderer>();
 
     private WeaponController weaponController;
     private Animator animator;

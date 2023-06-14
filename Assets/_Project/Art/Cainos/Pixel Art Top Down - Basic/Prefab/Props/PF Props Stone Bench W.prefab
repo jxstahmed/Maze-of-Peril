@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 7947911505737750448}
   - component: {fileID: 7947911505737750450}
   - component: {fileID: 7947911505737750449}
+  - component: {fileID: 2310837292339677493}
+  - component: {fileID: 6750718886453561039}
   m_Layer: 20
   m_Name: PF Props Stone Bench W
-  m_TagString: Untagged
+  m_TagString: Static
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +114,88 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7764329, y: 1.307473}
   m_EdgeRadius: 0
+--- !u!114 &2310837292339677493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947911505737750455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &6750718886453561039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947911505737750455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 03819490
+  m_ShapePath:
+  - {x: -0.33109108, y: 0.18358588, z: 0}
+  - {x: -0.39123395, y: 0.18478954, z: 0}
+  - {x: -0.42467913, y: 0.22008646, z: 0}
+  - {x: -0.41928318, y: 1.5096984, z: 0}
+  - {x: -0.35767403, y: 1.5622075, z: 0}
+  - {x: 0.043137223, y: 1.5655565, z: 0}
+  - {x: 0.07775518, y: 1.7125342, z: 0}
+  - {x: 0.10819103, y: 1.782684, z: 0}
+  - {x: 0.14005868, y: 1.8439679, z: 0}
+  - {x: 0.2017441, y: 1.9102144, z: 0}
+  - {x: 0.36130008, y: 1.9084826, z: 0}
+  - {x: 0.36243194, y: 1.8789868, z: 0}
+  - {x: 0.39333865, y: 1.8786741, z: 0}
+  - {x: 0.39488935, y: 1.8167502, z: 0}
+  - {x: 0.42660752, y: 1.8171604, z: 0}
+  - {x: 0.42552614, y: 0.90511787, z: 0}
+  - {x: 0.3931089, y: 0.8770225, z: 0}
+  - {x: 0.3639322, y: 0.8694582, z: 0}
+  - {x: 0.3639322, y: 0.7224941, z: 0}
+  - {x: 0.389867, y: 0.7224941, z: 0}
+  - {x: 0.39743137, y: 0.69439805, z: 0}
+  - {x: 0.42444515, y: 0.6879132, z: 0}
+  - {x: 0.42228395, y: 0.5614809, z: 0}
+  - {x: 0.39477158, y: 0.55975413, z: 0}
+  - {x: 0.3920266, y: 0.50096625, z: 0}
+  - {x: 0.36253884, y: 0.49795008, z: 0}
+  - {x: 0.36157584, y: 0.43561798, z: 0}
+  - {x: 0.33030608, y: 0.4352589, z: 0}
+  - {x: 0.32827014, y: 0.37561452, z: 0}
+  - {x: 0.29984766, y: 0.37315905, z: 0}
+  - {x: 0.29712534, y: 0.31066388, z: 0}
+  - {x: 0.2673192, y: 0.31046784, z: 0}
+  - {x: 0.26698124, y: 0.2794392, z: 0}
+  - {x: 0.20576197, y: 0.2787456, z: 0}
+  - {x: 0.20527278, y: 0.1854145, z: 0}
+  - {x: 0.17492422, y: 0.18502742, z: 0}
+  - {x: 0.17366113, y: 0.031977654, z: 0}
+  - {x: 0.1419949, y: -0.0022744536, z: 0}
+  - {x: -0.29783937, y: -0.0022337437, z: 0}
+  - {x: -0.32910636, y: 0.033275843, z: 0}
+  m_ShapePathHash: 1930309335
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -677980
+  m_LocalBounds:
+    m_Center: {x: 0.00096419454, y: 0.95397, z: 0}
+    m_Extent: {x: 0.42564332, y: 0.95624447, z: 0}
 --- !u!1 &7947911505844789836
 GameObject:
   m_ObjectHideFlags: 0

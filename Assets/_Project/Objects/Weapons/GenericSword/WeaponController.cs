@@ -7,9 +7,10 @@ public class WeaponController : MonoBehaviour
     [Header("Attachments")]
     [SerializeField] public WeaponStats WeaponData;
     [SerializeField] public Player PlayerScript;
-    [SerializeField] public GameObject WeaponAnimationAnimator;
 
     [Header("Payload")]
+    [SerializeField] public float GFXHitDelay = 0.2f;
+    [SerializeField] public bool CanShakeCameraAfterHit = false;
     [SerializeField] public float AttackingSafeZoneTime = 2f;
 
     [Header("States")]
@@ -21,9 +22,13 @@ public class WeaponController : MonoBehaviour
     [SerializeField] public int EnemyComboHitsCount = 0;
     [SerializeField] public float LastEnemyComboHitTime = 0;
 
-    private Animator animator;
-    private Animator weaponAnimator;
+    [Header("Feedback")]
+    [SerializeField] public WeaponStatsProfile WeaponStatsProfile;
+    [SerializeField] public List<TrailRenderer> TrailRenderers = new List<TrailRenderer>();
 
+    private Animator animator;
+    private Vector2 localPosition;
+   
     private void Awake()
     {
         GameManager.GameEvent += onGameEventListen;
@@ -39,13 +44,24 @@ public class WeaponController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        weaponAnimator = WeaponAnimationAnimator.GetComponent<Animator>();
+        localPosition = transform.localPosition;
     }
 
     void FixedUpdate()
     {
+        AdjustDirection();
         WeaponAnimation();
-        SlashAnimationDirection();
+    }
+
+    void AdjustDirection()
+    {
+        if (transform.localScale.x < 0)
+        {
+            transform.localPosition = new Vector2(-localPosition.x, localPosition.y);
+        } else
+        {
+            transform.localPosition = new Vector2(localPosition.x, localPosition.y);
+        }
     }
 
 
@@ -58,32 +74,48 @@ public class WeaponController : MonoBehaviour
 
         animator.SetBool("isRunning", !HasPressedAttack && PlayerScript.isPlayerMoving && PlayerScript.isPlayerRunning);
 
-        weaponAnimator.SetBool("isFlipped", transform.localScale.x < 0);
         animator.SetBool("isFlipped", transform.localScale.x < 0);
 
         animator.SetInteger("swingType", WeaponData.SwingType);
     }
 
-    private void SlashAnimationDirection()
+    public void ApplyNewSettings(WeaponStats weaponStatsProfile)
     {
-        bool isFlipped = transform.localScale.x < 0;
-        SpriteRenderer spriteR = WeaponAnimationAnimator.GetComponent<SpriteRenderer>();
-        spriteR.flipX = isFlipped;
+        WeaponData = weaponStatsProfile;
+        StartCoroutine(ApplyRenderSettings());
+        
+    }
 
-        float x = Mathf.Abs(WeaponAnimationAnimator.transform.localPosition.x);
-        if(isFlipped)
+    private IEnumerator ApplyRenderSettings()
+    {
+        yield return new WaitForSeconds(1);
+        WeaponStatsProfile sample = null;
+        List<TrailRenderer> sampleRenders = new List<TrailRenderer>();
+        if (transform.GetChild(0) != null)
         {
-            x = -1 * x;
+            sample = transform.GetChild(0).GetComponent<WeaponStatsProfile>();
+            if (sample != null && sample.TrailRenderers != null && sample.TrailRenderers.Count > 0)
+            {
+                sampleRenders = sample.TrailRenderers;
+            }
         }
 
-        WeaponAnimationAnimator.transform.localPosition = new Vector2(x, WeaponAnimationAnimator.transform.localPosition.y);
-
+        TrailRenderers = sampleRenders;
+        WeaponStatsProfile = sample;
     }
 
-    public void TriggerSlash()
+    public void EnableSwordTrails()
     {
-        weaponAnimator.SetTrigger("strike0");
+        TrailRenderers.ForEach(trailRenderer => trailRenderer.emitting = true);
+
+        
     }
+
+    public void DisableSwordTrails()
+    {
+        TrailRenderers.ForEach(trailRenderer => trailRenderer.emitting = false);
+    }
+   
 
     public void ActivateAttackAllowance()
     {
@@ -93,12 +125,12 @@ public class WeaponController : MonoBehaviour
         IsAttackingTime = Time.time;
         HasPressedAttack = true;
 
+        
+
+        Debug.Log("Just hit this count: " + EnemyComboHitsCount);
         EnemyComboHitsCount++;
 
-        
         animator.SetInteger("hitsCountIndex", EnemyComboHitsCount % WeaponData.MaxCombos);
-
-
 
         Debug.Log("SwordAttack: ActivateAttackAllowance, EnemyComboHitsCount: " + (EnemyComboHitsCount % WeaponData.MaxCombos));
 
@@ -152,16 +184,29 @@ public class WeaponController : MonoBehaviour
         // validate the combo
         ValidateComboTime();
 
-        
+       
 
         // increase the combo;
         EnemyComboHitsCount++;
         LastEnemyComboHitTime = Time.time;
 
+
         // Affect the health of the nemy
-        enemy.AttackEnemy(-weapon.Damage);
+        enemy.AttackEnemy(-weapon.Damage, PlayerScript.transform, WeaponData.PushForce);
+        if (EnemyComboHitsCount > 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(InitiateHitGFX(EnemyComboHitsCount));
+        }
+
 
         Debug.Log("SwordAttack: Weapon[" + weapon.ID + "] has hit an enemy [" + enemy.name + "]");
+    }
+
+    private IEnumerator InitiateHitGFX(int EnemyComboHitsCount)
+    {
+        yield return new WaitForSeconds(GFXHitDelay);
+        GameManager.Instance.CreateSlowMotionEffect(WeaponData.SlowMotionDuration, CanShakeCameraAfterHit);
     }
 
 

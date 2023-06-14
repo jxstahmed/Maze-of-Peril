@@ -465,6 +465,9 @@ public class Player : MonoBehaviour
         obj.transform.SetParent(WeaponObject.transform, true);
         obj.transform.localPosition = weaponStatsProfile.Position;
         obj.transform.localScale = new Vector3(1, obj.transform.localScale.y, obj.transform.localScale.z);
+        obj.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+
+        WeaponController.ApplyNewSettings(weaponStatsProfile);
     }
 
     public WeaponStats GetActiveWeaponProfile()

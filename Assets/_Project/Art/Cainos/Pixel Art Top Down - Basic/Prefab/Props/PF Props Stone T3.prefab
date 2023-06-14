@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7947911505737750449}
   m_Layer: 20
   m_Name: PF Props Stone T3
-  m_TagString: Untagged
+  m_TagString: Static
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

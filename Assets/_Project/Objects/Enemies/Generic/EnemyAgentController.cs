@@ -11,6 +11,7 @@ public class EnemyAgentController : MonoBehaviour
     [Header("Overall")]
     [Tooltip("This ID will be used as a reference for the ObjectiveManager")]
     [SerializeField] string ID;
+    [SerializeField] float Health;
 
     [Header("States")]
     [SerializeField] bool CanMove = false;
@@ -33,7 +34,7 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] bool EnableSightLamp = true;
 
     [Header("Follow")]
-    [SerializeField] string FollowCollisionTag = "Walls";
+    [SerializeField] List<string> FollowCollisionTag = new List<string>();
     [SerializeField] bool LookBehindWalls = false;
     [SerializeField] bool SightInMovingDirection = false;
     [SerializeField] float ClosestRadiusToPlayer = 0.3f;
@@ -100,7 +101,7 @@ public class EnemyAgentController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        EnemyData.Health = EnemyData.OverallHealth;
+        Health = EnemyData.OverallHealth;
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -134,6 +135,10 @@ public class EnemyAgentController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        IsMoving = agent.velocity.x > 0 || agent.velocity.y > 0;
+
+
         UpdateUI();
 
         bool OldCanSeePlayer = CanSeePlayer;
@@ -147,7 +152,7 @@ public class EnemyAgentController : MonoBehaviour
         IsFollowing = CanMove && CanFollow && CanSeePlayer && FoundPlayerBySight != null;
 
 
-        animator.SetBool("isMoving", (IsPatroling || IsFollowing) && !(IsWaitingAfterChaseEnd && !CanSeePlayer) && !isAttacking);
+        animator.SetBool("isMoving", IsMoving && !isAttacking);
 
         if (IsDead || !CanMove) return;
 
@@ -286,7 +291,8 @@ public class EnemyAgentController : MonoBehaviour
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.CompareTag(FollowCollisionTag) && !LookBehindWalls)
+                
+                if (FollowCollisionTag.Contains(hit.collider.tag) && !LookBehindWalls)
                 {
                     hasHitCollision = true;
                     break;
@@ -457,21 +463,46 @@ public class EnemyAgentController : MonoBehaviour
 
     }
 
-    public void AttackEnemy(float damage)
+    public void AttackEnemy(float damage, Transform player, float force)
     {
-
+        
         animator.SetTrigger("takeDamage");
         AffectHealth(damage);
+
+        StopAllCoroutines();
+        
+
+        StartCoroutine(PushEnemy(player, force));
+        
     }
+
+    private IEnumerator PushEnemy(Transform player, float force)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        Vector3 direction = (transform.position - player.position).normalized;
+        Debug.Log(direction);
+        rigidBody.AddForce(direction * force, ForceMode2D.Impulse);
+
+        StartCoroutine(ResetKnockback());
+    }
+    
+
+    private IEnumerator ResetKnockback()
+    {
+        yield return new WaitForSeconds(0.15f);
+        rigidBody.velocity = Vector2.zero;
+    }
+
 
     public void AffectHealth(float health)
     {
-        float newHealth = EnemyData.Health + health;
+        float newHealth = Health + health;
 
         if (newHealth > EnemyData.OverallHealth) newHealth = EnemyData.OverallHealth;
         else if (newHealth < 0) newHealth = 0;
 
-        EnemyData.Health = newHealth;
+        Health = newHealth;
 
 
         if (newHealth <= 0)
@@ -494,7 +525,7 @@ public class EnemyAgentController : MonoBehaviour
 
     private void UpdateUI()
     {
-        UIHealth.value = EnemyData.Health > 0 ? EnemyData.Health / EnemyData.OverallHealth : 0;
+        UIHealth.value = Health > 0 ? Health / EnemyData.OverallHealth : 0;
     }
 
     void OnTriggerEnter2D(Collider2D col)
