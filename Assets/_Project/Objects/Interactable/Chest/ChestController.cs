@@ -8,6 +8,9 @@ public class ChestController : MonoBehaviour
     [SerializeField] public string ID;
     [SerializeField] public string[] NeedsIDs;
     [SerializeField] public List<string> PushesWeaponsIDs = new List<string>();
+    [SerializeField] public List<string> PushesEnemiesIDs = new List<string>();
+    [SerializeField] public List<string> PushesKeysIDs = new List<string>();
+    [SerializeField] public List<string> PushesPotions = new List<string>();
     [SerializeField] public GameObject GoodiesObject;
     [SerializeField] public bool IsOpen = false;
     [SerializeField] public bool Trigger = false;
