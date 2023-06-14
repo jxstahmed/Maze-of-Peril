@@ -31,7 +31,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int SCENE_LEVEL_1 = 1;
     [SerializeField] public int SCENE_LEVEL_2 = 2;
 
-    [SerializeField] public float slowMotionTimeScale = 0.1f;
+    [SerializeField] public float slowMotionTimeScale = 0.05f;
+    [SerializeField] public bool CanShakeCameraAfterHit = false;
+    [SerializeField]  public float SlowMotionDuration = 0.2f;
+    [SerializeField] public float ShakeDuration = 1f;
+    [SerializeField] public float ShakeIntensity = 1f;
+
     private float startTimeScale;
     private float startFixedDeltaTime;
 

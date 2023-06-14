@@ -11,7 +11,6 @@ public class WeaponStats : ScriptableObject
     public int SwingType;
     public float Damage;
     public float PushForce = 7f;
-    public float SlowMotionDuration = 0.2f;
     public float StaminaReductionRate;
     public float ComboInbetweenTime;
     public int MaxCombos;

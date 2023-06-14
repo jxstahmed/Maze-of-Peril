@@ -100,12 +100,28 @@ public class ChestController : MonoBehaviour
         closeObject.enabled = false;
         openObject.enabled = true;
         pushWeapons();
+        
 
         if(!hasAddedID)
         {
             hasAddedID = true;
             ObjectiveManager.Instance.CollectChest(ID);
         }
+    }
+
+    public void pushEnemies()
+    {
+
+    }
+
+    public void pushKeys()
+    {
+
+    }
+
+    public void pushGoodies()
+    {
+
     }
 
     public void pushWeapons()

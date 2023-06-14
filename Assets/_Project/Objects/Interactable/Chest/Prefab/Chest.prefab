@@ -446,6 +446,9 @@ MonoBehaviour:
   NeedsIDs: []
   PushesWeaponsIDs:
   - SwordCherry
+  PushesEnemiesIDs: []
+  PushesKeysIDs: []
+  PushesPotions: []
   GoodiesObject: {fileID: 6615642877550796609}
   IsOpen: 0
   Trigger: 0
@@ -515,7 +518,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2933652, y: 1.8448877}
+  m_Size: {x: 1.4088689, y: 1.1256261}
   m_EdgeRadius: 0
 --- !u!1 &6615642877550796609
 GameObject:

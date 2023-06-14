@@ -58,14 +58,14 @@ public class ObjectiveManager : MonoBehaviour
     {
         LevelObjective levelObjective = null;
 
-        LevelObjectives.ForEach(e => { 
-            if(!e.isAccomplished())
+        for(int i = 0; i <= LevelObjectives.Count; i++)
+        {
+            if (!LevelObjectives[i].isAccomplished())
             {
-                levelObjective = e;
-                return;
+                levelObjective = LevelObjectives[i];
+                break;
             }
-        });
-
+        }
         return levelObjective;
     }
     

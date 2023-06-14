@@ -18,19 +18,14 @@ MonoBehaviour:
   OverallStamina: 100
   Stamina: 100
   Speed: 1
-  StaminaRegenerationRate: 50
+  StaminaRegenerationRate: 15
   HealthRegenerationRate: 0
-  SpeedStaminaReductionRate: 0.5
+  SpeedStaminaReductionRate: 0.2
   WalkFactor: 0.75
   RunFactor: 0.75
   DamageFactor: 0.1
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  EquippedWeaponID: SwordGolden
-  WeaponsIDsList:
-  - SwordGolden
-  - SwordMeaty
-  - SwordChunky
-  - SwordLava
-  - SwordOnFire
+  EquippedWeaponID: 
+  WeaponsIDsList: []

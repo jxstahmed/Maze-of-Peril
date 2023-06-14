@@ -6,8 +6,6 @@ using Cinemachine;
 public class CameraShake : MonoBehaviour
 {
     [SerializeField] public CinemachineVirtualCamera Cinema;
-    [SerializeField] public float ShakeDuration = 1f;
-    [SerializeField] public float ShakeIntensity = 1f;
     private CinemachineBasicMultiChannelPerlin CinemaPerlin;
 
     private void Awake()
@@ -40,8 +38,8 @@ public class CameraShake : MonoBehaviour
 
     private IEnumerator ShakeCamera()
     {
-        CinemaPerlin.m_AmplitudeGain = ShakeIntensity;
-        yield return new WaitForSeconds(ShakeDuration);
+        CinemaPerlin.m_AmplitudeGain = GameManager.Instance.ShakeIntensity;
+        yield return new WaitForSeconds(GameManager.Instance.ShakeDuration);
         CinemaPerlin.m_AmplitudeGain = 0;
     }
 }

@@ -10,7 +10,6 @@ public class WeaponController : MonoBehaviour
 
     [Header("Payload")]
     [SerializeField] public float GFXHitDelay = 0.2f;
-    [SerializeField] public bool CanShakeCameraAfterHit = false;
     [SerializeField] public float AttackingSafeZoneTime = 2f;
 
     [Header("States")]
@@ -206,7 +205,7 @@ public class WeaponController : MonoBehaviour
     private IEnumerator InitiateHitGFX(int EnemyComboHitsCount)
     {
         yield return new WaitForSeconds(GFXHitDelay);
-        GameManager.Instance.CreateSlowMotionEffect(WeaponData.SlowMotionDuration, CanShakeCameraAfterHit);
+        GameManager.Instance.CreateSlowMotionEffect(GameManager.Instance.SlowMotionDuration, GameManager.Instance.CanShakeCameraAfterHit);
     }
 
 

@@ -16,5 +16,4 @@ MonoBehaviour:
   description: Open the chest and take your first weapon
   needIDs:
   - CHEST_FIRST_WEAPON
-  collectedIDs:
-  - CHEST_FIRST_WEAPON
+  collectedIDs: []
