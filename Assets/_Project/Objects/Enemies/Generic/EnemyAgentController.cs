@@ -62,6 +62,11 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] bool isEnemyBeingAttacked = false;
     [SerializeField] bool isAttacking = false;
 
+    [Header("DeathReplacements")]
+    [SerializeField] bool DeathReplacementHasCollider;
+    [SerializeField] bool CreateTombstone;
+    [SerializeField] List<GameObject> Tombstones = new List<GameObject>();
+
 
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
@@ -135,6 +140,8 @@ public class EnemyAgentController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //if (IsDead)
+           // return;
 
         IsMoving = agent.velocity.x > 0 || agent.velocity.y > 0;
 
@@ -620,5 +627,29 @@ public class EnemyAgentController : MonoBehaviour
         {
             StopMovement();
         }
+    }
+
+
+    /**
+     * Replaces the enemy with one of the gameObject in "Tombstones" upon death
+     * */
+    private void replaceWithTombsstone()
+    {
+        if (!CreateTombstone || Tombstones == null || Tombstones.Count == 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        int rand_int = Random.Range(0, Tombstones.Count);
+        GameObject tombstone = Tombstones[rand_int];
+        if (tombstone != null)
+        {
+            GameObject deathReplacement = Instantiate(tombstone, transform.position, Quaternion.identity);
+            BoxCollider2D rbt = deathReplacement.GetComponent<BoxCollider2D>();
+            rbt.enabled = DeathReplacementHasCollider;
+
+        }
+        
+        Destroy(gameObject);
     }
 }
