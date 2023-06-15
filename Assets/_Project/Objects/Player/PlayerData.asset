@@ -16,7 +16,7 @@ MonoBehaviour:
   OverallHealth: 100
   Health: 100
   OverallStamina: 100
-  Stamina: 100
+  Stamina: 49.800495
   Speed: 1
   StaminaRegenerationRate: 15
   HealthRegenerationRate: 0
