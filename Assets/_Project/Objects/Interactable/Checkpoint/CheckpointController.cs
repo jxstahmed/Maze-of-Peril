@@ -25,7 +25,7 @@ public class CheckpointController : MonoBehaviour
         bool canOpen = true;
         foreach (string keyId in NeedsIDs)
         {
-            if (ObjectiveManager.Instance.hasCollectedID(keyId) == false)
+            if (ObjectiveManager.Instance.HasCollectedID(keyId) == false)
             {
                 canOpen = false;
                 break;

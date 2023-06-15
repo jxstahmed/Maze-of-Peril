@@ -13,26 +13,35 @@ public class GameManager : MonoBehaviour
     public static event Action<Hashtable> GameEvent;
 
     
-    // 
-    [SerializeField] public WeaponsPack WeaponsPackData;
-    [SerializeField] public PlayerStats PlayerData;
-    [SerializeField] public Player PlayerScript;
+    [Header("Overall")]
+    [SerializeField] public bool ResetScriptableAfterRun = true;
 
+
+    [Header("Tags")]
     [SerializeField] public string PlayerTag = "Player";
     [SerializeField] public string EnemyTag = "Enemy";
     [SerializeField] public string StaticTag = "Static";
 
+    [Header("Attachments")]
+    [SerializeField] public WeaponsPack WeaponsPackData;
+    [SerializeField] public PlayerStats PlayerData;
+    [SerializeField] public Player PlayerScript;
     [SerializeField] public List<EnemiesStats> Enemies = new List<EnemiesStats>();
     [SerializeField] public List<KeysStats> Keys = new List<KeysStats>();
 
+    [Header("Menus")]
     [SerializeField] public GameObject PauseMenu;
     [SerializeField] public int SCENE_MAIN = 0;
     [SerializeField] public int SCENE_LEVEL_1 = 1;
     [SerializeField] public int SCENE_LEVEL_2 = 2;
 
+    [Header("Slow Motion")]
+    [SerializeField] public bool CanSlowMoAfterHit = false;
     [SerializeField] public float slowMotionTimeScale = 0.05f;
-    [SerializeField] public bool CanShakeCameraAfterHit = false;
     [SerializeField] public float SlowMotionDuration = 0.2f;
+
+    [Header("Camera Shake")]
+    [SerializeField] public bool CanShakeCameraAfterHit = false;
     [SerializeField] public float ShakeDuration = 1f;
     [SerializeField] public float ShakeIntensity = 1f;
 
@@ -59,6 +68,16 @@ public class GameManager : MonoBehaviour
         startFixedDeltaTime = Time.fixedDeltaTime;
 
         PauseMenu = GameObject.Find("Menus").transform.GetChild(0).gameObject;
+        if(ResetScriptableAfterRun)
+        {
+            ResetScriptableValues();
+        }
+    }
+
+    private void ResetScriptableValues()
+    {
+        PlayerData.EquippedWeaponID = "";
+        PlayerData.WeaponsIDsList.Clear();
     }
 
 
@@ -101,6 +120,14 @@ public class GameManager : MonoBehaviour
 
     public void CreateSlowMotionEffect(float duration, bool shouldShake = false)
     {
+        if (!CanSlowMoAfterHit)
+        {
+            if (shouldShake && CanShakeCameraAfterHit)
+            {
+                ShakeCamera();
+            }
+            return;
+        };
         StopCoroutine(SlowMotion(duration, shouldShake));
         StartCoroutine(SlowMotion(duration, shouldShake));
     }

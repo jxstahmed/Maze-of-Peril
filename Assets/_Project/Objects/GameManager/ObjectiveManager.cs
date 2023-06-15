@@ -11,7 +11,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public static ObjectiveManager Instance;
     [SerializeField] public List<LevelObjective> LevelObjectives = new List<LevelObjective>();
-    [SerializeField] public List<string> GenericKeys = new List<string>();
+    [SerializeField] public List<string> CollectedKeys = new List<string>();
 
     [SerializeField] TMPro.TextMeshProUGUI ObjectiveTitle;
     
@@ -47,7 +47,7 @@ public class ObjectiveManager : MonoBehaviour
         int firstMatch = -1;
         for(int i = 0; i < LevelObjectives.Count; i++)
         {
-            if (!LevelObjectives[i].isAccomplished())
+            if (!HasAccomplishedObjective(LevelObjectives[i]))
             {
                 firstMatch = i;
                 break;
@@ -63,7 +63,7 @@ public class ObjectiveManager : MonoBehaviour
 
         for(int i = 0; i < LevelObjectives.Count; i++)
         {
-            if (LevelObjectives[i] != null && !LevelObjectives[i].isAccomplished())
+            if (LevelObjectives[i] != null && !HasAccomplishedObjective(LevelObjectives[i]))
             {
                 levelObjective = LevelObjectives[i];
                 break;
@@ -110,45 +110,34 @@ public class ObjectiveManager : MonoBehaviour
     public void AddIDToObjective(string ID)
     {
         if (ID == null) return;
-        bool hasAdded = false;
-        LevelObjectives.ForEach(levelObjective =>
-        {
-            if(levelObjective.needIDs.Contains(ID))
-            {
-                hasAdded = true;
-                if (!levelObjective.collectedIDs.Contains(ID))
-                {
-                    levelObjective.collectedIDs.Add(ID);
-                }
-            }
-            
-        });
 
-        if(!hasAdded)
-        {
-            GenericKeys.Add(ID);
-        }
+        if(!HasCollectedID(ID))
+            CollectedKeys.Add(ID);
     }
 
 
-    public bool hasCollectedID(string ID)
+    public bool HasCollectedID(string ID)
     {
-        if (LevelObjectives == null || LevelObjectives.Count == 0) return false;
-        bool hasFound = false;
-        LevelObjectives.ForEach(collectedKey =>
+        return CollectedKeys.Contains(ID);
+    }
+
+    public bool HasAccomplishedObjective(LevelObjective levelObjective)
+    {
+        if (levelObjective == null) return false;
+        if (levelObjective.needIDs.Count == 0) return true;
+
+        bool missing = true;
+        levelObjective.needIDs.ForEach(x =>
         {
-            if (collectedKey.collectedIDs.Contains(ID))
+            if(!CollectedKeys.Contains(x))
             {
-                hasFound = true;
+                missing = false;
                 return;
             }
         });
 
-        if(!hasFound)
-        {
-            hasFound = GenericKeys.Contains(ID);
-        }
 
-        return hasFound;
+
+        return missing;
     }
 }

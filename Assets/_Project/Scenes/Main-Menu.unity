@@ -254,10 +254,18 @@ MonoBehaviour:
   PlayerScript: {fileID: 0}
   PlayerTag: Player
   EnemyTag: Enemy
+  StaticTag: Static
+  Enemies: []
+  Keys: []
   PauseMenu: {fileID: 0}
   SCENE_MAIN: 0
   SCENE_LEVEL_1: 1
   SCENE_LEVEL_2: 2
+  slowMotionTimeScale: 0.05
+  CanShakeCameraAfterHit: 0
+  SlowMotionDuration: 0.2
+  ShakeDuration: 1
+  ShakeIntensity: 1
 --- !u!4 &648850402
 Transform:
   m_ObjectHideFlags: 0

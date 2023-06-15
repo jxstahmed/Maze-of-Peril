@@ -222,7 +222,7 @@ public class ChestController : MonoBehaviour
         bool canOpen = true;
         foreach (string keyId in NeedsIds)
         {
-            if (ObjectiveManager.Instance.hasCollectedID(keyId) == false)
+            if (ObjectiveManager.Instance.HasCollectedID(keyId) == false)
             {
                 canOpen = false;
                 break;

@@ -21,10 +21,4 @@ MonoBehaviour:
   - MEANDEMO3
   - Room1ExitDoorKey
   - Room2BoxWithKey
-  collectedIDs:
-  - CHECKPOINT_GEARUP_PASSED
-  - MEANDEMO1
-  - MEANDEMO2
-  - MEANDEMO3
-  - Room1ExitDoorKey
-  - Room2BoxWithKey
+  collectedIDs: []
