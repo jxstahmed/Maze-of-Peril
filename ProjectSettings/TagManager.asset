@@ -10,6 +10,7 @@ TagManager:
   - Floors
   - PatrolPoint
   - Static
+  - Gate
   layers:
   - Default
   - TransparentFX
