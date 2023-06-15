@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: AngryBigBoi
   Rank: 0
+  Prefab: {fileID: 6515073841565013041, guid: 73c3982209d22db44a1f15564bb167ee, type: 3}
   OverallHealth: 180
   Health: 65
   Damage: 20

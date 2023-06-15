@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using NaughtyAttributes;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public static event Action<Hashtable> GameEvent;
 
-    // list of collected keys
-    [SerializeField] public List<ScriptableKey> CollectedKeys;
     
-    // list of killed enemies
-    [SerializeField] public List<ScriptableEnemy> KilledEnemies;
-
     // 
     [SerializeField] public WeaponsPack WeaponsPackData;
     [SerializeField] public PlayerStats PlayerData;
@@ -26,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public string EnemyTag = "Enemy";
     [SerializeField] public string StaticTag = "Static";
 
+    [SerializeField] public List<EnemiesStats> Enemies = new List<EnemiesStats>();
+    [SerializeField] public List<KeysStats> Keys = new List<KeysStats>();
+
     [SerializeField] public GameObject PauseMenu;
     [SerializeField] public int SCENE_MAIN = 0;
     [SerializeField] public int SCENE_LEVEL_1 = 1;
@@ -33,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] public float slowMotionTimeScale = 0.05f;
     [SerializeField] public bool CanShakeCameraAfterHit = false;
-    [SerializeField]  public float SlowMotionDuration = 0.2f;
+    [SerializeField] public float SlowMotionDuration = 0.2f;
     [SerializeField] public float ShakeDuration = 1f;
     [SerializeField] public float ShakeIntensity = 1f;
 
@@ -46,9 +45,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            CollectedKeys = new List<ScriptableKey>();
-            KilledEnemies = new List<ScriptableEnemy>();
         }
         else
         {
@@ -185,6 +181,49 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public string[] GetEnemiesDropdown()
+    {
+        string[] p = new string[Enemies.Count];
+
+        for(int i = 0; i < Enemies.Count; i++)
+        {
+            p[i] = Enemies[i].Name;
+        }
+
+        return p;
+    }
+
+
+
+
+    [System.Serializable]
+    public class Weapon
+    {
+        private List<string> List { get { return new List<string>() { "SwordChunky", "SwordGolden", "SwordLava", "SwordMeaty", "SwordOnFire"}; } }
+
+        [Dropdown("List")]
+        public string ID;
+    }
+
+    [System.Serializable]
+    public class Enemy
+    {
+        private List<string> List { get { return new List<string>() { "AngryBigBoi", "BigBoi", "GreenBi", "MeanSlime", "RedBoi" }; } }
+
+        [Dropdown("List")]
+        public string Name;
+    }
+
+    [System.Serializable]
+    public class Key
+    {
+        public string ID;
+
+        private List<string> List { get { return new List<string>() { "White", "Green", "Blue", "Yellow", "Purple", "Red" }; } }
+        
+        [Dropdown("List")]
+        public string Color;
+    }
 }
 
 

@@ -32,7 +32,7 @@ public class WeaponStatsProfile : MonoBehaviour
         if (other.tag == GameManager.Instance.EnemyTag)
         {
             EnemyAgentController enemy = other.GetComponent<EnemyAgentController>();
-            if (enemy != null)
+            if (enemy != null && weaponController != null)
             {
                 // Debug.Log("SwordAttack: Collided with enemy, time: " + Time.time);
                 weaponController.HitEnemy(WeaponStats, enemy);

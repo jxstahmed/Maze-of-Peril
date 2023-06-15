@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: MeanSlime
   Rank: 0
+  Prefab: {fileID: 7860374409171382065, guid: 84952da7a8ee3914cab2b1825b9a1a6f, type: 3}
   OverallHealth: 140
   Health: 140
   Damage: 15

@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChestController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public string ID;
-    [SerializeField] public string[] NeedsIDs;
-    [SerializeField] public List<string> PushesWeaponsIDs = new List<string>();
-    [SerializeField] public List<string> PushesEnemiesIDs = new List<string>();
-    [SerializeField] public List<string> PushesKeysIDs = new List<string>();
-    [SerializeField] public List<string> PushesPotions = new List<string>();
-    [SerializeField] public GameObject GoodiesObject;
+    [SerializeField] public string[] NeedsIds;
+    [SerializeField] public List<GameManager.Weapon> PushesWeaponsIds = new List<GameManager.Weapon>();
+
+
+    [SerializeField] public List<GameManager.Enemy> PushesEnemiesIds = new List<GameManager.Enemy>();
+
+
+    [SerializeField] public List<GameManager.Key> PushesKeysIds = new List<GameManager.Key>();
     [SerializeField] public bool IsOpen = false;
     [SerializeField] public bool Trigger = false;
 
@@ -100,6 +103,8 @@ public class ChestController : MonoBehaviour
         closeObject.enabled = false;
         openObject.enabled = true;
         pushWeapons();
+        pushEnemies();
+        pushKeys();
         
 
         if(!hasAddedID)
@@ -111,28 +116,76 @@ public class ChestController : MonoBehaviour
 
     public void pushEnemies()
     {
+        if (PushesEnemiesIds != null && PushesEnemiesIds.Count > 0)
+        {
+            for (int i = 0; i < PushesEnemiesIds.Count; i++)
+            {
+                // search for it in the game manager
+                for (int j = 0; j < GameManager.Instance.Enemies.Count; j++)
+                {
+                    if (GameManager.Instance.Enemies[j].Name.Equals(PushesEnemiesIds[i].Name))
+                    {
+                        GameObject parent = new GameObject("EnemyParent");
+                        parent.transform.SetParent(transform);
+                        parent.transform.localPosition = new Vector2(0, -1f);
 
+                        GameObject obj = Instantiate(GameManager.Instance.Enemies[j].Prefab, Vector2.zero, GameManager.Instance.Enemies[j].Prefab.transform.rotation);
+
+                        NavMeshAgent agent = obj.GetComponent<NavMeshAgent>();
+                        agent.enabled = false;
+                        EnemyAgentController controller = obj.GetComponent<EnemyAgentController>();
+                        controller.ID = PushesEnemiesIds[i].Name;
+                        
+                        controller.CanPatrol = false;
+                        obj.transform.SetParent(parent.transform, true);
+                        obj.transform.localPosition = new Vector2(0, 0);
+                        agent.enabled = true;
+
+                        PushesEnemiesIds.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void pushKeys()
     {
+        if(PushesKeysIds != null && PushesKeysIds.Count > 0) {
+            for(int i = 0; i < PushesKeysIds.Count; i++)
+            {
+                // search for it in the game manager
+                for(int j = 0; j < GameManager.Instance.Keys.Count; j++)
+                {
+                    if (GameManager.Instance.Keys[j].Color.Equals(PushesKeysIds[i].Color))
+                    {
+                        GameObject parent = new GameObject("KeyParent");
+                        parent.transform.SetParent(transform);
+                        parent.transform.localPosition = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-1.5f, -0.5f));
 
+                        GameObject obj = Instantiate(GameManager.Instance.Keys[j].Prefab, Vector2.zero, GameManager.Instance.Keys[j].Prefab.transform.rotation);
+
+
+                        KeyController controller = obj.GetComponent<KeyController>();
+                        controller.ID = PushesKeysIds[i].ID;
+                        obj.transform.SetParent(parent.transform, true);
+                        obj.transform.localPosition = new Vector2(0, 0);
+
+                        PushesKeysIds.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+        }
     }
-
-    public void pushGoodies()
-    {
-
-    }
-
     public void pushWeapons()
     {
-        if(PushesWeaponsIDs != null && PushesWeaponsIDs.Count > 0)
+        if(PushesWeaponsIds != null && PushesWeaponsIds.Count > 0)
         {
            
-            for(int i = 0; i < PushesWeaponsIDs.Count; i++)
+            for(int i = 0; i < PushesWeaponsIds.Count; i++)
             {
-                Debug.Log(PushesWeaponsIDs[i]);
-                int weaponIndex = WeaponsManager.Instance.FindWeaponIndex(PushesWeaponsIDs[i]);
+                int weaponIndex = WeaponsManager.Instance.FindWeaponIndex(PushesWeaponsIds[i].ID);
                 WeaponStats weaponStatsProfile = GameManager.Instance.WeaponsPackData.Swords[weaponIndex];
 
                 if (weaponStatsProfile != null)
@@ -141,15 +194,20 @@ public class ChestController : MonoBehaviour
                     WeaponStatsProfile controller = weaponStatsProfile.prefab.GetComponent<WeaponStatsProfile>();
                     controller.isEquipEnabled = true;
 
+                    GameObject parent = new GameObject("WeaponParent");
+                    parent.transform.SetParent(transform);
+                    parent.transform.localPosition = new Vector2(0f, -0.6f);
+
+
                     GameObject obj = Instantiate(weaponStatsProfile.prefab, Vector2.zero, weaponStatsProfile.prefab.transform.rotation);
 
 
-                    obj.transform.SetParent(GoodiesObject.transform, true);
+                    obj.transform.SetParent(parent.transform, true);
                     obj.transform.localPosition = weaponStatsProfile.Position;
                    
                 }
 
-                PushesWeaponsIDs.RemoveAt(i);
+                PushesWeaponsIds.RemoveAt(i);
                 i--;
             }
         }
@@ -158,11 +216,11 @@ public class ChestController : MonoBehaviour
 
     private bool HasIDs()
     {
-        if (NeedsIDs == null || NeedsIDs.Length == 0 || string.Join("", NeedsIDs) == "") return true;
+        if (NeedsIds == null || NeedsIds.Length == 0 || string.Join("", NeedsIds) == "") return true;
 
 
         bool canOpen = true;
-        foreach (string keyId in NeedsIDs)
+        foreach (string keyId in NeedsIds)
         {
             if (ObjectiveManager.Instance.hasCollectedID(keyId) == false)
             {

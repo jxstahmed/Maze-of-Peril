@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 8563113178378357537}
   - component: {fileID: 8563113178378357536}
   - component: {fileID: 8563113178378357543}
+  - component: {fileID: 7715027326044342064}
   m_Layer: 0
   m_Name: RedBoi
   m_TagString: Enemy
@@ -238,8 +239,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025970865, y: -0.003537168}
-  m_Size: {x: 0.44225132, y: 0.36625037}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.2, y: 0.25}
   m_Direction: 1
 --- !u!95 &8563113178378357537
 Animator:
@@ -271,7 +272,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8563113178378357541}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.15
+  m_Radius: 0.06
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -315,7 +316,7 @@ MonoBehaviour:
   - Static
   LookBehindWalls: 1
   SightInMovingDirection: 0
-  ClosestRadiusToPlayer: 0.98
+  ClosestRadiusToPlayer: 0.9
   WaitAfterChaseEndDuration: 1
   CollisionTag: PatrolPoint
   PatrolPoints: []
@@ -333,6 +334,32 @@ MonoBehaviour:
   FoundPlayerBySight: {fileID: 0}
   isEnemyBeingAttacked: 0
   isAttacking: 0
+--- !u!61 &7715027326044342064
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8563113178378357541}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.14, y: 0.2}
+    newSize: {x: 0.14, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.26643246, y: 0.38061783}
+  m_EdgeRadius: 0
 --- !u!1 &8563113178562948525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,7 +1134,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -1544549698, guid: 9a03174503aded047af836a6048891c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1118,7 +1145,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!1 &8563113180389497969
 GameObject:
   m_ObjectHideFlags: 0

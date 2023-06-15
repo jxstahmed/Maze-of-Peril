@@ -10,14 +10,14 @@ public class EnemyAgentController : MonoBehaviour
 
     [Header("Overall")]
     [Tooltip("This ID will be used as a reference for the ObjectiveManager")]
-    [SerializeField] string ID;
-    [SerializeField] float Health;
+    [SerializeField] public string ID;
+    [SerializeField] public float Health;
 
     [Header("States")]
-    [SerializeField] bool CanMove = false;
-    [SerializeField] bool CanFollow = false;
-    [SerializeField] bool CanPatrol = false;
-    [SerializeField] bool IsDead = false;
+    [SerializeField] public bool CanMove = false;
+    [SerializeField] public bool CanFollow = false;
+    [SerializeField] public bool CanPatrol = false;
+    [SerializeField] public bool IsDead = false;
 
 
     [Header("Attachments")]

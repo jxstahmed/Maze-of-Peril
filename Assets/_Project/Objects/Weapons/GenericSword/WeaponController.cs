@@ -75,6 +75,7 @@ public class WeaponController : MonoBehaviour
 
         animator.SetBool("isFlipped", transform.localScale.x < 0);
 
+        if(WeaponData != null)
         animator.SetInteger("swingType", WeaponData.SwingType);
     }
 

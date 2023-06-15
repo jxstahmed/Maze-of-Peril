@@ -42,6 +42,8 @@ public class ObjectiveManager : MonoBehaviour
 
     public int GetCurrentObjectiveNumber()
     {
+        if (LevelObjectives == null || LevelObjectives.Count == 0) return -1;
+
         int firstMatch = -1;
         for(int i = 0; i < LevelObjectives.Count; i++)
         {
@@ -56,11 +58,12 @@ public class ObjectiveManager : MonoBehaviour
     }
     public LevelObjective GetCurrentActiveObjective()
     {
+        if (LevelObjectives == null || LevelObjectives.Count == 0) return null;
         LevelObjective levelObjective = null;
 
-        for(int i = 0; i <= LevelObjectives.Count; i++)
+        for(int i = 0; i < LevelObjectives.Count; i++)
         {
-            if (!LevelObjectives[i].isAccomplished())
+            if (LevelObjectives[i] != null && !LevelObjectives[i].isAccomplished())
             {
                 levelObjective = LevelObjectives[i];
                 break;

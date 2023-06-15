@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: RedBoi
   Rank: 0
+  Prefab: {fileID: 8563113178378357541, guid: 03a01a64a640eb4419ef3e2e79eac06d, type: 3}
   OverallHealth: 180
   Health: 65
   Damage: 20

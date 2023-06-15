@@ -8,6 +8,7 @@ public class EnemiesStats : ScriptableObject
     [Header("Generic")]
     public string Name;
     public int Rank;
+    public GameObject Prefab;
 
     [Header("Stats")]
     public float OverallHealth;
