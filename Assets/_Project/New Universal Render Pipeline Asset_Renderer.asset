@@ -24,7 +24,7 @@ MonoBehaviour:
   m_LightRenderTextureScale: 0.5
   m_LightBlendStyles:
   - name: Multiply
-    maskTextureChannel: 0
+    maskTextureChannel: 1
     blendMode: 1
   - name: Additive
     maskTextureChannel: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   - name: Additive with Mask
     maskTextureChannel: 1
     blendMode: 0
-  m_UseDepthStencilBuffer: 1
+  m_UseDepthStencilBuffer: 0
   m_UseCameraSortingLayersTexture: 0
   m_CameraSortingLayersTextureBound: -1
   m_CameraSortingLayerDownsamplingMethod: 0
