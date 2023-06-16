@@ -652,4 +652,10 @@ public class EnemyAgentController : MonoBehaviour
         
         Destroy(gameObject);
     }
+
+    private void RootEnemy()
+    {
+        agent.speed = 0f;
+        rigidBody.velocity = new Vector2(0, 0);
+    }
 }
