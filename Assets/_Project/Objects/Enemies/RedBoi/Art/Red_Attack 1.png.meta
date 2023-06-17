@@ -117,43 +117,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Attack 1_3
+      name: Red_Attack 1_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 5
+        x: 19
+        y: 37
         width: 14
         height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eaa0f09c67825c741ba33926de4d776c
-      internalID: 1723154736
+      spriteID: dc76cd0bc50fee445be57fd12e623c08
+      internalID: 1850487919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Attack 1_5
+      name: Red_Attack 1_1
       rect:
         serializedVersion: 2
-        x: 97
-        y: 5
-        width: 14
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 46
+        y: 38
+        width: 30
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a444a571a3beb89488ba84f95a097a9d
-      internalID: 1410048629
+      spriteID: bdd27faaa71fac94da867bf95ba2a736
+      internalID: 2035493505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Attack 1_2
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 37
+        width: 14
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51096976b495490438beb30590c2e1a3
+      internalID: 1579159256
       vertices: []
       indices: 
       edges: []

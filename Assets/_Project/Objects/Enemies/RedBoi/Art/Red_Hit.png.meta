@@ -117,43 +117,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Hit_2
+      name: Red_Hit_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 6
+        x: 8
+        y: 38
         width: 14
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 800e6ad313d994d44a507e7cbdce0253
-      internalID: 568639350
+      spriteID: 2ce15b36aaf835643873a1b1f03d5687
+      internalID: 2010526377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Hit_3
+      name: Red_Hit_1
       rect:
         serializedVersion: 2
-        x: 42
-        y: 6
+        x: 40
+        y: 38
         width: 14
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f20064cf3d2b3c244ac9119d4a028dcc
-      internalID: 322373728
+      spriteID: 2f338e0c74e923d44a0a858b70b8af94
+      internalID: 1038528376
       vertices: []
       indices: 
       edges: []

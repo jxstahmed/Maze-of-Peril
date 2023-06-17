@@ -117,85 +117,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Green_Idle_4
+      name: Green_Idle_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 5
-        width: 20
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c77f553c88ec06948b41ae5c2a742592
-      internalID: 2090747981
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Green_Idle_5
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 5
-        width: 20
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 554193ce2b8cef241a9eba429c17d4db
-      internalID: 1366243377
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Green_Idle_6
-      rect:
-        serializedVersion: 2
-        x: 67
-        y: 5
+        x: 9
+        y: 37
         width: 20
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78a34fa45e8a0924181d631d1da509a8
-      internalID: 540347059
+      spriteID: c112e3d5deca6e446a82a959419eb2ac
+      internalID: 1340298830
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Green_Idle_7
+      name: Green_Idle_1
       rect:
         serializedVersion: 2
-        x: 99
-        y: 5
+        x: 41
+        y: 37
         width: 20
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: befbf6f958029934bb9a2c954a39443a
-      internalID: 1823812606
+      spriteID: e0822195512f6fb4cb418e13e4665bcb
+      internalID: 1193494790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Green_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 37
+        width: 20
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f7c68b0ce8e8214b8f550992dbfd254
+      internalID: -1310951764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Green_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 37
+        width: 20
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9456bd497150cb243b2e0e197fba857a
+      internalID: -810257988
       vertices: []
       indices: 
       edges: []

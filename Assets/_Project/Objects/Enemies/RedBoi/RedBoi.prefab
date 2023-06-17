@@ -194,12 +194,12 @@ SpriteRenderer:
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 280483777, guid: c4f7fee33e9c4514eacdf8e096b8b579, type: 3}
+  m_Sprite: {fileID: 1850487919, guid: 47e8d637f9dc86c4ab1eacd41b6e75ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.14, y: 0.2}
+  m_Size: {x: 0.14, y: 0.21}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -239,7 +239,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.11}
   m_Size: {x: 0.2, y: 0.25}
   m_Direction: 1
 --- !u!95 &8563113178378357537
@@ -307,7 +307,7 @@ MonoBehaviour:
   EnemyData: {fileID: 11400000, guid: ad0a007908365d643af539561bcd647f, type: 2}
   UIHealth: {fileID: 8563113178802590970}
   AttachmentWeapon: {fileID: 8563113180366291947}
-  DropShadowAttachment: {fileID: 0}
+  DropShadowAttachment: {fileID: 8563113180361632778}
   SelfSpot: {fileID: 8563113180055495434}
   SightSpot: {fileID: 8563113178373677985}
   EnableSelfLamp: 1
@@ -335,6 +335,7 @@ MonoBehaviour:
   FoundPlayerBySight: {fileID: 0}
   isEnemyBeingAttacked: 0
   isAttacking: 0
+  attackOnCooldown: 0
   DeathReplacementHasCollider: 0
   CreateTombstone: 1
   Tombstones:
@@ -360,9 +361,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.14, y: 0.2}
-    newSize: {x: 0.14, y: 0.2}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.14, y: 0.21}
+    newSize: {x: 0.14, y: 0.21}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -440,7 +441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.9, y: 13.2}
+  m_AnchoredPosition: {x: 0, y: 25.4}
   m_SizeDelta: {x: 52, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8563113178802590970
@@ -1013,8 +1014,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8563113180361632776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00446, y: -0.11868, z: 0}
-  m_LocalScale: {x: 0.07846629, y: 0.16002578, z: 0.385}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.11, y: 0.16002578, z: 0.385}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8563113178378357542}
@@ -1153,7 +1154,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!1 &8563113180389497969

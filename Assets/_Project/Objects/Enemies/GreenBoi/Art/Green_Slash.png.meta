@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Green_Slash_1
+      name: Green_Slash_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 11
+        x: 2
+        y: 43
         width: 25
         height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fee83d4c0688ea04880b1773cc6ee436
-      internalID: 156974703
+      spriteID: 303fd1a61c876b240be15477366b0d1a
+      internalID: 908301882
       vertices: []
       indices: 
       edges: []

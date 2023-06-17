@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Slash_1
+      name: RedBoiAttachment_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 13
+        x: 9
+        y: 45
         width: 16
         height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed42fd74b3cbbd941b0b5b2c6f44011e
-      internalID: -1544549698
+      spriteID: 01a7f9e7d4ec11840b8f52330e1bf56a
+      internalID: 261634901
       vertices: []
       indices: 
       edges: []
@@ -148,8 +148,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Red_Slash_0: -1595557446
-      Red_Slash_1: -1544549698
+      RedBoiAttachment_0: 261634901
+      RedBoiAttachment_1: 1897831940
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

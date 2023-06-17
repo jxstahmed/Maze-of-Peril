@@ -227,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.3, y: 16}
+  m_AnchoredPosition: {x: -2.3, y: 30.1}
   m_SizeDelta: {x: 52, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6515073839959920398
@@ -458,7 +458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6515073840337066838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00627, y: -0.1404, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.30262822, y: 0.13, z: 0.22}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -575,7 +575,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -1869315837
+  m_SortingLayerID: -44025399
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &6515073840683084534
@@ -1083,8 +1083,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01561584, y: -0.0055605676}
-  m_Size: {x: 0.40852505, y: 0.40852505}
+  m_Offset: {x: -0.03, y: 0.12}
+  m_Size: {x: 0.4, y: 0.4}
   m_Direction: 1
 --- !u!95 &6515073841565013045
 Animator:
@@ -1179,6 +1179,7 @@ MonoBehaviour:
   FoundPlayerBySight: {fileID: 0}
   isEnemyBeingAttacked: 0
   isAttacking: 0
+  attackOnCooldown: 0
   DeathReplacementHasCollider: 0
   CreateTombstone: 1
   Tombstones:

@@ -558,7 +558,6 @@ public class Player : MonoBehaviour
             AffectHealth((float)payload["health"]);
         }
     }
-
     public enum PLAYER_DIRECTIONS
     {
         UP,

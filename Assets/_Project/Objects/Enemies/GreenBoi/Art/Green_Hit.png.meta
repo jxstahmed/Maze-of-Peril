@@ -117,43 +117,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Green_Hit_2
+      name: Green_Hit_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
+        x: 8
+        y: 37
         width: 19
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 956d3d8ec217e9b43b27ec76fcfe979b
-      internalID: -182829425
+      spriteID: b36819df248734b4cb66fc268920d387
+      internalID: 41281428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Green_Hit_3
+      name: Green_Hit_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 5
+        x: 40
+        y: 37
         width: 19
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74ac39953edca8a4dade3ae7b79138bf
-      internalID: 1222673784
+      spriteID: a45f90b5267d0664298929e4fe0905bc
+      internalID: -1430789185
       vertices: []
       indices: 
       edges: []

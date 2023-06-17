@@ -21,17 +21,23 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: -1755814073, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
-    - time: 0.083333336
+    - time: 0.125
       value: {fileID: -1191622565, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
-    - time: 0.16666667
-      value: {fileID: -818941932, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
     - time: 0.25
+      value: {fileID: -818941932, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
+    - time: 0.375
       value: {fileID: -24833364, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
+    - time: 0.5
+      value: {fileID: -1416554569, guid: d229191cb9809ed408425a6c254a48ef, type: 3}
+    - time: 0.625
+      value: {fileID: 76708106, guid: 147b63323765ae5479676efe235aa569, type: 3}
+    - time: 0.75
+      value: {fileID: 484123130, guid: d229191cb9809ed408425a6c254a48ef, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 12
+  m_SampleRate: 8
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -50,12 +56,15 @@ AnimationClip:
     - {fileID: -1191622565, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
     - {fileID: -818941932, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
     - {fileID: -24833364, guid: 1f0663efcb7b9594897c3e3a71b1757b, type: 3}
+    - {fileID: -1416554569, guid: d229191cb9809ed408425a6c254a48ef, type: 3}
+    - {fileID: 76708106, guid: 147b63323765ae5479676efe235aa569, type: 3}
+    - {fileID: 484123130, guid: d229191cb9809ed408425a6c254a48ef, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0.875
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -75,11 +84,17 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.33333334
+  - time: 0.25
+    functionName: DamagePlayer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
     functionName: ResetAttack
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 032930ab7c9e81c44a87e3783000e8db,
-      type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

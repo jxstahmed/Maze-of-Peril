@@ -62,6 +62,7 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] Rigidbody2D FoundPlayerBySight;
     [SerializeField] bool isEnemyBeingAttacked = false;
     [SerializeField] bool isAttacking = false;
+    [SerializeField] private bool attackOnCooldown;
 
     [Header("DeathReplacements")]
     [SerializeField] bool DeathReplacementHasCollider;
@@ -80,13 +81,14 @@ public class EnemyAgentController : MonoBehaviour
     private float internalHealthCooldowTimer = 0f;
     private Animator animator;
 
-    private bool attackOnCooldown = false;
+    
 
     [Header("Knockback")]
     [SerializeField] float powBase = 3f;
     [SerializeField] float powStartX = 0.5f;
     [SerializeField] float powExpMultiplier = 5f;
 
+    
 
     private void Awake()
     {
@@ -149,15 +151,18 @@ public class EnemyAgentController : MonoBehaviour
     void FixedUpdate()
     {
         //if (IsDead)
-           // return;
-
-        IsMoving = agent.velocity.x > 0 || agent.velocity.y > 0;
+        // return;
+        IsMoving = agent.velocity.x != 0 || agent.velocity.y != 0;
 
 
         UpdateUI();
 
         bool OldCanSeePlayer = CanSeePlayer;
-        
+
+        animator.SetBool("isMoving", IsMoving && !isAttacking);
+
+        if (IsDead || !CanMove) return;
+
         SeePlayer();
 
         bool ShouldWaitForChaseEnd = (WaitAfterChaseEndDuration > 0 && OldCanSeePlayer && !CanSeePlayer) || IsWaitingAfterChaseEnd;
@@ -167,9 +172,7 @@ public class EnemyAgentController : MonoBehaviour
         IsFollowing = CanMove && CanFollow && CanSeePlayer && FoundPlayerBySight != null;
 
 
-        animator.SetBool("isMoving", IsMoving && !isAttacking);
-
-        if (IsDead || !CanMove) return;
+        
 
         if(ShouldWaitForChaseEnd && !CanSeePlayer)
         {
@@ -253,6 +256,21 @@ public class EnemyAgentController : MonoBehaviour
             DropShadowAttachment.transform.localPosition = new Vector2(x, DropShadowAttachment.transform.localPosition.y);
         }
 
+        //switches orientation of healthbar so it stays on top of head
+        Vector2 healthbarpos = UIHealth.transform.localPosition;
+        Vector2 shadowPos = DropShadowAttachment.transform.localPosition;
+        if (isRight)
+        {
+            shadowPos.x = Mathf.Abs(shadowPos.x);
+            healthbarpos.x = Mathf.Abs(healthbarpos.x);
+        }
+        else
+        {
+            shadowPos.x = -Mathf.Abs(shadowPos.x);
+            healthbarpos.x = -Mathf.Abs(healthbarpos.x);
+        }
+        DropShadowAttachment.transform.localPosition = shadowPos;
+        UIHealth.transform.localPosition = healthbarpos;
     }
 
     void SeePlayer()
@@ -463,7 +481,12 @@ public class EnemyAgentController : MonoBehaviour
         CanFollow = false;
         animator.SetBool("isMoving", false);
     }
-
+    void ContinueMovement()
+    {
+        CanMove = true;
+        CanPatrol = true;
+        CanFollow = true;
+    }
     void EnemeytatsIncrement()
     {
 
@@ -485,8 +508,6 @@ public class EnemyAgentController : MonoBehaviour
         AffectHealth(damage);
 
         //StopAllCoroutines();
-
-
         //StartCoroutine(PushEnemy(player, force));
         knockback(player, force);
     }
@@ -624,13 +645,14 @@ public class EnemyAgentController : MonoBehaviour
 
             //dein alter code ist auskommentier noch da, daran habe ich auch nichts geändert.
             //Attackcooldown funktioniert jetzt so, dass wenn ein gegner angreift eine coroutine startet, die den cooldown wartet und dann dem gegner wieder erlaubt anzugreifen.
-            if (CanAttack && !attackOnCooldown)
+            if (CanAttack && !attackOnCooldown && !isAttacking)
             {
-                Debug.Log("Attacking Player");
+                Debug.LogWarning("Attacking Player");
                 attackOnCooldown = true;
-                isAttacking = false;
+                isAttacking = true;
                 animator.SetTrigger("attack");
-                GameManager.Instance.AttackPlayer(-EnemyData.Damage);
+                animator.SetBool("isAttacking",true);
+                StopMovement();
                 StartCoroutine(EnemyAttackCooldown());
             }
         }
@@ -638,11 +660,16 @@ public class EnemyAgentController : MonoBehaviour
     //waits N seconds and then allows the enemy to hit the player again
     private IEnumerator EnemyAttackCooldown()
     {
-        yield return new WaitForSeconds(EnemyData.AttackCooldown); 
+        yield return new WaitForSeconds(EnemyData.AttackCooldown);
+        Debug.LogWarning("enemy can now attack again");
         attackOnCooldown = false;
+        animator.SetBool("isAttacking", false);
         yield return 0;
     }
-
+    private void DamagePlayer()
+    {
+        GameManager.Instance.AttackPlayer(-EnemyData.Damage);
+    }
    /* private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(GameManager.Instance.PlayerTag))
@@ -654,7 +681,11 @@ public class EnemyAgentController : MonoBehaviour
 
     public void ResetAttack()
     {
+        if (!isAttacking)
+            return;
         isAttacking = false;
+        ContinueMovement();
+
     }
 
     public void HideAttachment()
@@ -690,6 +721,7 @@ public class EnemyAgentController : MonoBehaviour
         if ((GameState)payload["state"] == GameState.StopEnemies)
         {
             StopMovement();
+            CanAttack = false;
         }
     }
 

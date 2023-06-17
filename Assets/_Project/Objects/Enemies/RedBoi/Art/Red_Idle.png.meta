@@ -117,85 +117,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Idle_4
+      name: Red_Idle_0
       rect:
         serializedVersion: 2
         x: 9
-        y: 5
+        y: 37
         width: 14
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03dad017a74e7f8448541e8ff8b070e1
-      internalID: 280483777
+      spriteID: 29222c80e9704584ba9f9dd6c15d4d1e
+      internalID: -1891322359
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Idle_5
+      name: Red_Idle_1
       rect:
         serializedVersion: 2
         x: 41
-        y: 5
+        y: 37
         width: 14
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f6589ff50ed4344fae3bb58718ffc88
-      internalID: -961726254
+      spriteID: 607086cfdc403fc4ab50cea388cadcb9
+      internalID: -1910121920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Idle_6
+      name: Red_Idle_2
       rect:
         serializedVersion: 2
         x: 73
-        y: 5
+        y: 37
         width: 14
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbb1f7d990c4eac429754f44412166e9
-      internalID: -379047448
+      spriteID: 00ea41403fcb39543bf2ee4fe0e676fc
+      internalID: -1750844796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Idle_7
+      name: Red_Idle_3
       rect:
         serializedVersion: 2
         x: 105
-        y: 5
+        y: 37
         width: 14
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 989108bacbc2c374b9c64ad1ab72a9e5
-      internalID: 1566760172
+      spriteID: 89333dfe332de0c4596c62c3be290516
+      internalID: -1822027511
       vertices: []
       indices: 
       edges: []

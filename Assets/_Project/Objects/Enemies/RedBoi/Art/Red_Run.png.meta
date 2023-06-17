@@ -117,127 +117,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red_Run_6
+      name: Red_Run_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 7
+        x: 7
+        y: 39
         width: 14
         height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7aac8af8db48944da3dafb591fa608f
-      internalID: -618515449
+      spriteID: 4a84596e319414e418d716f077589523
+      internalID: -326451608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Run_7
+      name: Red_Run_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 9
+        x: 39
+        y: 39
+        width: 14
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40d2721c933887f40a58bb25d4bddaba
+      internalID: 2135385493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Red_Run_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 39
         width: 14
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 774227bb27810304a80421a2910520ae
-      internalID: 938921338
+      spriteID: fda9bff02b47bf744a86144dd70e9916
+      internalID: 44916408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Run_8
+      name: Red_Run_3
       rect:
         serializedVersion: 2
-        x: 74
-        y: 7
-        width: 14
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d7421e41893ea654cbe953b4c40f199c
-      internalID: -2057598095
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Red_Run_9
-      rect:
-        serializedVersion: 2
-        x: 106
-        y: 7
+        x: 104
+        y: 39
         width: 14
         height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 671f026b582fe01478ffa2d154986ef9
-      internalID: 1335128989
+      spriteID: a897b22b95b684c4f80deb1f85b5b8f9
+      internalID: -742295428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Run_10
+      name: Red_Run_4
       rect:
         serializedVersion: 2
-        x: 138
-        y: 9
+        x: 136
+        y: 39
         width: 14
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c4c9494a23ca4944bc219e906036ce1
-      internalID: -760774849
+      spriteID: 141f07b396ccd4e4491ce60292fb15f5
+      internalID: 1744541161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red_Run_11
+      name: Red_Run_5
       rect:
         serializedVersion: 2
-        x: 170
-        y: 7
+        x: 168
+        y: 39
         width: 14
         height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a819ff2c9c0a9a34ab75816818f61de4
-      internalID: -1638331152
+      spriteID: 5d99e73dd81c0084cbd0ea1ca4f29413
+      internalID: 1353022293
       vertices: []
       indices: 
       edges: []
