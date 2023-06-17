@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 
     private bool canMove = true;
     private bool hasToggledWeaponKey = false;
-    
+
 
     private Vector2 playerMovement;
     private Vector2 playerMovementLast;
@@ -78,11 +78,11 @@ public class Player : MonoBehaviour
     {
         PlayerUI();
 
-        if(!IsDead && PlayerData.Health <= 0)
+        if (!IsDead && PlayerData.Health <= 0)
         {
             KillPlayer();
         }
-       
+
 
         if (!canMove || IsDead)
             return;
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         PlayerAnimation();
         PlayerWeapon();
 
-        if(isPlayerRunning)
+        if (isPlayerRunning)
         {
             CreateDust();
         }
@@ -113,10 +113,10 @@ public class Player : MonoBehaviour
         if (isPlayerRunning) internalStaminaCooldownTimer = 0;
 
 
-        
+
         PlayerControlls();
 
-        if(internalIncrementTimer >= PlayerData.IncrementEverySeconds)
+        if (internalIncrementTimer >= PlayerData.IncrementEverySeconds)
         {
             internalIncrementTimer = 0;
             PlayerStatsIncrement();
@@ -129,18 +129,18 @@ public class Player : MonoBehaviour
         {
             ToggleWeapon();
         }
-        
+
         if (Input.GetKeyDown(KeyToggleWeapon))
         {
             ToggleWeaponSelection();
         }
 
-        
+
 
         if (Input.GetKeyDown(KeySwordAttack))
         {
             // The player wants to attack, we check the current ability to hit (stamina check up)
-            if(PlayerData.Stamina > 0)
+            if (PlayerData.Stamina > 0)
             {
                 WeaponStats activeWeapon = GetActiveWeaponProfile();
                 if (activeWeapon != null)
@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-            
+
 
 
         // Movement
@@ -188,16 +188,22 @@ public class Player : MonoBehaviour
 
     private void PlayerDirection()
     {
-        if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, true))
-        {
+        //ist der spieler nach links oder rechts gedreht
+        if (playerMovement.x < 0)
+            sprite_renderer.flipX = true;
+        else if (playerMovement.x > 0)
             sprite_renderer.flipX = false;
 
-           
+
+        //gesamte Is PlayerMoving funktion ist überkompliziert und kann durch die oberen code erstzt werden
+       /* if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, true))
+        {
+            sprite_renderer.flipX = false;
         }
         else if (IsPlayerMoving(PLAYER_DIRECTIONS.LEFT, true))
         {
             sprite_renderer.flipX = true;
-        }
+        }*/
 
         if (WeaponObject != null && IsWeaponShown)
         {

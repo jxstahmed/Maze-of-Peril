@@ -14,6 +14,7 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] public float Health;
 
     [Header("States")]
+    [SerializeField] public bool CanAttack = false;
     [SerializeField] public bool CanMove = false;
     [SerializeField] public bool CanFollow = false;
     [SerializeField] public bool CanPatrol = false;
@@ -78,6 +79,13 @@ public class EnemyAgentController : MonoBehaviour
     private float internalIncrementTimer = 0f;
     private float internalHealthCooldowTimer = 0f;
     private Animator animator;
+
+    private bool attackOnCooldown = false;
+
+    [Header("Knockback")]
+    [SerializeField] float powBase = 3f;
+    [SerializeField] float powStartX = 0.5f;
+    [SerializeField] float powExpMultiplier = 5f;
 
 
     private void Awake()
@@ -476,14 +484,52 @@ public class EnemyAgentController : MonoBehaviour
         animator.SetTrigger("takeDamage");
         AffectHealth(damage);
 
-        StopAllCoroutines();
-        
+        //StopAllCoroutines();
 
-        StartCoroutine(PushEnemy(player, force));
-        
+
+        //StartCoroutine(PushEnemy(player, force));
+        knockback(player, force);
     }
 
-    private IEnumerator PushEnemy(Transform player, float force)
+    private void knockback(Transform player, float force)
+    {
+        Vector3 direction = (transform.position - player.position).normalized;
+        rigidBody.AddForce(direction * force, ForceMode2D.Impulse);
+        StartCoroutine(StopKnockback());
+    }
+
+    //stops the knockback exponentially for a smoother knockback
+    private IEnumerator StopKnockback()
+    {
+        float KnockbackFactor = powStartX;
+        while (rigidBody.velocity.x != 0 || rigidBody.velocity.y != 0)
+        {
+            //if calculation goes wrong: enemy cant get knocked back longer than 0.75 seconds
+            if(KnockbackFactor - powStartX > 0.75)
+            {
+                rigidBody.velocity = Vector2.zero;
+                break;
+            }
+
+            //force function to iterate in gametime
+            yield return new WaitForSeconds(Time.deltaTime);
+            KnockbackFactor += Time.deltaTime;
+
+            //calculate factor for exponential decrease of velocity
+            float Factor = Mathf.Pow(powBase, KnockbackFactor * powExpMultiplier) * Time.deltaTime;
+
+            //if velocity in x or y dir reaches or surpasses 0
+            if (Mathf.Abs(rigidBody.velocity.x) - Mathf.Abs(rigidBody.velocity.normalized.x) * Factor <= 0)
+                rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            if (Mathf.Abs(rigidBody.velocity.y) - Mathf.Abs(rigidBody.velocity.normalized.y) * Factor <= 0)
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x,0);
+            Vector2 dir = rigidBody.velocity;
+            dir.Normalize();
+            rigidBody.velocity -= dir * Factor;
+        }
+        yield return 0;
+    }
+    /*private IEnumerator PushEnemy(Transform player, float force)
     {
         yield return new WaitForSeconds(0.1f);
 
@@ -493,13 +539,12 @@ public class EnemyAgentController : MonoBehaviour
 
         StartCoroutine(ResetKnockback());
     }
-    
 
     private IEnumerator ResetKnockback()
     {
         yield return new WaitForSeconds(0.15f);
         rigidBody.velocity = Vector2.zero;
-    }
+    }*/
 
 
     public void AffectHealth(float health)
@@ -542,12 +587,12 @@ public class EnemyAgentController : MonoBehaviour
             Debug.Log("AI has collided in OnTriggerEnter");
             HasCollided = true;
         }
-        else if (col.gameObject.CompareTag(GameManager.Instance.PlayerTag) && CanFollow && CanSeePlayer)
+       /* else if (col.gameObject.CompareTag(GameManager.Instance.PlayerTag) && CanFollow && CanSeePlayer)
         {
             Debug.Log("OnTriggerEnter Player");
             LastPlayerAttackTime = Time.time;
 
-        }
+        }*/
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -555,38 +600,57 @@ public class EnemyAgentController : MonoBehaviour
         if (other.CompareTag(GameManager.Instance.PlayerTag))
         {
             Debug.Log("Enemy, inside CompareTag");
+            
             // Current time & delay
             // First touch at second 2
             // We test at second 5, attack pause is 2 => first touch + 2 => 5 > 4, we can hit
             // set the time of last_hit to 5 and then retry 
             // player gets away and OnExit is trigger
             // player gets back at 7.2 and when he first touches => he gets hit
-
-            float allowedPlayerAttackTime = LastPlayerAttackTime + EnemyData.AttackCooldown;
+            /*float allowedPlayerAttackTime = LastPlayerAttackTime + EnemyData.AttackCooldown;
             if (LastPlayerAttackTime != 0 && Time.time >= allowedPlayerAttackTime)
             {
                 // hitting 
                 Debug.Log("OnTriggerStay2D");
                 LastPlayerAttackTime = Time.time;
                 Debug.Log("Attacking Player");
-                if(CanMove)
+                if (CanMove)
                 {
                     isAttacking = false;
                     animator.SetTrigger("attack");
                     GameManager.Instance.AttackPlayer(-EnemyData.Damage);
                 }
+            }*/
+
+            //dein alter code ist auskommentier noch da, daran habe ich auch nichts geändert.
+            //Attackcooldown funktioniert jetzt so, dass wenn ein gegner angreift eine coroutine startet, die den cooldown wartet und dann dem gegner wieder erlaubt anzugreifen.
+            if (CanAttack && !attackOnCooldown)
+            {
+                Debug.Log("Attacking Player");
+                attackOnCooldown = true;
+                isAttacking = false;
+                animator.SetTrigger("attack");
+                GameManager.Instance.AttackPlayer(-EnemyData.Damage);
+                StartCoroutine(EnemyAttackCooldown());
             }
         }
     }
+    //waits N seconds and then allows the enemy to hit the player again
+    private IEnumerator EnemyAttackCooldown()
+    {
+        yield return new WaitForSeconds(EnemyData.AttackCooldown); 
+        attackOnCooldown = false;
+        yield return 0;
+    }
 
-    private void OnTriggerExit2D(Collider2D other)
+   /* private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(GameManager.Instance.PlayerTag))
         {
             Debug.Log("OnTriggerExit2D");
             LastPlayerAttackTime = 0;
         }
-    }
+    }*/
 
     public void ResetAttack()
     {
@@ -651,11 +715,5 @@ public class EnemyAgentController : MonoBehaviour
         }
         
         Destroy(gameObject);
-    }
-
-    private void RootEnemy()
-    {
-        agent.speed = 0f;
-        rigidBody.velocity = new Vector2(0, 0);
     }
 }
