@@ -26,6 +26,7 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] Slider UIHealth;
     [SerializeField] SpriteRenderer AttachmentWeapon;
     [SerializeField] SpriteRenderer DropShadowAttachment;
+    [SerializeField] SpriteRenderer ExcelemationMarkAttachment;
     [SerializeField] Light2D SelfSpot;
     [SerializeField] Light2D SightSpot;
 
@@ -124,7 +125,13 @@ public class EnemyAgentController : MonoBehaviour
 
     private void Update()
     {
-        if (IsDead) return;
+        if (IsDead) {
+            if (ExcelemationMarkAttachment != null)
+                ExcelemationMarkAttachment.enabled = false;
+            if (UIHealth != null)
+                UIHealth.transform.position = new Vector2(0, float.MaxValue); //ich weiß ist jetzt keine cleane lösung aber funktioniert
+            return; 
+        }
 
         if(HasSetPatrolStopTime)
             PatrolDurationTimer += Time.deltaTime;
@@ -135,6 +142,13 @@ public class EnemyAgentController : MonoBehaviour
         if(CanFollow)
             LastLockedSightTimer += Time.deltaTime;
 
+        if (ExcelemationMarkAttachment != null)
+        {
+            if (IsFollowing)
+                ExcelemationMarkAttachment.enabled = true;
+            else
+                ExcelemationMarkAttachment.enabled = false;
+        }
 
 
         internalIncrementTimer += Time.deltaTime;
@@ -170,6 +184,7 @@ public class EnemyAgentController : MonoBehaviour
 
         IsPatroling = CanMove && CanPatrol && !CanSeePlayer;
         IsFollowing = CanMove && CanFollow && CanSeePlayer && FoundPlayerBySight != null;
+        
 
 
         
