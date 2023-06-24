@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class ChestController : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] public string Label;
     [SerializeField] public string ID;
     [SerializeField] public string[] NeedsIds;
     [SerializeField] public List<GameManager.Weapon> PushesWeaponsIds = new List<GameManager.Weapon>();
@@ -21,6 +22,7 @@ public class ChestController : MonoBehaviour
     private SpriteRenderer openObject;
     private SpriteRenderer closeObject;
     private bool hasAddedID = false;
+    private LabelTextController labelController;
     [SerializeField]
     public bool ANIMATOR_TRIGGER_OPEN
     {
@@ -43,6 +45,7 @@ public class ChestController : MonoBehaviour
     }
     void Start()
     {
+        labelController = GetComponent<LabelTextController>();
         openObject = transform.Find("Opened").gameObject.GetComponent<SpriteRenderer>();
         closeObject = transform.Find("Closed").gameObject.GetComponent<SpriteRenderer>();
 
@@ -92,6 +95,8 @@ public class ChestController : MonoBehaviour
 
     public void SetClosed()
     {
+        if (IsOpen) AudioManager.Instance.PlayFromPosition(AudioManager.Instance.ChestCloses, gameObject.transform);
+
         IsOpen = false;
         closeObject.enabled = true;
         openObject.enabled = false;
@@ -99,6 +104,10 @@ public class ChestController : MonoBehaviour
 
     public void SetOpened()
     {
+        // If it was closed and now opened, we activate the sound
+        if(!IsOpen) AudioManager.Instance.PlayFromPosition(AudioManager.Instance.ChestOpens, gameObject.transform);
+
+
         IsOpen = true;
         closeObject.enabled = false;
         openObject.enabled = true;
@@ -134,7 +143,7 @@ public class ChestController : MonoBehaviour
                         NavMeshAgent agent = obj.GetComponent<NavMeshAgent>();
                         agent.enabled = false;
                         EnemyAgentController controller = obj.GetComponent<EnemyAgentController>();
-                        controller.ID = PushesEnemiesIds[i].Name;
+                        controller.ID = PushesEnemiesIds[i].EnemyID;
                         
                         controller.CanPatrol = false;
                         obj.transform.SetParent(parent.transform, true);
@@ -193,6 +202,7 @@ public class ChestController : MonoBehaviour
                     //weaponStatsProfile.prefab.
                     WeaponStatsProfile controller = weaponStatsProfile.prefab.GetComponent<WeaponStatsProfile>();
                     controller.isEquipEnabled = true;
+                    controller.ID = PushesWeaponsIds[i].WeaponID;
 
                     GameObject parent = new GameObject("WeaponParent");
                     parent.transform.SetParent(transform);
@@ -245,6 +255,13 @@ public class ChestController : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlayFromPosition(AudioManager.Instance.ObjectNotYetUnlocked, gameObject.transform);
+
+                if(labelController != null && Label != null && Label != "")
+                {
+                    labelController.Initiate(Label, transform);
+                }
+
                 Debug.Log("Chest:OnTriggerEnter2D, Not HasIDs");
             }
 

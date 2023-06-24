@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using NaughtyAttributes;
 
@@ -17,23 +16,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool ResetScriptableAfterRun = true;
 
 
+    [Header("Prefabs")]
+    [SerializeField] public GameObject TextLabelPrefab;
+
+
     [Header("Tags")]
     [SerializeField] public string PlayerTag = "Player";
     [SerializeField] public string EnemyTag = "Enemy";
     [SerializeField] public string StaticTag = "Static";
 
     [Header("Attachments")]
+    [SerializeField] public GameSettings Settings;
     [SerializeField] public WeaponsPack WeaponsPackData;
     [SerializeField] public PlayerStats PlayerData;
     [SerializeField] public Player PlayerScript;
     [SerializeField] public List<EnemiesStats> Enemies = new List<EnemiesStats>();
     [SerializeField] public List<KeysStats> Keys = new List<KeysStats>();
-
-    [Header("Menus")]
-    [SerializeField] public GameObject PauseMenu;
-    [SerializeField] public int SCENE_MAIN = 0;
-    [SerializeField] public int SCENE_LEVEL_1 = 1;
-    [SerializeField] public int SCENE_LEVEL_2 = 2;
 
     [Header("Slow Motion")]
     [SerializeField] public bool CanSlowMoAfterHit = false;
@@ -67,7 +65,7 @@ public class GameManager : MonoBehaviour
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
 
-        PauseMenu = GameObject.Find("Menus").transform.GetChild(0).gameObject;
+        
         if(ResetScriptableAfterRun)
         {
             ResetScriptableValues();
@@ -172,42 +170,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void StartGame()
-    {
-        SceneManager.LoadScene(SCENE_LEVEL_1);
-    }
-    public void StartLevel(int level)
-    {
-        if(level == 1)
-        {
-            SceneManager.LoadScene(SCENE_LEVEL_1);
-        } else if (level == 2)
-        {
-            SceneManager.LoadScene(SCENE_LEVEL_2);
-        }
-    }
-    public void OpenMainMenu()
-    {
-        SceneManager.LoadScene(SCENE_MAIN);
-    }
-
-    public void PauseGame()
-    {
-        Time.timeScale = 0f;
-        PauseMenu.SetActive(true);
-    }
-
-    public void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        PauseMenu.SetActive(false);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
+ 
     public string[] GetEnemiesDropdown()
     {
         string[] p = new string[Enemies.Count];
@@ -230,6 +193,9 @@ public class GameManager : MonoBehaviour
 
         [Dropdown("List")]
         public string ID;
+
+        [Tooltip("Used for objectives, e.g. to make sure that the player did indeed take the weapon.")]
+        public string WeaponID;
     }
 
     [System.Serializable]
@@ -239,6 +205,9 @@ public class GameManager : MonoBehaviour
 
         [Dropdown("List")]
         public string Name;
+
+        [Tooltip("Used for objectives, e.g. to make sure that the player did indeed kill the enemy.")]
+        public string EnemyID;
     }
 
     [System.Serializable]

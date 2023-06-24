@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 6615642876238477648}
   - component: {fileID: 6615642876238477679}
   - component: {fileID: 7078390493087903825}
+  - component: {fileID: 2462558390540633373}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Static
@@ -441,12 +442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b59d5e26dca124e922716f6d932c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Label: 
   ID: 
   NeedsIds: []
   PushesWeaponsIds: []
   PushesEnemiesIds: []
   PushesKeysIds: []
-  WeaponHoldingParent: {fileID: 0}
   IsOpen: 0
   Trigger: 0
 --- !u!95 &6615642876238477648
@@ -517,3 +518,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4088689, y: 1.5622375}
   m_EdgeRadius: 0
+--- !u!114 &2462558390540633373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615642876238477651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f7f394c0e6b904bbd060838fb25144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private KeyCode KeySwordAttack = KeyCode.Space;
 
+    private AudioSource audioSource;
     private Animator animator;
     private SpriteRenderer sprite_renderer;
     private Rigidbody2D rigidBody;
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
         PlayerData.Stamina = PlayerData.OverallStamina;
 
         ApplyEquippedWeapon();
+        AudioManager.Instance.CreateTimer("player", AudioManager.Instance.PlayerMovementRate);
     }
 
 
@@ -92,6 +95,7 @@ public class Player : MonoBehaviour
         PlayerMove();
         PlayerAnimation();
         PlayerWeapon();
+        PlayerAudio();
 
         if (isPlayerRunning)
         {
@@ -99,8 +103,7 @@ public class Player : MonoBehaviour
         }
     }
 
-
-
+    
     private void Update()
     {
         if (!canMove || IsDead) return;
@@ -121,6 +124,23 @@ public class Player : MonoBehaviour
             internalIncrementTimer = 0;
             PlayerStatsIncrement();
         }
+    }
+
+    private void PlayerAudio()
+    {
+        if (isPlayerMoving)
+        {
+            if (isPlayerRunning)
+            {
+                // run
+                AudioManager.Instance.PlayeOneShotFromAudioInstance(audioSource, AudioManager.Instance.PlayerSprints, "player");
+            }
+            else
+            {
+                // walk
+                AudioManager.Instance.PlayeOneShotFromAudioInstance(audioSource, AudioManager.Instance.PlayerWalks, "player");
+            }
+        } 
     }
 
     private void PlayerControlls()
@@ -364,6 +384,8 @@ public class Player : MonoBehaviour
 
     public void ApplyDamage(float enemyDamage)
     {
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerGotHit, gameObject.transform);
+
         Debug.Log("Damage is: " + enemyDamage);
         AffectHealth(enemyDamage);
 
@@ -380,6 +402,7 @@ public class Player : MonoBehaviour
 
     private void KillPlayer()
     {
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerDies, gameObject.transform);
         hasToggledWeaponKey = true;
         IsWeaponShown = false;
         IsDead = true;

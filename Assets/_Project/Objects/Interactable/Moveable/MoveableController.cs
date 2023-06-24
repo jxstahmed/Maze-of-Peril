@@ -7,6 +7,15 @@ public class MoveableController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] public List<string> PushesIDs = new List<string>();
     [SerializeField] public string[] NeedsIDs;
+    [SerializeField] public string Label;
+
+    private LabelTextController labelController;
+
+    public void Start()
+    {
+        labelController = GetComponent<LabelTextController>();
+
+    }
 
     private bool HasIDs()
     {
@@ -36,7 +45,10 @@ public class MoveableController : MonoBehaviour
                 PushesIDs.ForEach(id => ObjectiveManager.Instance.CollectMoveableTriggerPoint(id));
             } else
             {
-                // todo: add https://www.youtube.com/watch?v=7rNUWiRD8Ko
+                if (labelController != null && Label != null && Label != "")
+                {
+                    labelController.Initiate(Label, transform);
+                }
             }
 
         }

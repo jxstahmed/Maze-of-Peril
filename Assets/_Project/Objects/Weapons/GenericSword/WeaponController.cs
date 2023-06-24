@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class WeaponController : MonoBehaviour
 {
+    [Header("Logic")]
+    [SerializeField] public float CancelAttackStateAfter = 0.15f;
+    [SerializeField] public bool HasPressedAttack = false;
+
     [Header("Attachments")]
     [SerializeField] public WeaponStats WeaponData;
     [SerializeField] public Player PlayerScript;
@@ -12,21 +16,19 @@ public class WeaponController : MonoBehaviour
     [SerializeField] public float GFXHitDelay = 0.2f;
     [SerializeField] public float AttackingSafeZoneTime = 2f;
 
-    [Header("States")]
-    [SerializeField] public bool HasPressedAttack = false;
-    [SerializeField] public float IsAttackingTime;
-    [SerializeField] public List<int> AttackedEnemiesList = new List<int>();
-
     [Header("Stats")]
     [SerializeField] public int EnemyComboHitsCount = 0;
     [SerializeField] public float LastEnemyComboHitTime = 0;
 
     [Header("Feedback")]
+    [SerializeField]  private float CancelAttackTimer = 0f;
     [SerializeField] public WeaponStatsProfile WeaponStatsProfile;
     [SerializeField] public List<TrailRenderer> TrailRenderers = new List<TrailRenderer>();
+    [SerializeField] public List<int> AttackedEnemiesList = new List<int>();
 
     private Animator animator;
     private Vector2 localPosition;
+
    
     private void Awake()
     {
@@ -44,6 +46,19 @@ public class WeaponController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         localPosition = transform.localPosition;
+    }
+
+    private void Update()
+    {
+        if(HasPressedAttack)
+        {
+            CancelAttackTimer += Time.deltaTime;
+            if(CancelAttackTimer >= CancelAttackStateAfter)
+            {
+                // Reset the attack state
+                ResetAttack();
+            }
+        }
     }
 
     void FixedUpdate()
@@ -119,33 +134,45 @@ public class WeaponController : MonoBehaviour
 
     public void ActivateAttackAllowance()
     {
-        if (IsAttacking()) return;
         Debug.Log("SwordAttack: Attack activated");
 
-        IsAttackingTime = Time.time;
+        // Attack is executed, check if there's another attack in the process
+        if(IsAttacking())
+        {
+            // It's executed and we are not yet to cancel it, return
+            Debug.Log("SwordAttack: Attack rejected, another attack is active.");
+            return;
+        }
+
+        // todo Adjust in case we do more animations
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerSlashSword1, gameObject.transform);
+
+        Debug.Log("SwordAttack: Just hit this count: " + EnemyComboHitsCount);
         HasPressedAttack = true;
 
         
-
-        Debug.Log("Just hit this count: " + EnemyComboHitsCount);
-        EnemyComboHitsCount++;
-
+        // Update the combo in the animator to reflect the corrosponding animation
         animator.SetInteger("hitsCountIndex", EnemyComboHitsCount % WeaponData.MaxCombos);
-
-        Debug.Log("SwordAttack: ActivateAttackAllowance, EnemyComboHitsCount: " + (EnemyComboHitsCount % WeaponData.MaxCombos));
-
         animator.SetBool("isAttacking", true);
 
-        // Reduce stamina of player
+        // Reduce stamina of player, regardless if the player hits someone or not
         GameManager.Instance.ChangePlayerStamina(-WeaponData.StaminaReductionRate);
     }
 
-    public bool IsAttacking()
+    private bool IsAttacking()
     {
-        //Debug.Log((IsAttackingTime + AttackingSafeZoneTime) + " >= " + Time.time);
-        // return ((IsAttackingTime + AttackingSafeZoneTime) >= Time.time) && HasPressedAttack;
-        return HasPressedAttack;
-        //return animator.GetBool("IsAttacking") == true;
+        return HasPressedAttack && CancelAttackStateAfter > CancelAttackTimer;
+    }
+
+    private void ResetAttack()
+    {
+        Debug.Log("SwordAttack: Reset Attack, CancelAttackTimer: " + CancelAttackTimer);
+        HasPressedAttack = false;
+        CancelAttackTimer = 0f;
+        // Change the animation
+        animator.SetBool("isAttacking", false);
+        // Remove the collected ids
+        RemoveAttackedEnemies();
     }
 
     public void ValidateComboTime()
@@ -164,30 +191,24 @@ public class WeaponController : MonoBehaviour
 
     public void HitEnemy(WeaponStats weapon, EnemyAgentController enemy)
     {
+        Debug.Log("SwordAttack: Hit an enemy " + enemy.GetInstanceID());
 
-        Debug.Log("SwordAttack: " + enemy.GetInstanceID());
 
-        if (CanAttackEnemy(enemy.GetInstanceID()))
-        {
-            return;
-        }
+        // In case the enemy got hit in the same slash, don't hit it again (in case we hit different collider points of the object)
+        if (!CanAttackEnemy(enemy.GetInstanceID())) return;
 
-        if (!IsAttacking())
-        {
-            Debug.Log("SwordAttack: Requested to hit enemy, but not allowed. IsAttacking: " + IsAttackingTime + ", time: " + Time.time);
-            return;
-        }
-       
+        // No attack is possible, therefore, we don't register any hit
+        if (!IsAttacking()) return;
 
+        // Register the enemy
         AddAttackedEnemy(enemy.GetInstanceID());
 
-        // validate the combo
+        // Validate the combo
         ValidateComboTime();
 
-       
-
-        // increase the combo;
+        // Increase the combo;
         EnemyComboHitsCount++;
+        // Used for combo validation
         LastEnemyComboHitTime = Time.time;
 
 
@@ -210,16 +231,6 @@ public class WeaponController : MonoBehaviour
     }
 
 
-    // Used by the animation swing0 | swing0flipped
-    public void ResetAttackState()
-    {
-        Debug.Log("SwordAttack: Reset Attack, " + Time.time);
-        IsAttackingTime = 0f;
-        HasPressedAttack = false;
-        animator.SetBool("isAttacking", false);
-        RemoveAttackedEnemies();
-    }
-
     private void onGameEventListen(Hashtable payload)
     {
         if ((GameState)payload["state"] == GameState.AttackPlayer)
@@ -240,6 +251,6 @@ public class WeaponController : MonoBehaviour
 
     private bool CanAttackEnemy(int enemyID)
     {
-        return AttackedEnemiesList.Contains(enemyID);
+        return !AttackedEnemiesList.Contains(enemyID);
     }
 }

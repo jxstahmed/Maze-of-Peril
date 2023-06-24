@@ -72,7 +72,12 @@ public class ObjectiveManager : MonoBehaviour
         return levelObjective;
     }
     
-    public void CollectKey(string ID, string Label)
+    public void CollectWeapon(string ID)
+    {
+        Debug.Log("CollectedWeapon, ID: " + ID);
+        AddIDToObjective(ID);
+    }
+    public void CollectKey(string ID)
     {
         Debug.Log("CollectKey, ID: " + ID);
         AddIDToObjective(ID);

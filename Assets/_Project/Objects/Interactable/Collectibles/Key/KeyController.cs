@@ -26,7 +26,7 @@ public class KeyController : MonoBehaviour
     {
         if (other.tag.Contains(GameManager.Instance.PlayerTag))
         {
-            ObjectiveManager.Instance.CollectKey(ID, Label);
+            ObjectiveManager.Instance.CollectKey(ID);
             Destroy(gameObject);
         }
     }

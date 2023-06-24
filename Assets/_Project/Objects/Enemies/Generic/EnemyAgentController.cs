@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class EnemyAgentController : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] List<GameObject> Tombstones = new List<GameObject>();
 
 
+    private AudioSource audioSource;
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
     private NavMeshAgent agent;
@@ -109,6 +111,7 @@ public class EnemyAgentController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         shaderGUItext = Shader.Find("GUI/Text Shader");
         shaderSpritesDefault = Shader.Find("Sprites/Default"); // or whatever sprite shader is being used
 
@@ -121,6 +124,8 @@ public class EnemyAgentController : MonoBehaviour
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        AudioManager.Instance.CreateTimer(EnemyData.Name + gameObject.GetInstanceID(), AudioManager.Instance.EnemyMovementRate);
+
     }
 
     private void Update()
@@ -184,12 +189,13 @@ public class EnemyAgentController : MonoBehaviour
 
         IsPatroling = CanMove && CanPatrol && !CanSeePlayer;
         IsFollowing = CanMove && CanFollow && CanSeePlayer && FoundPlayerBySight != null;
-        
+        EnemyAudio();
 
 
-        
 
-        if(ShouldWaitForChaseEnd && !CanSeePlayer)
+
+
+        if (ShouldWaitForChaseEnd && !CanSeePlayer)
         {
             if((WaitAfterChaseEndDuration > 0 && OldCanSeePlayer && !CanSeePlayer))
             {
@@ -216,6 +222,23 @@ public class EnemyAgentController : MonoBehaviour
         AdjustDirection();
         SelfLight();
         SightLight();
+    }
+
+    private void EnemyAudio()
+    {
+        // It should only apply the audio if the object is within range, otherwise... we would have an immense volume of footsteps
+        // We could also check the distance to the playe r
+        Camera main = Camera.main;
+        Vector2 viewPos = main.WorldToViewportPoint(transform.position);
+
+        // normalized values, if within [0,1] then within the camera bounds, otherwise, it's outside
+        if (!(viewPos.x >= 0 && viewPos.y >= 0 && viewPos.x <= 1 && viewPos.y <= 1)) return; 
+
+
+        if (IsMoving)
+        {
+            AudioManager.Instance.PlayeOneShotFromAudioInstance(audioSource, AudioManager.Instance.EnemyWalks, EnemyData.Name + gameObject.GetInstanceID());
+        }
     }
 
     void ValidateEndChaseWait()
@@ -518,7 +541,8 @@ public class EnemyAgentController : MonoBehaviour
 
     public void AttackEnemy(float damage, Transform player, float force)
     {
-        
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.EnemyGotHit, gameObject.transform);
+
         animator.SetTrigger("takeDamage");
         AffectHealth(damage);
 
@@ -601,6 +625,7 @@ public class EnemyAgentController : MonoBehaviour
 
     private void KillEnemy()
     {
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.EnemyDies, gameObject.transform);
         IsDead = true;
         animator.SetTrigger("isDead");
         ObjectiveManager.Instance.CollectEnemy(ID);
@@ -660,18 +685,26 @@ public class EnemyAgentController : MonoBehaviour
 
             //dein alter code ist auskommentier noch da, daran habe ich auch nichts geändert.
             //Attackcooldown funktioniert jetzt so, dass wenn ein gegner angreift eine coroutine startet, die den cooldown wartet und dann dem gegner wieder erlaubt anzugreifen.
+            // Alles klar
             if (CanAttack && !attackOnCooldown && !isAttacking)
             {
-                Debug.LogWarning("Attacking Player");
-                attackOnCooldown = true;
-                isAttacking = true;
-                animator.SetTrigger("attack");
-                animator.SetBool("isAttacking",true);
-                StopMovement();
-                StartCoroutine(EnemyAttackCooldown());
+                AttackPlayer();
             }
         }
     }
+
+    private void AttackPlayer()
+    {
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.EnemyAttacks, gameObject.transform);
+        Debug.LogWarning("Attacking Player");
+        attackOnCooldown = true;
+        isAttacking = true;
+        animator.SetTrigger("attack");
+        animator.SetBool("isAttacking", true);
+        StopMovement();
+        StartCoroutine(EnemyAttackCooldown());
+    }
+
     //waits N seconds and then allows the enemy to hit the player again
     private IEnumerator EnemyAttackCooldown()
     {

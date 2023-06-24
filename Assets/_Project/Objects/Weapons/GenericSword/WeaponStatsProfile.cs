@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponStatsProfile : MonoBehaviour
 {
     [Header("Overall")]
+    [SerializeField] public string ID;
     [SerializeField] public bool isEquipEnabled;
 
 
@@ -41,6 +42,9 @@ public class WeaponStatsProfile : MonoBehaviour
         {
             Debug.Log("WeaponSystem: TouchedPlayer");
             Player player = other.GetComponent<Player>();
+            if (ID != null && ID != "")
+                ObjectiveManager.Instance.CollectWeapon(ID);
+
             player.PickWeapon(WeaponStats);
             // todo, delete parent creates an issue, but we cant delete the parent
             Destroy(gameObject);

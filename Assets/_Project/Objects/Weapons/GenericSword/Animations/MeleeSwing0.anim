@@ -27,16 +27,16 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.06666667
-        value: {x: 0, y: 0, z: -120}
-        inSlope: {x: -0, y: -0, z: -1799.9999}
-        outSlope: {x: 0, y: 0, z: 1799.9999}
+        time: 0.13333334
+        value: {x: 0, y: 0, z: -145}
+        inSlope: {x: -0, y: -0, z: -1087.5}
+        outSlope: {x: 0, y: 0, z: 2175.0002}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.13333334
+        time: 0.2
         value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -72,7 +72,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.13333334
+    m_StopTime: 0.2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -101,7 +101,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.06666667
+        time: 0.13333334
         value: 0
         inSlope: -0
         outSlope: 0
@@ -129,7 +129,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.06666667
+        time: 0.13333334
         value: 0
         inSlope: -0
         outSlope: 0
@@ -157,16 +157,16 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.06666667
-        value: -120
-        inSlope: -1799.9999
-        outSlope: 1799.9999
+        time: 0.13333334
+        value: -145
+        inSlope: -1087.5
+        outSlope: 2175.0002
         tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.13333334
+        time: 0.2
         value: 0
         inSlope: 0
         outSlope: 0
@@ -226,14 +226,6 @@ AnimationClip:
     functionName: DisableSwordTrails
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.083333336
-    functionName: ResetAttackState
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 23b9c7e92737bc343907dde546e7d4d9,
-      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

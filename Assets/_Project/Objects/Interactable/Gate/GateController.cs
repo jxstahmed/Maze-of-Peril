@@ -6,11 +6,13 @@ public class GateController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public string ID;
+    [SerializeField] public string Label;
     [SerializeField] public string[] NeedsIDs;
     [Tooltip("Player's weapon can look ugly. You may disable their weapon once they collide with the door when it's open.")]
     [SerializeField] public bool ShouldHidePlayerWeapon = false;
     [SerializeField] public bool IsOpen = false;
 
+    private LabelTextController labelController;
     private bool hasAddedID = false;
     private GameObject openObject;
     private GameObject closeObject;
@@ -34,6 +36,7 @@ public class GateController : MonoBehaviour
     }
     void Start()
     {
+        labelController = GetComponent<LabelTextController>();
         openObject = transform.Find("Opened").gameObject;
         closeObject = transform.Find("Closed").gameObject;
 
@@ -71,6 +74,8 @@ public class GateController : MonoBehaviour
 
     public void SetClosed()
     {
+        if (IsOpen) AudioManager.Instance.PlayFromPosition(AudioManager.Instance.DoorCloses, gameObject.transform);
+
         IsOpen = false;
         closeObject.SetActive(true);
         openObject.SetActive(false);
@@ -78,6 +83,8 @@ public class GateController : MonoBehaviour
 
     public void SetOpened()
     {
+        if (!IsOpen) AudioManager.Instance.PlayFromPosition(AudioManager.Instance.DoorOpens, gameObject.transform);
+
         IsOpen = true;
         closeObject.SetActive(false);
         openObject.SetActive(true);
@@ -126,6 +133,11 @@ public class GateController : MonoBehaviour
 
             } else
             {
+                AudioManager.Instance.PlayFromPosition(AudioManager.Instance.ObjectNotYetUnlocked, gameObject.transform);
+                if (labelController != null && Label != null && Label != "")
+                {
+                    labelController.Initiate(Label, transform);
+                }
                 Debug.Log("Gate:OnTriggerEnter2D, Not HasIDs");
             }
             
@@ -136,9 +148,11 @@ public class GateController : MonoBehaviour
     {
         if (other.CompareTag(GameManager.Instance.PlayerTag) && HasIDs() && IsOpen && ShouldHidePlayerWeapon)
         {
+          
+
             Player player = other.GetComponent<Player>();
             player.HideWeapon();
 
-        }
+        } 
     }
 }
