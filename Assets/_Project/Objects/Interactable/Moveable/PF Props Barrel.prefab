@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 10145298200545765}
   - component: {fileID: 5848021420469829089}
   - component: {fileID: 5889299522886126400}
-  - component: {fileID: 7587219126382478100}
+  - component: {fileID: 6814376906306016702}
   m_Layer: 20
   m_Name: PF Props Barrel
   m_TagString: Static
@@ -250,18 +250,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbe374194e68994baaf7be620683cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7587219126382478100
-MonoBehaviour:
+--- !u!61 &6814376906306016702
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055102311959635369}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f7f394c0e6b904bbd060838fb25144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.012468219, y: 0.20893821}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.875, y: 1.125}
+    newSize: {x: 1, y: 0.96875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7503178, y: 0.36087912}
+  m_EdgeRadius: 0
 --- !u!1 &2055102312182832482
 GameObject:
   m_ObjectHideFlags: 0

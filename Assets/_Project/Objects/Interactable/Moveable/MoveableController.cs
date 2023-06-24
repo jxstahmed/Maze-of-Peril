@@ -9,11 +9,9 @@ public class MoveableController : MonoBehaviour
     [SerializeField] public string[] NeedsIDs;
     [SerializeField] public string Label;
 
-    private LabelTextController labelController;
 
     public void Start()
     {
-        labelController = GetComponent<LabelTextController>();
 
     }
 
@@ -45,9 +43,9 @@ public class MoveableController : MonoBehaviour
                 PushesIDs.ForEach(id => ObjectiveManager.Instance.CollectMoveableTriggerPoint(id));
             } else
             {
-                if (labelController != null && Label != null && Label != "")
+                if (Label != null && Label != "")
                 {
-                    labelController.Initiate(Label, transform);
+                    GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.ObjectiveLabel, Label, transform);
                 }
             }
 

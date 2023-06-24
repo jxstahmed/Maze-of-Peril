@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8150476868300563361}
   - component: {fileID: -1736240972194134683}
   - component: {fileID: 6128515669464737644}
-  - component: {fileID: -4789568189109754244}
+  - component: {fileID: 5175520062636464559}
   m_Layer: 20
   m_Name: PF Props Crate Small
   m_TagString: Static
@@ -97,7 +97,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8150476868300563372}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -245,18 +245,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbe374194e68994baaf7be620683cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4789568189109754244
-MonoBehaviour:
+--- !u!60 &5175520062636464559
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8150476868300563372}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f7f394c0e6b904bbd060838fb25144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.8125, y: 1.21875}
+    newSize: {x: 0.8125, y: 1.21875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.02744484, y: 0.60033274}
+      - {x: -0.40625, y: 0.59484386}
+      - {x: -0.40625, y: 0}
+      - {x: 0.40625, y: 0}
+      - {x: 0.40625, y: 0.60033274}
 --- !u!1 &8150476868737220289
 GameObject:
   m_ObjectHideFlags: 0

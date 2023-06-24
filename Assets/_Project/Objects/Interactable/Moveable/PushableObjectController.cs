@@ -11,14 +11,14 @@ public class PushableObjectController : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        AudioManager.Instance.CreateTimer("moveable" + GetInstanceID(), AudioManager.Instance.BoxMovementRate);
+        AudioManager.Instance.CreateTimer("moveable_" + GetInstanceID(), AudioManager.Instance.BoxMovementRate);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == GameManager.Instance.PlayerTag)
         {
-            AudioManager.Instance.PlayeOneShotFromAudioInstance(audioSource, AudioManager.Instance.BoxIsMoving, "moveable" + GetInstanceID());
+            AudioManager.Instance.PlayeOneShotFromAudioInstance(audioSource, AudioManager.Instance.BoxIsMoving, "moveable_" + GetInstanceID());
         }
     }
 }

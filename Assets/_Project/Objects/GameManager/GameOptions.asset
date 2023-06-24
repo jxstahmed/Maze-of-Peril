@@ -17,5 +17,20 @@ MonoBehaviour:
   SCENE_LEVEL_2: 2
   MusicAudioLevel: 1
   FXAudioLevel: 1
-  LabelTextSpeed: 0.8
-  LabelTextFadeOutTime: 6
+  PlayerBloodFeedback: 1
+  EnemyBloodFeedback: 1
+  ObjectiveLabel:
+    text_color: {r: 1, g: 1, b: 1, a: 1}
+    text_speed: 0.6
+    fade_out_time: 1.7
+    text_size: 6
+  PlayerBloodFeedbackLabel:
+    text_color: {r: 1, g: 0, b: 0, a: 1}
+    text_speed: 0.3
+    fade_out_time: 0.9
+    text_size: 8
+  EnemyBloodFeedbackLabel:
+    text_color: {r: 1, g: 0, b: 0, a: 1}
+    text_speed: 0.3
+    fade_out_time: 0.9
+    text_size: 8

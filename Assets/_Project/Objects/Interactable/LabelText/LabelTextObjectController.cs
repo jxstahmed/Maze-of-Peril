@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class LabelTextObjectController : MonoBehaviour
 {
-    
+    public GameSettings.LabelOptions Options;
     public void Start()
     {
+        if (GetComponent<TMPro.TextMeshProUGUI>() != null)
+        {
+            Debug.Log(Options.text_color);
+            GetComponent<TMPro.TextMeshProUGUI>().color = Options.text_color;
+            GetComponent<TMPro.TextMeshProUGUI>().fontSize = Options.text_size;
+        }
+
+        transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + 50f);
         StartCoroutine(FadeOut());
     }
 
     private void FixedUpdate()
     {
         // Moving the item
-        transform.Translate(Vector2.up * GameManager.Instance.Settings.LabelTextSpeed * Time.deltaTime);
+        transform.Translate(Vector2.up * Options.text_speed * Time.deltaTime);
     }
 
     private IEnumerator FadeOut()
     {
         float startAlpha = GetComponent<TMPro.TextMeshProUGUI>().color.a;
 
-        float rate = 1.0f / GameManager.Instance.Settings.LabelTextFadeOutTime;
+        float rate = 1.0f / Options.fade_out_time;
         float progress = 0.0f;
         while (progress < 1.0f)
         {
@@ -33,6 +41,6 @@ public class LabelTextObjectController : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

@@ -541,6 +541,11 @@ public class EnemyAgentController : MonoBehaviour
 
     public void AttackEnemy(float damage, Transform player, float force)
     {
+        if(GameManager.Instance.Settings.EnemyBloodFeedback)
+        {
+            GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.EnemyBloodFeedbackLabel, "" + damage, transform);
+        }
+
         AudioManager.Instance.PlayFromPosition(AudioManager.Instance.EnemyGotHit, gameObject.transform);
 
         animator.SetTrigger("takeDamage");

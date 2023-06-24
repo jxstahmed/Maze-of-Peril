@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] private KeyCode KeyMoveSprint = KeyCode.LeftShift;
     [SerializeField] private KeyCode KeyShowWeapon = KeyCode.F;
     [SerializeField] private KeyCode KeyToggleWeapon = KeyCode.R;
+    [SerializeField] private KeyCode KeyDragMoveable = KeyCode.E;
 
     [SerializeField] private KeyCode KeySwordAttack = KeyCode.Space;
 
@@ -153,6 +154,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyToggleWeapon))
         {
             ToggleWeaponSelection();
+        }
+        
+        if (Input.GetKeyDown(KeyDragMoveable))
+        {
+            ProcessDragMoveable();
         }
 
 
@@ -352,6 +358,10 @@ public class Player : MonoBehaviour
 
     }
 
+    private void ProcessDragMoveable()
+    {
+
+    }
     private void ToggleWeapon()
     {
         hasToggledWeaponKey = true;
@@ -384,6 +394,11 @@ public class Player : MonoBehaviour
 
     public void ApplyDamage(float enemyDamage)
     {
+        if (GameManager.Instance.Settings.PlayerBloodFeedback)
+        {
+            GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.PlayerBloodFeedbackLabel, "" + enemyDamage, transform);
+        }
+
         AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerGotHit, gameObject.transform);
 
         Debug.Log("Damage is: " + enemyDamage);

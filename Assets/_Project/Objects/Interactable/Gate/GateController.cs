@@ -12,7 +12,6 @@ public class GateController : MonoBehaviour
     [SerializeField] public bool ShouldHidePlayerWeapon = false;
     [SerializeField] public bool IsOpen = false;
 
-    private LabelTextController labelController;
     private bool hasAddedID = false;
     private GameObject openObject;
     private GameObject closeObject;
@@ -36,7 +35,6 @@ public class GateController : MonoBehaviour
     }
     void Start()
     {
-        labelController = GetComponent<LabelTextController>();
         openObject = transform.Find("Opened").gameObject;
         closeObject = transform.Find("Closed").gameObject;
 
@@ -134,9 +132,9 @@ public class GateController : MonoBehaviour
             } else
             {
                 AudioManager.Instance.PlayFromPosition(AudioManager.Instance.ObjectNotYetUnlocked, gameObject.transform);
-                if (labelController != null && Label != null && Label != "")
+                if (Label != null && Label != "")
                 {
-                    labelController.Initiate(Label, transform);
+                    GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.ObjectiveLabel, Label, transform);
                 }
                 Debug.Log("Gate:OnTriggerEnter2D, Not HasIDs");
             }

@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.002071917, y: 0.78821975}
+  m_Offset: {x: 0.002071917, y: 0.4870206}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8000731, y: 1.2631009}
+  m_Size: {x: 0.9324294, y: 0.9592798}
   m_EdgeRadius: 0
 --- !u!1 &5137002502164129664
 GameObject:
@@ -222,7 +222,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77934057, y: 0.729368}
+  m_Size: {x: 0.9666513, y: 0.90466803}
   m_EdgeRadius: 0
 --- !u!1 &5137002502168043339
 GameObject:
@@ -405,7 +405,6 @@ GameObject:
   - component: {fileID: 6615642876238477648}
   - component: {fileID: 6615642876238477679}
   - component: {fileID: 7078390493087903825}
-  - component: {fileID: 2462558390540633373}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Static
@@ -505,7 +504,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.53270566}
+  m_Offset: {x: 0, y: 0.4750085}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -516,17 +515,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4088689, y: 1.5622375}
+  m_Size: {x: 1.2513688, y: 1.3271368}
   m_EdgeRadius: 0
---- !u!114 &2462558390540633373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6615642876238477651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f7f394c0e6b904bbd060838fb25144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

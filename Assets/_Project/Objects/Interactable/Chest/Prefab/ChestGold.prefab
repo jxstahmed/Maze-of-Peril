@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.002071917, y: 0.78821975}
+  m_Offset: {x: 0.002071917, y: 0.62715864}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8000731, y: 1.2631009}
+  m_Size: {x: 0.90429753, y: 1.2164488}
   m_EdgeRadius: 0
 --- !u!1 &5137002502164129664
 GameObject:
@@ -222,7 +222,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77934057, y: 0.729368}
+  m_Size: {x: 0.92435384, y: 0.8650828}
   m_EdgeRadius: 0
 --- !u!1 &5137002502168043339
 GameObject:
@@ -442,14 +442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b59d5e26dca124e922716f6d932c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Label: 
   ID: 
-  NeedsIDs: []
-  PushesWeaponsIDs:
-  - SwordCherry
-  PushesEnemiesIDs: []
-  PushesKeysIDs: []
-  PushesPotions: []
-  GoodiesObject: {fileID: 6615642877550796609}
+  NeedsIds: []
+  PushesWeaponsIds: []
+  PushesEnemiesIds: []
+  PushesKeysIds: []
   IsOpen: 0
   Trigger: 0
 --- !u!95 &6615642876238477648
@@ -504,10 +502,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.53270566}
+  m_Offset: {x: 0, y: 0.53640795}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -518,7 +516,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4088689, y: 1.5622375}
+  m_Size: {x: 0.87560785, y: 0.99151516}
   m_EdgeRadius: 0
 --- !u!1 &6615642877550796609
 GameObject:

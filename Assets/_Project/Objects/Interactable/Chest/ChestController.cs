@@ -22,7 +22,6 @@ public class ChestController : MonoBehaviour
     private SpriteRenderer openObject;
     private SpriteRenderer closeObject;
     private bool hasAddedID = false;
-    private LabelTextController labelController;
     [SerializeField]
     public bool ANIMATOR_TRIGGER_OPEN
     {
@@ -45,7 +44,6 @@ public class ChestController : MonoBehaviour
     }
     void Start()
     {
-        labelController = GetComponent<LabelTextController>();
         openObject = transform.Find("Opened").gameObject.GetComponent<SpriteRenderer>();
         closeObject = transform.Find("Closed").gameObject.GetComponent<SpriteRenderer>();
 
@@ -257,9 +255,9 @@ public class ChestController : MonoBehaviour
             {
                 AudioManager.Instance.PlayFromPosition(AudioManager.Instance.ObjectNotYetUnlocked, gameObject.transform);
 
-                if(labelController != null && Label != null && Label != "")
+                if (Label != null && Label != "")
                 {
-                    labelController.Initiate(Label, transform);
+                    GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.ObjectiveLabel, Label, transform);
                 }
 
                 Debug.Log("Chest:OnTriggerEnter2D, Not HasIDs");
