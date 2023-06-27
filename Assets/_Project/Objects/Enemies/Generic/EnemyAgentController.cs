@@ -169,8 +169,6 @@ public class EnemyAgentController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (IsDead)
-        // return;
         IsMoving = agent.velocity.x != 0 || agent.velocity.y != 0;
 
 
@@ -382,6 +380,7 @@ public class EnemyAgentController : MonoBehaviour
 
                 FoundPlayerBySight = playerHitrb;
                 playerSeen = true;
+                playerSeen = true;
             }
 
 
@@ -551,8 +550,7 @@ public class EnemyAgentController : MonoBehaviour
         animator.SetTrigger("takeDamage");
         AffectHealth(damage);
 
-        //StopAllCoroutines();
-        //StartCoroutine(PushEnemy(player, force));
+        DestinationTarget = player.transform;
         knockback(player, force);
     }
 
@@ -666,7 +664,9 @@ public class EnemyAgentController : MonoBehaviour
         if (other.CompareTag(GameManager.Instance.PlayerTag))
         {
             Debug.Log("Enemy, inside CompareTag");
-            
+            // turn to player when attacking
+            bool dir = other.transform.position.x - transform.position.x > 0;
+            spriteRenderer.flipX = dir; 
             // Current time & delay
             // First touch at second 2
             // We test at second 5, attack pause is 2 => first touch + 2 => 5 > 4, we can hit
@@ -691,7 +691,7 @@ public class EnemyAgentController : MonoBehaviour
             //dein alter code ist auskommentier noch da, daran habe ich auch nichts geändert.
             //Attackcooldown funktioniert jetzt so, dass wenn ein gegner angreift eine coroutine startet, die den cooldown wartet und dann dem gegner wieder erlaubt anzugreifen.
             // Alles klar
-            if (CanAttack && !attackOnCooldown && !isAttacking)
+            if (!IsDead && CanAttack && !attackOnCooldown && !isAttacking)
             {
                 AttackPlayer();
             }
