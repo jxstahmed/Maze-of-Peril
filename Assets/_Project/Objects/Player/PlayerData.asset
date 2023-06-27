@@ -16,16 +16,17 @@ MonoBehaviour:
   OverallHealth: 100
   Health: 100
   OverallStamina: 100
-  Stamina: 100
+  Stamina: 53.800247
   Speed: 1
   StaminaRegenerationRate: 15
   HealthRegenerationRate: 0
   SpeedStaminaReductionRate: 0.2
-  WalkFactor: 0.75
-  RunFactor: 0.75
+  WalkFactor: 1.25
+  RunFactor: 0.5
   DamageFactor: 0.1
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  EquippedWeaponID: 
-  WeaponsIDsList: []
+  EquippedWeaponID: SwordMeaty
+  WeaponsIDsList:
+  - SwordMeaty

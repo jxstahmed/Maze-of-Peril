@@ -120,8 +120,8 @@ TextureImporter:
       name: Red_Run_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 39
+        x: 11
+        y: 7
         width: 14
         height: 21
       alignment: 7
@@ -141,8 +141,8 @@ TextureImporter:
       name: Red_Run_1
       rect:
         serializedVersion: 2
-        x: 39
-        y: 39
+        x: 43
+        y: 7
         width: 14
         height: 22
       alignment: 7
@@ -162,8 +162,8 @@ TextureImporter:
       name: Red_Run_2
       rect:
         serializedVersion: 2
-        x: 72
-        y: 39
+        x: 74
+        y: 7
         width: 14
         height: 20
       alignment: 7
@@ -183,8 +183,8 @@ TextureImporter:
       name: Red_Run_3
       rect:
         serializedVersion: 2
-        x: 104
-        y: 39
+        x: 106
+        y: 7
         width: 14
         height: 21
       alignment: 7
@@ -204,8 +204,8 @@ TextureImporter:
       name: Red_Run_4
       rect:
         serializedVersion: 2
-        x: 136
-        y: 39
+        x: 138
+        y: 7
         width: 14
         height: 22
       alignment: 7
@@ -225,8 +225,8 @@ TextureImporter:
       name: Red_Run_5
       rect:
         serializedVersion: 2
-        x: 168
-        y: 39
+        x: 170
+        y: 7
         width: 14
         height: 20
       alignment: 7

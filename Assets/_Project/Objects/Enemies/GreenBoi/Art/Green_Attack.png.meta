@@ -120,8 +120,8 @@ TextureImporter:
       name: Green_Attack_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 36
+        x: 76
+        y: 4
         width: 20
         height: 20
       alignment: 7
@@ -141,8 +141,8 @@ TextureImporter:
       name: Green_Attack_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 36
+        x: 51
+        y: 4
         width: 15
         height: 20
       alignment: 7
@@ -162,12 +162,12 @@ TextureImporter:
       name: Green_Attack_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 36
+        x: 4
+        y: 4
         width: 34
         height: 20
       alignment: 9
-      pivot: {x: 0.29944497, y: 0.005979347}
+      pivot: {x: 0.7046482, y: 0.0059791803}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -20,18 +20,18 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public CustomClip GameplayClip;
 
     [Header("Player")]
-    [SerializeField] public CustomClip PlayerWalks;
-    [SerializeField] public CustomClip PlayerSprints;
+    [SerializeField] public List<CustomClip> PlayerWalks;
+    [SerializeField] public List<CustomClip> PlayerSprints;
     [SerializeField] public CustomClip PlayerGotHit;
     [SerializeField] public CustomClip PlayerDies;
 
     [Header("Weapon")]
-    [SerializeField] public CustomClip PlayerSlashSword1;
+    [SerializeField] public List<CustomClip> PlayerSlashSword1;
 
     [Header("Enemies")]
-    [SerializeField] public CustomClip EnemyWalks;
+    [SerializeField] public List<CustomClip> EnemyWalks;
     [SerializeField] public CustomClip EnemyAttacks;
-    [SerializeField] public CustomClip EnemyGotHit;
+    [SerializeField] public CustomClip EnemyGotHit; 
     [SerializeField] public CustomClip EnemyDies;
 
     [Header("Interactalbe")]
@@ -170,7 +170,7 @@ public class AudioManager : MonoBehaviour
         if (customClip.delay > 0) StartCoroutine(PlayDelayedOnPoint(customClip, transform, customClip.delay));
         else AudioSource.PlayClipAtPoint(customClip.clip, transform.position, (Settings.FXAudioLevel + customClip.volume) / 2);
     }
-    
+
     public void PlayeFromAudioInstance(AudioSource audiosrc, CustomClip customClip, bool toggle = true)
     {
         if (audiosrc == null) return;
@@ -220,6 +220,45 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         AudioSource.PlayClipAtPoint(customClip.clip, transform.position, (Settings.FXAudioLevel + customClip.volume) / 2);
+    }
+
+
+    //überladene funktionen um support für mehrere Audiofiles für eine action hinzuzufügen
+    public void PlayFromPosition(List<CustomClip> customClipList, Transform transform)
+    {
+        PlayFromPosition(SelectRandomClip(customClipList), transform);
+    }
+
+    public void PlayeFromAudioInstance(AudioSource audiosrc, List<CustomClip> customClipList, bool toggle = true)
+    {
+        PlayeFromAudioInstance(audiosrc, SelectRandomClip(customClipList), toggle);
+    }
+    public void PlayeOneShotFromAudioInstance(AudioSource audiosrc, List<CustomClip> customClipList, string tag = null)
+    {
+        PlayeOneShotFromAudioInstance(audiosrc, SelectRandomClip(customClipList), tag);
+    }
+
+    void PlayDelayedOneShot(AudioSource audiosrc, List<CustomClip> customClipList, float delay)
+    {
+        PlayDelayedOneShot(audiosrc, SelectRandomClip(customClipList), delay);
+    }
+
+
+    void PlayDelayedOnPoint(List<CustomClip> customClipList, Transform transform, float delay)
+    {
+        PlayDelayedOnPoint(SelectRandomClip(customClipList), transform, delay);
+ 
+    }
+
+
+
+    public CustomClip SelectRandomClip(List<CustomClip> customClipList)
+    {
+        if (customClipList == null || customClipList.Count == 0) return null;
+        int rand_int = Random.Range(0, customClipList.Count);
+        CustomClip customClip = customClipList[rand_int];
+        return customClip;
+
     }
 }
 
