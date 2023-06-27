@@ -302,9 +302,9 @@ MonoBehaviour:
   ID: RedBoi
   Health: 0
   CanAttack: 1
-  CanMove: 0
-  CanFollow: 0
-  CanPatrol: 0
+  CanMove: 1
+  CanFollow: 1
+  CanPatrol: 1
   IsDead: 0
   EnemyData: {fileID: 11400000, guid: ad0a007908365d643af539561bcd647f, type: 2}
   UIHealth: {fileID: 8563113178802590970}

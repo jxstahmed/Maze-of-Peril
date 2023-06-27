@@ -50,8 +50,8 @@ MonoBehaviour:
   EnemyMovementRate: 0.5
   BoxMovementRate: 1
   GameplayClip:
-    clip: {fileID: 0}
-    volume: 1
+    clip: {fileID: 8300000, guid: d251ffb85bdb161408e0a0402c0b083c, type: 3}
+    volume: 0.001
     delay: 0
   PlayerWalks:
   - clip: {fileID: 8300000, guid: bd5653e52c4636e4aa3b0ced8f49a18d, type: 3}

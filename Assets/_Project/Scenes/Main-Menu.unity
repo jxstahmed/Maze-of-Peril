@@ -3058,11 +3058,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
-        type: 3}
-      propertyPath: GameplayClip.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: d251ffb85bdb161408e0a0402c0b083c, type: 3}
     - target: {fileID: 8093860291548884053, guid: cb46833ae553e9049a481e085c6e1e60,
         type: 3}
       propertyPath: m_Name
