@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public float BoxMovementRate = 0.3f;
     
     [Header("Overall")]
+    [SerializeField] public CustomClip MenuClip;
     [SerializeField] public CustomClip GameplayClip;
 
     [Header("Player")]
@@ -50,6 +51,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Feedback")]
     [SerializeField] public List<CustomTimer> Timers = new List<CustomTimer>();
+
 
 
 
@@ -140,14 +142,33 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void ToggleMenuAudio(bool active)
+    {
+        if (MenuClip == null) return;
+
+        if (active)
+        {
+            audioSource.clip = MenuClip.clip;
+            audioSource.volume = (Settings.MusicAudioLevel + MenuClip.volume) / 2;
+            audioSource.loop = true;
+            if (MenuClip.delay > 0) audioSource.PlayDelayed(MenuClip.delay);
+            else audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+        }
+
+    }
+
     public void ToggleGamePlayAudio(bool active)
     {
         if (GameplayClip == null) return;
-        
 
         if(active)
         {
             audioSource.clip = GameplayClip.clip;
+            audioSource.loop = true;
             audioSource.volume = (Settings.MusicAudioLevel + GameplayClip.volume) / 2;
             if (GameplayClip.delay > 0) audioSource.PlayDelayed(GameplayClip.delay);
             else audioSource.Play();

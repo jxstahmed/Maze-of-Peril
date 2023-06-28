@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
             sprite_renderer.flipX = false;
 
 
-        //gesamte Is PlayerMoving funktion ist überkompliziert und kann durch die oberen code erstzt werden
+        //gesamte Is PlayerMoving funktion ist ï¿½berkompliziert und kann durch die oberen code erstzt werden
        /* if (IsPlayerMoving(PLAYER_DIRECTIONS.RIGHT, true))
         {
             sprite_renderer.flipX = false;
@@ -360,8 +360,48 @@ public class Player : MonoBehaviour
 
     private void ProcessDragMoveable()
     {
+        // Emit 4 in all 90 degrees directions
+        Vector2[] directions = {Vector2.up, Vector2.left, Vector2.right, Vector2.down};
+        float radius = 0.5f;
 
+
+        for (int i = 0; i < directions.Length; i++)
+        {
+            // get the direction
+            Vector2 direction = (Vector2)directions.GetValue(i);
+
+            // emit a hit
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, radius);
+
+            // found it, push it in the opposite direction of the player
+            Vector2 pushDirection = new Vector2(0, 0);
+            if (direction == Vector2.up) pushDirection = Vector2.down;
+            if (direction == Vector2.down) pushDirection = Vector2.up;
+            if (direction == Vector2.right) pushDirection = Vector2.left;
+            if (direction == Vector2.left) pushDirection = Vector2.right;
+
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                Debug.Log(hit.collider.tag);
+                // check the tag
+                GameObject obj = hit.transform.gameObject;
+                if (obj != null)
+                {
+                    PushableObjectController controller = obj.GetComponent<PushableObjectController>();
+                    if (controller != null)
+                    {
+                        controller.PushIntoDirection(new Vector3(pushDirection.x, pushDirection.y, 0), 25);
+                        break;
+                    }
+
+                }
+            }
+        }
+        
     }
+
+
     private void ToggleWeapon()
     {
         hasToggledWeaponKey = true;
@@ -398,7 +438,7 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.PlayerBloodFeedbackLabel, "" + enemyDamage, transform);
         }
-
+        
         AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerGotHit, gameObject.transform);
 
         Debug.Log("Damage is: " + enemyDamage);
@@ -424,6 +464,16 @@ public class Player : MonoBehaviour
         StopPlayer();
         GameManager.Instance.StopEnemies(true);
         animator.SetBool("isDead", true);
+        ShowDeathScreen();
+    }
+
+    private IEnumerator ShowDeathScreen()
+    {
+        yield return new WaitForSeconds(2);
+        if (MenuManager.Instance != null)
+        {
+            MenuManager.Instance.OpenDeathView();
+        }
     }
 
     public void AffectHealth(float health)
@@ -450,6 +500,7 @@ public class Player : MonoBehaviour
 
     public void PickWeapon(WeaponStats weaponData)
     {
+        AudioManager.Instance.PlayFromPosition(AudioManager.Instance.WeaponIsPickedUp, gameObject.transform);
 
         if (PlayerData.WeaponsIDsList.Contains(weaponData.ID))
         {

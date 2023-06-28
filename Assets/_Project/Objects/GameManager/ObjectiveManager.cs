@@ -120,6 +120,16 @@ public class ObjectiveManager : MonoBehaviour
             CollectedKeys.Add(ID);
     }
 
+    private void ValidateEndScreen(string ID)
+    {
+        if (ID != GameManager.Instance.Settings.LEVEL_1_END_ID) return;
+
+        if (MenuManager.Instance != null)
+        {
+            MenuManager.Instance.OpenLevelEndView();
+        }
+    }
+
 
     public bool HasCollectedID(string ID)
     {

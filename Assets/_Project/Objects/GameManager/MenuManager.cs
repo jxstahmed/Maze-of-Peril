@@ -4,14 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManagerr : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
+
+    public static MenuManager Instance;
 
     [Header("Menus")]
     [SerializeField] public GameObject Menus;
     [SerializeField] public GameObject Menu;
     [SerializeField] public GameObject OptionsView;
     [SerializeField] public GameObject CreditsView;
+    [SerializeField] public GameObject DeathView;
+    [SerializeField] public GameObject LevelEndView;
 
     [Header("Sliders")]
     [SerializeField] public Slider MusicSlider;
@@ -20,8 +24,14 @@ public class MenuManagerr : MonoBehaviour
     [Header("States")]
     [SerializeField] public GameSettings GameOptions;
 
+    void Awake()
+    {
+        Instance = this;
+    }
+
     public void Start()
     {
+
         MusicSlider.value = GameOptions.MusicAudioLevel;
         MusicSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("music"); });
 
@@ -68,47 +78,133 @@ public class MenuManagerr : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
+
+        AudioManager.Instance.ToggleMenuAudio(true);
+
         if (Menus)
             Menus.SetActive(true);
+
         if (Menu)
             Menu.SetActive(true);
+
         if (OptionsView)
             OptionsView.SetActive(false);
+
         if (CreditsView)
             CreditsView.SetActive(false);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
+
     }
     public void PauseGame()
     {
-        AudioManager.Instance.ToggleGamePlayAudio(false);
         Time.timeScale = 0f;
+
+        AudioManager.Instance.ToggleMenuAudio(true);
+
         if (Menus)
             Menus.SetActive(true);
+
         if (Menu)
             Menu.SetActive(true);
+
         if (OptionsView)
             OptionsView.SetActive(false);
+
         if (CreditsView)
             CreditsView.SetActive(false);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
     }
 
     public void OpenOptions()
     {
         if (Menu)
             Menu.SetActive(false);
+
         if (OptionsView)
             OptionsView.SetActive(true);
+
         if (CreditsView)
             CreditsView.SetActive(false);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
     }
 
     public void OpenCredits()
     {
         if (Menu)
             Menu.SetActive(false);
+
         if (OptionsView)
             OptionsView.SetActive(false);
+
         if (CreditsView)
             CreditsView.SetActive(true);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
+    }
+
+    public void OpenDeathView()
+    {
+        AudioManager.Instance.ToggleMenuAudio(true);
+
+        if (Menus)
+            Menus.SetActive(true);
+
+        if (Menu)
+            Menu.SetActive(false);
+
+        if (OptionsView)
+            OptionsView.SetActive(false);
+
+        if (CreditsView)
+            CreditsView.SetActive(false);
+
+        if (DeathView)
+            DeathView.SetActive(true);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
+    }
+
+    public void OpenLevelEndView()
+    {
+        AudioManager.Instance.ToggleMenuAudio(true);
+
+        if (Menus)
+            Menus.SetActive(true);
+
+        if (Menu)
+            Menu.SetActive(false);
+
+        if (OptionsView)
+            OptionsView.SetActive(false);
+
+        if (CreditsView)
+            CreditsView.SetActive(false);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(true);
     }
 
     public void ReturnPause(string from)
@@ -117,17 +213,27 @@ public class MenuManagerr : MonoBehaviour
         {
             if (Menu)
                 Menu.SetActive(true);
+
             if (OptionsView)
                 OptionsView.SetActive(false);
+
             if (CreditsView)
                 CreditsView.SetActive(false);
+
+            if (DeathView)
+                DeathView.SetActive(false);
+
+            if (LevelEndView)
+                LevelEndView.SetActive(false);
         }
     }
 
     public void ResumeGame()
     {
         AudioManager.Instance.ToggleGamePlayAudio(true);
+
         Time.timeScale = 1f;
+
         if (Menus)
             Menus.SetActive(false);
     }

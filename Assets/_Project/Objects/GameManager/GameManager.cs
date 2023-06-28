@@ -168,8 +168,6 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = startFixedDeltaTime;
     }
 
-
-
  
     public string[] GetEnemiesDropdown()
     {

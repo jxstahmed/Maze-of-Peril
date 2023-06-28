@@ -11,6 +11,8 @@ public class GameSettings : ScriptableObject
     public int SCENE_LEVEL_1 = 1;
     public int SCENE_LEVEL_2 = 2;
 
+    public string LEVEL_1_END_ID = "";
+
     [Header("Values")]
     public float MusicAudioLevel = 1;
     public float FXAudioLevel = 1;
