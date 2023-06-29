@@ -66,8 +66,10 @@ public class MenuManager : MonoBehaviour
     }
     public void StartLevel(int level)
     {
+        Time.timeScale = 1f;
         if (level == 1)
         {
+            // should reset weapons?
             AudioManager.Instance.ToggleGamePlayAudio(true);
             SceneManager.LoadScene(GameOptions.SCENE_LEVEL_1);
         }

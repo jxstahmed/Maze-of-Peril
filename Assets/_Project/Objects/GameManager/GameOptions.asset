@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SCENE_MAIN: 0
   SCENE_LEVEL_1: 1
-  SCENE_LEVEL_2: 2
+  SCENE_LEVEL_2: 1
   LEVEL_1_END_ID: LevelExit
   MusicAudioLevel: 0.244294
   FXAudioLevel: 0.4976887
