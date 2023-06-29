@@ -464,12 +464,12 @@ public class Player : MonoBehaviour
         StopPlayer();
         GameManager.Instance.StopEnemies(true);
         animator.SetBool("isDead", true);
-        ShowDeathScreen();
+        StartCoroutine(ShowDeathScreen());
     }
 
     private IEnumerator ShowDeathScreen()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         if (MenuManager.Instance != null)
         {
             MenuManager.Instance.OpenDeathView();

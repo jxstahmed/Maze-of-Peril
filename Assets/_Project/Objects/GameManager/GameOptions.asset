@@ -15,6 +15,7 @@ MonoBehaviour:
   SCENE_MAIN: 0
   SCENE_LEVEL_1: 1
   SCENE_LEVEL_2: 2
+  LEVEL_1_END_ID: ExitLevel
   MusicAudioLevel: 1
   FXAudioLevel: 1
   PlayerBloodFeedback: 1

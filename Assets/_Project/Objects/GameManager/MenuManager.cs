@@ -23,6 +23,7 @@ public class MenuManager : MonoBehaviour
 
     [Header("States")]
     [SerializeField] public GameSettings GameOptions;
+    [SerializeField] bool StartMenuMusic = false;
 
     void Awake()
     {
@@ -38,6 +39,12 @@ public class MenuManager : MonoBehaviour
 
         FXSlider.value = GameOptions.FXAudioLevel;
         FXSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("fx"); });
+
+        if(StartMenuMusic)
+        {
+            AudioManager.Instance.ToggleMenuAudio(true);
+
+        }
     }
 
     private void OnSliderValueChanged(string type)
@@ -163,6 +170,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenDeathView()
     {
+        Time.timeScale = 0f;
         AudioManager.Instance.ToggleMenuAudio(true);
 
         if (Menus)
@@ -186,6 +194,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenLevelEndView()
     {
+        Time.timeScale = 0f;
         AudioManager.Instance.ToggleMenuAudio(true);
 
         if (Menus)
