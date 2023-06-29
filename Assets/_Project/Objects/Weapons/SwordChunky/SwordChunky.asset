@@ -15,8 +15,9 @@ MonoBehaviour:
   prefab: {fileID: 9007045009335953814, guid: 89a428e993e9a8c41b3f3de4901703bb, type: 3}
   ID: SwordChunky
   SwingType: 0
-  Damage: 50
-  StaminaReductionRate: 15
+  Damage: 70
+  PushForce: 10
+  StaminaReductionRate: 30
   ComboInbetweenTime: 0.25
   MaxCombos: 1
   Position: {x: 0, y: 0}

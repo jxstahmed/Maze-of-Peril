@@ -15,7 +15,8 @@ MonoBehaviour:
   prefab: {fileID: 5508809378256919097, guid: 4997cddbd0a54f1498853c169612b9c1, type: 3}
   ID: SwordGolden
   SwingType: 0
-  Damage: 50
+  Damage: 25
+  PushForce: 7
   StaminaReductionRate: 15
   ComboInbetweenTime: 0.25
   MaxCombos: 1

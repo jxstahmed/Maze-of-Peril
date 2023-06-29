@@ -11,6 +11,7 @@ TagManager:
   - PatrolPoint
   - Static
   - Gate
+  - potion
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    
     [Header("Player")]
     [SerializeField] public PlayerStats PlayerData;
     [SerializeField] public Slider PlayerUIHealth;
@@ -49,7 +50,6 @@ public class Player : MonoBehaviour
 
     private Vector2 playerMovement;
     private Vector2 playerMovementLast;
-
     // subscribe
     private void Awake()
     {
@@ -658,5 +658,4 @@ public class Player : MonoBehaviour
         DOWN_RIGHT,
         DOWN_LEFT
     }
-
 }

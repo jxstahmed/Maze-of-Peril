@@ -15,8 +15,9 @@ MonoBehaviour:
   prefab: {fileID: 5494822249054592820, guid: 5814e8c598e51374390db52754076817, type: 3}
   ID: SwordMeaty
   SwingType: 0
-  Damage: 50
-  StaminaReductionRate: 15
+  Damage: 15
+  PushForce: 6
+  StaminaReductionRate: 20
   ComboInbetweenTime: 0.25
   MaxCombos: 1
   Position: {x: 0, y: 0}

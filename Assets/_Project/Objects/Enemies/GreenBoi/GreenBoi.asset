@@ -15,13 +15,13 @@ MonoBehaviour:
   Name: GreenBoi
   Rank: 0
   Prefab: {fileID: 2705144798650876256, guid: b655cf98994df6d44baa15690ecb60ee, type: 3}
-  OverallHealth: 180
-  Health: 65
-  Damage: 20
-  FollowSpeed: 0.9
+  OverallHealth: 110
+  Health: 110
+  Damage: 25
+  FollowSpeed: 1.25
   MaxSightRadius: 12
   FollowAfterLockedSightingForSeconds: 0.1
-  PatrolSpeed: 0.95
+  PatrolSpeed: 0.8
   PatrolRadius: 40
   StaminaRegenerationRate: 0
   HealthRegenerationRate: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  AttackCooldown: 1
+  AttackCooldown: 1.5

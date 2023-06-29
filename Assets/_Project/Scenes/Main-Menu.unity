@@ -544,7 +544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &105647717
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1588,7 +1588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &387843029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1722,6 +1722,8 @@ MonoBehaviour:
   Menu: {fileID: 803587060}
   OptionsView: {fileID: 369085973}
   CreditsView: {fileID: 803502842}
+  DeathView: {fileID: 0}
+  LevelEndView: {fileID: 0}
   MusicSlider: {fileID: 938126287}
   FXSlider: {fileID: 1074072035}
   GameOptions: {fileID: 11400000, guid: c37205ea22757224da0701275d4555b6, type: 2}
@@ -2744,7 +2746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &803587061
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4601,6 +4603,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 105647717}
     m_Modifications:
+    - target: {fileID: 4734682517923185045, guid: 63d7c69aa20338a47bb86bb24bbb8107,
+        type: 3}
+      propertyPath: m_AnimationTriggers.m_SelectedTrigger
+      value: Pressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734682517923185045, guid: 63d7c69aa20338a47bb86bb24bbb8107,
+        type: 3}
+      propertyPath: m_AnimationTriggers.m_HighlightedTrigger
+      value: Pressed
+      objectReference: {fileID: 0}
     - target: {fileID: 4734682517923185046, guid: 63d7c69aa20338a47bb86bb24bbb8107,
         type: 3}
       propertyPath: m_Name
@@ -4740,6 +4752,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 387843029}
     m_Modifications:
+    - target: {fileID: 4734682517923185045, guid: 63d7c69aa20338a47bb86bb24bbb8107,
+        type: 3}
+      propertyPath: m_AnimationTriggers.m_SelectedTrigger
+      value: Pressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734682517923185045, guid: 63d7c69aa20338a47bb86bb24bbb8107,
+        type: 3}
+      propertyPath: m_AnimationTriggers.m_HighlightedTrigger
+      value: Pressed
+      objectReference: {fileID: 0}
     - target: {fileID: 4734682517923185046, guid: 63d7c69aa20338a47bb86bb24bbb8107,
         type: 3}
       propertyPath: m_Name
@@ -4964,6 +4986,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
+        type: 3}
+      propertyPath: MenuClip.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: cece461fff666a4d6b9ffa1c405c1891, type: 3}
     - target: {fileID: 8093860291548884053, guid: cb46833ae553e9049a481e085c6e1e60,
         type: 3}
       propertyPath: m_Name
@@ -4986,7 +5013,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 256, y: 144}
+  m_ReferenceResolution: {x: 275, y: 144}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

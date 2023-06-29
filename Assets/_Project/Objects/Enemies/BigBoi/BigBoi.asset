@@ -15,13 +15,13 @@ MonoBehaviour:
   Name: AngryBigBoi
   Rank: 0
   Prefab: {fileID: 6747792095420642861, guid: 155e1441eec773548bc42b9e65bc3ccf, type: 3}
-  OverallHealth: 180
-  Health: 65
+  OverallHealth: 120
+  Health: 120
   Damage: 20
-  FollowSpeed: 0.9
+  FollowSpeed: 0.95
   MaxSightRadius: 12
   FollowAfterLockedSightingForSeconds: 0.1
-  PatrolSpeed: 0.95
+  PatrolSpeed: 0.75
   PatrolRadius: 40
   StaminaRegenerationRate: 0
   HealthRegenerationRate: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  AttackCooldown: 1
+  AttackCooldown: 1.5

@@ -15,13 +15,13 @@ MonoBehaviour:
   Name: RedBoi
   Rank: 0
   Prefab: {fileID: 8563113178378357541, guid: 03a01a64a640eb4419ef3e2e79eac06d, type: 3}
-  OverallHealth: 180
-  Health: 65
-  Damage: 20
-  FollowSpeed: 0.9
+  OverallHealth: 100
+  Health: 100
+  Damage: 10
+  FollowSpeed: 1.2
   MaxSightRadius: 12
   FollowAfterLockedSightingForSeconds: 0.1
-  PatrolSpeed: 0.95
+  PatrolSpeed: 0.75
   PatrolRadius: 40
   StaminaRegenerationRate: 0
   HealthRegenerationRate: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  AttackCooldown: 1
+  AttackCooldown: 0.5

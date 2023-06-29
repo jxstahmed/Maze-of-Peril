@@ -17,11 +17,11 @@ MonoBehaviour:
   Prefab: {fileID: 6515073841565013041, guid: 73c3982209d22db44a1f15564bb167ee, type: 3}
   OverallHealth: 180
   Health: 65
-  Damage: 20
-  FollowSpeed: 0.9
-  MaxSightRadius: 12
+  Damage: 30
+  FollowSpeed: 1
+  MaxSightRadius: 8
   FollowAfterLockedSightingForSeconds: 0.1
-  PatrolSpeed: 0.95
+  PatrolSpeed: 0.6
   PatrolRadius: 40
   StaminaRegenerationRate: 0
   HealthRegenerationRate: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  AttackCooldown: 1
+  AttackCooldown: 2.5
