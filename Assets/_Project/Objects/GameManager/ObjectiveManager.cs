@@ -116,6 +116,10 @@ public class ObjectiveManager : MonoBehaviour
     {
         if (ID == null) return;
 
+        if (RenderManager.Instance != null) RenderManager.Instance.ValidateItems(ID);
+
+
+
         ValidateEndScreen(ID);
 
         if (!HasCollectedID(ID))
@@ -124,7 +128,6 @@ public class ObjectiveManager : MonoBehaviour
 
     private void ValidateEndScreen(string ID)
     {
-        Debug.Log("ID: " + ID + " == " + GameManager.Instance.Settings.LEVEL_1_END_ID);
 
         if (!ID.Equals(GameManager.Instance.Settings.LEVEL_1_END_ID)) return;
 

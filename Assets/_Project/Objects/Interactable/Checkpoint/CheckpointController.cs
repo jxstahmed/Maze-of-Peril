@@ -9,6 +9,8 @@ public class CheckpointController : MonoBehaviour
     [SerializeField] public string[] NeedsIDs;
     [SerializeField] public bool HasReached;
 
+    [Tooltip("Select a gate that we completely close after the checkpoint is passed")]
+    [SerializeField] public List<GateController> ClosableGate;
 
     // Update is called once per frame
     void Update()
@@ -37,12 +39,21 @@ public class CheckpointController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(GameManager.Instance.PlayerTag) && !HasReached)
+        if (!HasReached && other.CompareTag(GameManager.Instance.PlayerTag))
         {
             if(HasIDs())
             {
                 HasReached = true;
                 ObjectiveManager.Instance.CollectCheckpoint(ID);
+
+                if(ClosableGate != null && ClosableGate.Count > 0)
+                {
+                    ClosableGate.ForEach(gate =>
+                    {
+                        gate.CanOpen = false;
+                        gate.SetClosed();
+                    });
+                }
             }
         }
     }

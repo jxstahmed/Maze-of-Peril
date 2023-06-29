@@ -149,7 +149,7 @@ public class AudioManager : MonoBehaviour
         if (active)
         {
             audioSource.clip = MenuClip.clip;
-            audioSource.volume = (Settings.MusicAudioLevel + MenuClip.volume) / 2;
+            audioSource.volume = (Settings.MusicAudioLevel * MenuClip.volume);
             audioSource.loop = true;
             if (MenuClip.delay > 0) audioSource.PlayDelayed(MenuClip.delay);
             else audioSource.Play();
@@ -169,7 +169,7 @@ public class AudioManager : MonoBehaviour
         {
             audioSource.clip = GameplayClip.clip;
             audioSource.loop = true;
-            audioSource.volume = (Settings.MusicAudioLevel + GameplayClip.volume) / 2;
+            audioSource.volume = (Settings.MusicAudioLevel * GameplayClip.volume);
             if (GameplayClip.delay > 0) audioSource.PlayDelayed(GameplayClip.delay);
             else audioSource.Play();
         } else

@@ -8,6 +8,9 @@ public class GateController : MonoBehaviour
     [SerializeField] public string ID;
     [SerializeField] public string Label;
     [SerializeField] public string[] NeedsIDs;
+   
+    [SerializeField] public bool CanOpen = true;
+
     [Tooltip("Player's weapon can look ugly. You may disable their weapon once they collide with the door when it's open.")]
     [SerializeField] public bool ShouldHidePlayerWeapon = false;
     [SerializeField] public bool IsOpen = false;
@@ -81,6 +84,8 @@ public class GateController : MonoBehaviour
 
     public void SetOpened()
     {
+        if (!CanOpen) return;
+
         if (!IsOpen) AudioManager.Instance.PlayFromPosition(AudioManager.Instance.DoorOpens, gameObject.transform);
 
         IsOpen = true;
@@ -116,7 +121,7 @@ public class GateController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(GameManager.Instance.PlayerTag))
+        if (CanOpen && other.CompareTag(GameManager.Instance.PlayerTag))
         {
            // Check if we have the collected ids/groups
            if(HasIDs())
@@ -144,13 +149,10 @@ public class GateController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag(GameManager.Instance.PlayerTag) && HasIDs() && IsOpen && ShouldHidePlayerWeapon)
+        if (CanOpen && other.CompareTag(GameManager.Instance.PlayerTag) && HasIDs() && IsOpen && ShouldHidePlayerWeapon)
         {
-          
-
             Player player = other.GetComponent<Player>();
             player.HideWeapon();
-
         } 
     }
 }

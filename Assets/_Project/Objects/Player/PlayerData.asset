@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentLevel: 0
   OverallHealth: 100
-  Health: 100
+  Health: 80
   OverallStamina: 100
-  Stamina: 100
+  Stamina: 30.400372
   Speed: 1
   StaminaRegenerationRate: 15
   HealthRegenerationRate: 0

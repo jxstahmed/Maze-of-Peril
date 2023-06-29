@@ -232,6 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbe374194e68994baaf7be620683cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powBase: 3
+  powStartX: 0.5
+  powExpMultiplier: 5
 --- !u!60 &5250940232263355491
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -257,8 +260,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.123212814, y: 0.7308407}
-      - {x: -0.4966507, y: 0.73419}
-      - {x: -0.5, y: 0}
-      - {x: 0.5, y: 0}
-      - {x: 0.5066986, y: 0.73084116}
+    - - {x: -0.01681137, y: 0.8229399}
+      - {x: -0.50029755, y: 0.8011675}
+      - {x: -0.4993496, y: -0.00583601}
+      - {x: 0.5023613, y: 0.010641098}
+      - {x: 0.49472237, y: 0.8113961}

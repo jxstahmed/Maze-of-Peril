@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using Cinemachine;
 
 public class EnemyAgentController : MonoBehaviour
 {
@@ -30,6 +29,8 @@ public class EnemyAgentController : MonoBehaviour
     [SerializeField] SpriteRenderer ExcelemationMarkAttachment;
     [SerializeField] Light2D SelfSpot;
     [SerializeField] Light2D SightSpot;
+    [Tooltip("To avoid calculations, we can preselect the player and make the enemy's target to literally follow the player (e.g. trap rooms)")]
+    [SerializeField] Rigidbody2D PlayerByDefault;
 
 
     [Header("Sight Lamp")]
@@ -138,7 +139,7 @@ public class EnemyAgentController : MonoBehaviour
             return; 
         }
 
-        if(HasSetPatrolStopTime)
+        if(HasSetPatrolStopTime && CanPatrol)
             PatrolDurationTimer += Time.deltaTime;
         
         if(IsWaitingAfterChaseEnd)
@@ -188,8 +189,6 @@ public class EnemyAgentController : MonoBehaviour
         IsPatroling = CanMove && CanPatrol && !CanSeePlayer;
         IsFollowing = CanMove && CanFollow && CanSeePlayer && FoundPlayerBySight != null;
         EnemyAudio();
-
-
 
 
 
@@ -311,6 +310,14 @@ public class EnemyAgentController : MonoBehaviour
 
     void SeePlayer()
     {
+        if(PlayerByDefault != null)
+        {
+            // We could add a float for the required distance, but we want to avoid any further calculation and just let the player get followed by such enemies until he kills them
+            // this could be a problem if the enemy can pass walls
+            CanSeePlayer = true;
+            FoundPlayerBySight = PlayerByDefault;
+            return;
+        }
 
         // Provide initial information for the all-directional raycast
         Vector2 currentPosition = transform.localPosition;
@@ -394,6 +401,8 @@ public class EnemyAgentController : MonoBehaviour
 
     void Follow()
     {
+        if (!CanFollow) return;
+
         if(!CanSeePlayer || FoundPlayerBySight == null)
         {
             Debug.Log("Couldn't find the player | TargetPlayer is null");
@@ -416,6 +425,8 @@ public class EnemyAgentController : MonoBehaviour
 
     void Patrol()
     {
+        if (!CanPatrol) return;
+
         if (PatrolPoints == null || PatrolPoints.Count == 0)
         {
             Debug.Log("Patrol points are not set");
