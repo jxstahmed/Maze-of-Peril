@@ -142,21 +142,46 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void ToggleMenuAudio(bool active)
+    public void ToggleAudioPause(bool active)
+    {
+        if (audioSource == null) return;
+
+        if (active)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Pause();
+        }
+
+    }
+
+    public void ToggleMenuAudio(bool active, bool isResume = false)
     {
         if (MenuClip == null) return;
 
         if (active)
         {
+
+
             audioSource.clip = MenuClip.clip;
             audioSource.volume = (Settings.MusicAudioLevel * MenuClip.volume);
             audioSource.loop = true;
-            if (MenuClip.delay > 0) audioSource.PlayDelayed(MenuClip.delay);
+
+            if(isResume)
+            {
+                if (MenuClip.delay > 0) audioSource.PlayDelayed(MenuClip.delay);
+                else audioSource.Play();
+            }
             else audioSource.Play();
+
         }
         else
         {
-            audioSource.Stop();
+            if(isResume)
+                audioSource.Pause();
+            else audioSource.Stop();
         }
 
     }

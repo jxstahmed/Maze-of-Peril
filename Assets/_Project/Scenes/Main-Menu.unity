@@ -5794,8 +5794,23 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: cece461fff666a4d6b9ffa1c405c1891, type: 3}
     - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
         type: 3}
+      propertyPath: MenuClip.delay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
+        type: 3}
+      propertyPath: MenuClip.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
+        type: 3}
+      propertyPath: GameplayClip.delay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
+        type: 3}
       propertyPath: GameplayClip.volume
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8093860291548884053, guid: cb46833ae553e9049a481e085c6e1e60,
         type: 3}

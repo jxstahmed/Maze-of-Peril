@@ -52,6 +52,7 @@ public class MenuManager : MonoBehaviour
         if(type == "music")
         {
             GameOptions.MusicAudioLevel = MusicSlider.value;
+            AudioManager.Instance.ToggleMenuAudio(true);
         } else if (type == "fx")
         {
             GameOptions.FXAudioLevel = FXSlider.value;
