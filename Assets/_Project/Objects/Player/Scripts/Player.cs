@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private KeyCode KeyMoveSprint = KeyCode.LeftShift;
     [SerializeField] private KeyCode KeyShowWeapon = KeyCode.F;
     [SerializeField] private KeyCode KeyToggleWeapon = KeyCode.R;
+    [SerializeField] private KeyCode KeyPauseMenu = KeyCode.Escape;
     [SerializeField] private KeyCode KeyDragMoveable = KeyCode.E;
 
     [SerializeField] private KeyCode KeySwordAttack = KeyCode.Space;
@@ -155,7 +156,13 @@ public class Player : MonoBehaviour
         {
             ToggleWeaponSelection();
         }
-        
+
+        if (Input.GetKeyDown(KeyPauseMenu))
+        {
+            ShowPauseMenu();
+        }
+
+
         if (Input.GetKeyDown(KeyDragMoveable))
         {
             ProcessDragMoveable();
@@ -474,6 +481,11 @@ public class Player : MonoBehaviour
         {
             MenuManager.Instance.OpenDeathView();
         }
+    }
+
+    private void ShowPauseMenu()
+    {
+        MenuManager.Instance.PauseGame();
     }
 
     public void AffectHealth(float health)

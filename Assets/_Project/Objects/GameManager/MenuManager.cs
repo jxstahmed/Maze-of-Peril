@@ -40,7 +40,13 @@ public class MenuManager : MonoBehaviour
         FXSlider.value = GameOptions.FXAudioLevel;
         FXSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("fx"); });
 
-        if(StartMenuMusic)
+        StartCoroutine(Validate());
+    }
+
+    private IEnumerator Validate()
+    {
+        yield return new WaitForSeconds(1.5f);
+        if (StartMenuMusic)
         {
             AudioManager.Instance.ToggleMenuAudio(true);
 

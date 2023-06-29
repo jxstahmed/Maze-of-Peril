@@ -135,9 +135,11 @@ public class EnemyAgentController : MonoBehaviour
             if (ExcelemationMarkAttachment != null)
                 ExcelemationMarkAttachment.enabled = false;
             if (UIHealth != null)
-                UIHealth.transform.position = new Vector2(0, float.MaxValue); //ich weiß ist jetzt keine cleane lösung aber funktioniert
+                UIHealth.transform.position = new Vector2(0, float.MaxValue); //ich weiï¿½ ist jetzt keine cleane lï¿½sung aber funktioniert
             return; 
         }
+
+        if (IsDead) return;
 
         if(HasSetPatrolStopTime && CanPatrol)
             PatrolDurationTimer += Time.deltaTime;
@@ -173,11 +175,16 @@ public class EnemyAgentController : MonoBehaviour
         IsMoving = agent.velocity.x != 0 || agent.velocity.y != 0;
 
 
+        if(IsDead)
+        {
+            agent.SetDestination(gameObject.transform.position);
+        }
+
         UpdateUI();
 
         bool OldCanSeePlayer = CanSeePlayer;
 
-        animator.SetBool("isMoving", IsMoving && !isAttacking);
+        animator.SetBool("isMoving", !IsDead && IsMoving && !isAttacking);
 
         if (IsDead || !CanMove) return;
 
@@ -699,7 +706,7 @@ public class EnemyAgentController : MonoBehaviour
                 }
             }*/
 
-            //dein alter code ist auskommentier noch da, daran habe ich auch nichts geändert.
+            //dein alter code ist auskommentier noch da, daran habe ich auch nichts geï¿½ndert.
             //Attackcooldown funktioniert jetzt so, dass wenn ein gegner angreift eine coroutine startet, die den cooldown wartet und dann dem gegner wieder erlaubt anzugreifen.
             // Alles klar
             if (!IsDead && CanAttack && !attackOnCooldown && !isAttacking)

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentLevel: 0
   OverallHealth: 100
-  Health: 80
+  Health: 100
   OverallStamina: 100
-  Stamina: 30.400372
+  Stamina: 100
   Speed: 1
   StaminaRegenerationRate: 15
   HealthRegenerationRate: 0
@@ -27,5 +27,6 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 2
-  EquippedWeaponID: 
-  WeaponsIDsList: []
+  EquippedWeaponID: SwordChunky
+  WeaponsIDsList:
+  - SwordChunky

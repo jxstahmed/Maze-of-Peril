@@ -369,7 +369,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &9007045009335953821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8db9b5e133f326469d58838507afab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 
   isEquipEnabled: 0
   WeaponStats: {fileID: 11400000, guid: 9dadaccfe6f693442ab89a68feccc8a9, type: 2}
   TrailRenderers:
