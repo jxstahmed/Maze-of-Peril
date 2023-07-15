@@ -83,7 +83,34 @@ public class MenuManager : MonoBehaviour
         {
             AudioManager.Instance.ToggleGamePlayAudio(true);
             SceneManager.LoadScene(GameOptions.SCENE_LEVEL_2);
+        } else
+        {
+            // nothing found, go to main menu
+            OpenMainMenu();
         }
+    }
+    public void StartNextLevel()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        Time.timeScale = 1f;
+
+        int currentLevel = -1;
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (currentScene == GameOptions.SCENE_LEVEL_1)
+        {
+            currentLevel = 1;
+        } else if (currentScene == GameOptions.SCENE_LEVEL_2)
+        {
+            currentLevel = 2;
+        }
+
+        StartLevel(currentLevel + 1);
+    }
+
+    public void RestartScene()
+    {
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
     }
     public void OpenMainMenu()
     {
