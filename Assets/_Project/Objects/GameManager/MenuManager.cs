@@ -289,4 +289,20 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    public int GetCurrentLevel()
+    {
+        int currentLevel = 0;
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (currentScene == GameOptions.SCENE_LEVEL_1)
+        {
+            currentLevel = 1;
+        }
+        else if (currentScene == GameOptions.SCENE_LEVEL_2)
+        {
+            currentLevel = 2;
+        }
+
+        return currentLevel;
+    }
+
 }

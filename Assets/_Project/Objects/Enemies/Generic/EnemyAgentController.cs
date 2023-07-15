@@ -416,7 +416,7 @@ public class EnemyAgentController : MonoBehaviour
             return;
         }
 
-        agent.speed = EnemyData.FollowSpeed;
+        agent.speed = EnemyData.FollowSpeed * GameManager.Instance.GetLevelDifficultyOptions().enemy_speed_factor;
 
         if (!(LastLockedSightTimer >= EnemyData.FollowAfterLockedSightingForSeconds)) return;
 
@@ -440,7 +440,7 @@ public class EnemyAgentController : MonoBehaviour
             return;
         }
 
-        agent.speed = EnemyData.PatrolSpeed;
+        agent.speed = EnemyData.PatrolSpeed * GameManager.Instance.GetLevelDifficultyOptions().enemy_speed_factor;
 
         // set initial point
         if (UpcomingPatrolPointIndex == -1 || UpcomingPatrolPointIndex >= PatrolPoints.Count)
@@ -739,7 +739,7 @@ public class EnemyAgentController : MonoBehaviour
     }
     private void DamagePlayer()
     {
-        GameManager.Instance.AttackPlayer(-EnemyData.Damage);
+        GameManager.Instance.AttackPlayer(-EnemyData.Damage * GameManager.Instance.GetLevelDifficultyOptions().enemy_damage_factor);
     }
    /* private void OnTriggerExit2D(Collider2D other)
     {

@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
                 WeaponStats activeWeapon = GetActiveWeaponProfile();
                 if (activeWeapon != null)
                 {
-                    float availableStamina = PlayerData.Stamina - activeWeapon.StaminaReductionRate;
+                    float availableStamina = PlayerData.Stamina - (activeWeapon.StaminaReductionRate * GameManager.Instance.GetLevelDifficultyOptions().weapon_reduction_factor);
 
                     if (availableStamina >= 0)
                     {
@@ -211,7 +211,7 @@ public class Player : MonoBehaviour
             dir.y = -1;
 
         isPlayerMoving = playerMovement.x != 0 || playerMovement.y != 0;
-        isPlayerRunning = Input.GetKey(KeyMoveSprint) && isPlayerMoving && (PlayerData.Stamina - PlayerData.SpeedStaminaReductionRate) >= 0;
+        isPlayerRunning = Input.GetKey(KeyMoveSprint) && isPlayerMoving && (PlayerData.Stamina - (PlayerData.SpeedStaminaReductionRate * GameManager.Instance.GetLevelDifficultyOptions().player_speed_reduction_rate_factor)) >= 0;
 
         dir.Normalize();
 
@@ -292,7 +292,7 @@ public class Player : MonoBehaviour
             // Factor to increase the run
             base_speed += (base_speed * PlayerData.RunFactor);
             Debug.Log("Player is running, reducing: -" + PlayerData.SpeedStaminaReductionRate);
-            AffectStamina(-PlayerData.SpeedStaminaReductionRate);
+            AffectStamina(-PlayerData.SpeedStaminaReductionRate * GameManager.Instance.GetLevelDifficultyOptions().player_speed_reduction_rate_factor);
 
         }
 
@@ -354,12 +354,12 @@ public class Player : MonoBehaviour
 
         if (internalStaminaCooldownTimer > PlayerData.RegenerateStaminaCooldownWhenRun)
         {
-            AffectStamina(PlayerData.StaminaRegenerationRate);
+            AffectStamina(PlayerData.StaminaRegenerationRate * GameManager.Instance.GetLevelDifficultyOptions().player_stamina_increase_factor);
         }
 
         if (internalHealthCooldowTimer > PlayerData.RegenerateHealthCooldownWhenHit)
         {
-            AffectHealth(PlayerData.HealthRegenerationRate);
+            AffectHealth(PlayerData.HealthRegenerationRate * GameManager.Instance.GetLevelDifficultyOptions().player_blood_increase_factor);
         }
 
 

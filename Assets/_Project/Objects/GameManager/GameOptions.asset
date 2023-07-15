@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349d993e117325549b9418aa57ed9072, type: 3}
   m_Name: GameOptions
   m_EditorClassIdentifier: 
+  LevelsOptions:
+  - level_number: 1
+    level_difficulty: 1.2
   SCENE_MAIN: 0
   SCENE_LEVEL_1: 1
   SCENE_LEVEL_2: 1

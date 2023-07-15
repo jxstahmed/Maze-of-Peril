@@ -156,7 +156,7 @@ public class WeaponController : MonoBehaviour
         animator.SetBool("isAttacking", true);
 
         // Reduce stamina of player, regardless if the player hits someone or not
-        GameManager.Instance.ChangePlayerStamina(-WeaponData.StaminaReductionRate);
+        GameManager.Instance.ChangePlayerStamina(-WeaponData.StaminaReductionRate * GameManager.Instance.GetLevelDifficultyOptions().weapon_reduction_factor);
     }
 
     private bool IsAttacking()
@@ -213,7 +213,7 @@ public class WeaponController : MonoBehaviour
 
 
         // Affect the health of the nemy
-        enemy.AttackEnemy(-weapon.Damage, PlayerScript.transform, WeaponData.PushForce);
+        enemy.AttackEnemy(-weapon.Damage * GameManager.Instance.GetLevelDifficultyOptions().weapon_damage_factor, PlayerScript.transform, WeaponData.PushForce);
         if (EnemyComboHitsCount > 0)
         {
             StopAllCoroutines();

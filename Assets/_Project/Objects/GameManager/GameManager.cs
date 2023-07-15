@@ -96,6 +96,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Applying damage to player");
         GameEvent?.Invoke(payload);
     } 
+    
+    public void AffectPlayerHealth(float health)
+    {
+        Hashtable payload = new Hashtable();
+        payload.Add("state", GameState.AffectHealth);
+        payload.Add("health", health);
+        GameEvent?.Invoke(payload);
+    } 
 
     
 
@@ -166,6 +174,29 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = startTimeScale;
         Time.fixedDeltaTime = startFixedDeltaTime;
+    }
+
+    public GameSettings.LevelOption GetLevelDifficultyOptions()
+    {
+        int currentLevel = -1;
+        GameSettings.LevelOption currentFactor = new GameSettings.LevelOption();
+
+        if(MenuManager.Instance != null && Settings != null && Settings.LevelsOptions != null && Settings.LevelsOptions .Count > 0)
+        {
+            currentLevel = MenuManager.Instance.GetCurrentLevel();
+            if(currentLevel > 0)
+            {
+                Settings.LevelsOptions.ForEach(level => {
+                    if(level.level_number == currentLevel)
+                    {
+                        currentFactor = level;
+                        return;
+                    }
+                });
+            }
+        }
+
+        return currentFactor;
     }
 
  
