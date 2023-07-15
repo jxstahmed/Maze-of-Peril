@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameSettings Settings;
     [SerializeField] public WeaponsPack WeaponsPackData;
     [SerializeField] public PlayerStats PlayerData;
-    [SerializeField] public Player PlayerScript;
     [SerializeField] public List<EnemiesStats> Enemies = new List<EnemiesStats>();
     [SerializeField] public List<KeysStats> Keys = new List<KeysStats>();
     [SerializeField] public GameObject HealthPotion;

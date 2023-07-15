@@ -159,7 +159,7 @@ public class ChestController : MonoBehaviour
                 parent.transform.SetParent(transform);
                 parent.transform.localPosition = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-1.5f, -0.5f));
 
-                GameObject obj = Instantiate(GameManager.Instance.HealthPotion, Vector2.zero, GameManager.Instance.HealthPotion.transform.rotation);
+                GameObject obj = Instantiate(GameManager.Instance.HealthSizePotion, Vector2.zero, GameManager.Instance.HealthSizePotion.transform.rotation);
 
 
                 HealthSizePotionController controller = obj.GetComponent<HealthSizePotionController>();
@@ -184,7 +184,7 @@ public class ChestController : MonoBehaviour
                 parent.transform.SetParent(transform);
                 parent.transform.localPosition = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-1.5f, -0.5f));
 
-                GameObject obj = Instantiate(GameManager.Instance.HealthPotion, Vector2.zero, GameManager.Instance.HealthPotion.transform.rotation);
+                GameObject obj = Instantiate(GameManager.Instance.StaminaSizePotion, Vector2.zero, GameManager.Instance.StaminaSizePotion.transform.rotation);
 
 
                 StaminaSizePotionController controller = obj.GetComponent<StaminaSizePotionController>();
