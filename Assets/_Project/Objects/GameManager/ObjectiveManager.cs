@@ -82,6 +82,11 @@ public class ObjectiveManager : MonoBehaviour
         Debug.Log("CollectKey, ID: " + ID);
         AddIDToObjective(ID);
     }
+    public void CollectPotion(string ID)
+    {
+        Debug.Log("CollectPotion, ID: " + ID);
+        AddIDToObjective(ID);
+    }
     public void CollectCheckpoint(string ID)
     {
         Debug.Log("CollectCheckpoint, ID: " + ID);

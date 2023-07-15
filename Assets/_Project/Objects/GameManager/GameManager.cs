@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Player PlayerScript;
     [SerializeField] public List<EnemiesStats> Enemies = new List<EnemiesStats>();
     [SerializeField] public List<KeysStats> Keys = new List<KeysStats>();
+    [SerializeField] public GameObject HealthPotion;
+    [SerializeField] public GameObject HealthSizePotion;
+    [SerializeField] public GameObject StaminaSizePotion;
 
     [Header("Slow Motion")]
     [SerializeField] public bool CanSlowMoAfterHit = false;
@@ -103,6 +106,26 @@ public class GameManager : MonoBehaviour
         payload.Add("state", GameState.AffectHealth);
         payload.Add("health", health);
         GameEvent?.Invoke(payload);
+    } 
+    
+    public void AffectPlayerStamina(float stamina)
+    {
+        Hashtable payload = new Hashtable();
+        payload.Add("state", GameState.AffectStamina);
+        payload.Add("stamina", stamina);
+        GameEvent?.Invoke(payload);
+    } 
+
+    
+    public void AffectPlayerStaminaSize(float size)
+    {
+        PlayerData.OverallStamina += size;
+    } 
+
+    
+    public void AffectPlayerHealthSize(float size)
+    {
+        PlayerData.OverallHealth += size;
     } 
 
     
@@ -274,6 +297,13 @@ public class GameManager : MonoBehaviour
         
         [Dropdown("List")]
         public string Color;
+    }
+
+    [System.Serializable]
+    public class Potion
+    {
+        public string ID;
+        public int value;
     }
 }
 

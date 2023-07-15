@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5072570872044809374}
   - component: {fileID: 2888993730421993014}
   - component: {fileID: 8683525248517942778}
-  - component: {fileID: -2533779588915227101}
+  - component: {fileID: 7979315316831950982}
   m_Layer: 0
-  m_Name: HealPotion
+  m_Name: StaminaSizePotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: -2103336934, guid: a6479447821f377438cbf631321f705d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8029086, b: 0.07075471, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,7 +124,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.08}
   m_Size: {x: 0.2, y: 0.16}
   m_Direction: 0
---- !u!114 &-2533779588915227101
+--- !u!114 &7979315316831950982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7294276140781276307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d174bb5e6b1c0624b97e57548aa35a53, type: 3}
+  m_Script: {fileID: 11500000, guid: ed529fa44723ee343a3a914ca717a221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealAmount: 25
+  StaminaSizeAmount: 0

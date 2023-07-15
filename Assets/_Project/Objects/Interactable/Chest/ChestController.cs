@@ -10,12 +10,13 @@ public class ChestController : MonoBehaviour
     [SerializeField] public string ID;
     [SerializeField] public string[] NeedsIds;
     [SerializeField] public List<GameManager.Weapon> PushesWeaponsIds = new List<GameManager.Weapon>();
-
-
     [SerializeField] public List<GameManager.Enemy> PushesEnemiesIds = new List<GameManager.Enemy>();
-
-
     [SerializeField] public List<GameManager.Key> PushesKeysIds = new List<GameManager.Key>();
+    [SerializeField] public List<GameManager.Potion> PushesHealthPotionsIds = new List<GameManager.Potion>();
+    [SerializeField] public List<GameManager.Potion> PushesHealthSizePotionIds = new List<GameManager.Potion>();
+    [SerializeField] public List<GameManager.Potion> PushesStaminaSizePotionIds = new List<GameManager.Potion>();
+
+
     [SerializeField] public bool IsOpen = false;
     [SerializeField] public bool Trigger = false;
 
@@ -109,19 +110,96 @@ public class ChestController : MonoBehaviour
         IsOpen = true;
         closeObject.enabled = false;
         openObject.enabled = true;
-        pushWeapons();
-        pushEnemies();
-        pushKeys();
-        
+        PushWeapons();
+        PushEnemies();
+        PushKeys();
+        PushHealthPotions();
+        PushHealthSizePotions();
+        PushStaminaSizePotions();
 
-        if(!hasAddedID)
+        if (!hasAddedID)
         {
             hasAddedID = true;
             ObjectiveManager.Instance.CollectChest(ID);
         }
     }
 
-    public void pushEnemies()
+    public void PushHealthPotions()
+    {
+        if (PushesHealthPotionsIds != null && PushesHealthPotionsIds.Count > 0)
+        {
+            for (int i = 0; i < PushesHealthPotionsIds.Count; i++)
+            {
+                GameObject parent = new GameObject("PotionParent");
+                parent.transform.SetParent(transform);
+                parent.transform.localPosition = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-1.5f, -0.5f));
+
+                GameObject obj = Instantiate(GameManager.Instance.HealthPotion, Vector2.zero, GameManager.Instance.HealthPotion.transform.rotation);
+
+
+                HealthPotionController controller = obj.GetComponent<HealthPotionController>();
+                controller.ID = PushesHealthPotionsIds[i].ID;
+                controller.HealAmount = PushesHealthPotionsIds[i].value;
+                obj.transform.SetParent(parent.transform, true);
+                obj.transform.localPosition = new Vector2(0, 0);
+
+                
+            }
+            PushesHealthPotionsIds.Clear();
+        }
+    }
+
+    public void PushHealthSizePotions()
+    {
+        if (PushesHealthSizePotionIds != null && PushesHealthSizePotionIds.Count > 0)
+        {
+            for (int i = 0; i < PushesHealthSizePotionIds.Count; i++)
+            {
+                GameObject parent = new GameObject("PotionParent");
+                parent.transform.SetParent(transform);
+                parent.transform.localPosition = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-1.5f, -0.5f));
+
+                GameObject obj = Instantiate(GameManager.Instance.HealthPotion, Vector2.zero, GameManager.Instance.HealthPotion.transform.rotation);
+
+
+                HealthSizePotionController controller = obj.GetComponent<HealthSizePotionController>();
+                controller.ID = PushesHealthSizePotionIds[i].ID;
+                controller.HealthSizeAmount = PushesHealthSizePotionIds[i].value;
+                obj.transform.SetParent(parent.transform, true);
+                obj.transform.localPosition = new Vector2(0, 0);
+
+                
+            }
+            PushesHealthSizePotionIds.Clear();
+        }
+    }
+
+    public void PushStaminaSizePotions()
+    {
+        if (PushesStaminaSizePotionIds != null && PushesStaminaSizePotionIds.Count > 0)
+        {
+            for (int i = 0; i < PushesStaminaSizePotionIds.Count; i++)
+            {
+                GameObject parent = new GameObject("PotionParent");
+                parent.transform.SetParent(transform);
+                parent.transform.localPosition = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-1.5f, -0.5f));
+
+                GameObject obj = Instantiate(GameManager.Instance.HealthPotion, Vector2.zero, GameManager.Instance.HealthPotion.transform.rotation);
+
+
+                StaminaSizePotionController controller = obj.GetComponent<StaminaSizePotionController>();
+                controller.ID = PushesStaminaSizePotionIds[i].ID;
+                controller.StaminaSizeAmount = PushesStaminaSizePotionIds[i].value;
+                obj.transform.SetParent(parent.transform, true);
+                obj.transform.localPosition = new Vector2(0, 0);
+
+                
+            }
+            PushesStaminaSizePotionIds.Clear();
+        }
+    }
+
+    public void PushEnemies()
     {
         if (PushesEnemiesIds != null && PushesEnemiesIds.Count > 0)
         {
@@ -156,7 +234,7 @@ public class ChestController : MonoBehaviour
         }
     }
 
-    public void pushKeys()
+    public void PushKeys()
     {
         if(PushesKeysIds != null && PushesKeysIds.Count > 0) {
             for(int i = 0; i < PushesKeysIds.Count; i++)
@@ -185,7 +263,7 @@ public class ChestController : MonoBehaviour
             }
         }
     }
-    public void pushWeapons()
+    public void PushWeapons()
     {
         if(PushesWeaponsIds != null && PushesWeaponsIds.Count > 0)
         {
