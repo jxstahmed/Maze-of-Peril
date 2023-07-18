@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject CreditsView;
     [SerializeField] public GameObject DeathView;
     [SerializeField] public GameObject LevelEndView;
+    [SerializeField] public GameObject ControlsView;
 
     [Header("Sliders")]
     [SerializeField] public Slider MusicSlider;
@@ -55,11 +56,12 @@ public class MenuManager : MonoBehaviour
 
     private void OnSliderValueChanged(string type)
     {
-        if(type == "music")
+        if (type == "music")
         {
             GameOptions.MusicAudioLevel = MusicSlider.value;
             AudioManager.Instance.ToggleMenuAudio(true);
-        } else if (type == "fx")
+        }
+        else if (type == "fx")
         {
             GameOptions.FXAudioLevel = FXSlider.value;
         }
@@ -83,7 +85,8 @@ public class MenuManager : MonoBehaviour
         {
             AudioManager.Instance.ToggleGamePlayAudio(true);
             SceneManager.LoadScene(GameOptions.SCENE_LEVEL_2);
-        } else
+        }
+        else
         {
             // nothing found, go to main menu
             OpenMainMenu();
@@ -99,7 +102,8 @@ public class MenuManager : MonoBehaviour
         if (currentScene == GameOptions.SCENE_LEVEL_1)
         {
             currentLevel = 1;
-        } else if (currentScene == GameOptions.SCENE_LEVEL_2)
+        }
+        else if (currentScene == GameOptions.SCENE_LEVEL_2)
         {
             currentLevel = 2;
         }
@@ -109,7 +113,7 @@ public class MenuManager : MonoBehaviour
 
     public void RestartScene()
     {
-        Scene scene = SceneManager.GetActiveScene(); 
+        Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
     public void OpenMainMenu()
@@ -142,6 +146,9 @@ public class MenuManager : MonoBehaviour
         if (LevelEndView)
             LevelEndView.SetActive(false);
 
+        if (ControlsView)
+            ControlsView.SetActive(false);
+
     }
     public void PauseGame()
     {
@@ -166,6 +173,9 @@ public class MenuManager : MonoBehaviour
 
         if (LevelEndView)
             LevelEndView.SetActive(false);
+
+        if (ControlsView)
+            ControlsView.SetActive(false);
     }
 
     public void OpenOptions()
@@ -184,6 +194,9 @@ public class MenuManager : MonoBehaviour
 
         if (LevelEndView)
             LevelEndView.SetActive(false);
+
+        if (ControlsView)
+            ControlsView.SetActive(false);
     }
 
     public void OpenCredits()
@@ -202,6 +215,9 @@ public class MenuManager : MonoBehaviour
 
         if (LevelEndView)
             LevelEndView.SetActive(false);
+
+        if (ControlsView)
+            ControlsView.SetActive(false);
     }
 
     public void OpenDeathView()
@@ -226,6 +242,9 @@ public class MenuManager : MonoBehaviour
 
         if (LevelEndView)
             LevelEndView.SetActive(false);
+
+        if (ControlsView)
+            ControlsView.SetActive(false);
     }
 
     public void OpenLevelEndView()
@@ -250,11 +269,41 @@ public class MenuManager : MonoBehaviour
 
         if (LevelEndView)
             LevelEndView.SetActive(true);
+
+        if (ControlsView)
+            ControlsView.SetActive(false);
+    }
+
+    public void OpenControlsView()
+    {
+        Time.timeScale = 0f;
+        AudioManager.Instance.ToggleMenuAudio(true);
+
+        if (Menus)
+            Menus.SetActive(true);
+
+        if (Menu)
+            Menu.SetActive(false);
+
+        if (OptionsView)
+            OptionsView.SetActive(false);
+
+        if (CreditsView)
+            CreditsView.SetActive(false);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
+
+        if (ControlsView)
+            ControlsView.SetActive(true);
     }
 
     public void ReturnPause(string from)
     {
-        if (from == "credits" || from == "options")
+        if (from == "credits" || from == "options" || from == "controls")
         {
             if (Menu)
                 Menu.SetActive(true);
@@ -270,6 +319,9 @@ public class MenuManager : MonoBehaviour
 
             if (LevelEndView)
                 LevelEndView.SetActive(false);
+
+            if (ControlsView)
+                ControlsView.SetActive(false);
         }
     }
 
@@ -285,7 +337,7 @@ public class MenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-     
+
         Application.Quit();
     }
 

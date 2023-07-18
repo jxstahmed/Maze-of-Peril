@@ -124,6 +124,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &339393613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5879227689314316168, guid: 6c37d950ad222254da4a76e6f374f7d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1199288908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1199288908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,16 +137,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 805356490694732436, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenControlsView
+      objectReference: {fileID: 0}
     - target: {fileID: 977732596957622681, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885082609087437863, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2938577373858477398, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3713599867874991447, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: Menu
       value: 
       objectReference: {fileID: 977732595792020437}
+    - target: {fileID: 3713599867874991447, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: ControlsView
+      value: 
+      objectReference: {fileID: 339393613}
     - target: {fileID: 3713599867874991447, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: StartMenuMusic
@@ -150,6 +176,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713599868021373934, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713599868166130767, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713599868327216950, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713599868784153912, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3713599868885471533, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
@@ -265,6 +311,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3713599869480073647, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3748722076129543164, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: controls
+      objectReference: {fileID: 0}
+    - target: {fileID: 4545401863590837879, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5102839103884753925, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5879227689314316168, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307293127290634162, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenControlsView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c37d950ad222254da4a76e6f374f7d1, type: 3}
