@@ -819,4 +819,13 @@ public class EnemyAgentController : MonoBehaviour
         
         Destroy(gameObject);
     }
+
+    public void LockAttack()
+    {
+        CanAttack = false;
+    }
+    public void UnLockAttack()
+    {
+        CanAttack = true;
+    }
 }

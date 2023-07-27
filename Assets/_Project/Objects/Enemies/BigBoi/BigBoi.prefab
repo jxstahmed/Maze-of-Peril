@@ -865,8 +865,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.020340843, y: 0.118852004}
-  m_Size: {x: 0.3074665, y: 0.301167}
+  m_Offset: {x: -0.020340862, y: 0.11472691}
+  m_Size: {x: 0.35, y: 0.35}
   m_Direction: 1
 --- !u!95 &6747792095420642849
 Animator:
@@ -937,14 +937,15 @@ MonoBehaviour:
   ExcelemationMarkAttachment: {fileID: 7398214395660970098}
   SelfSpot: {fileID: 6747792094984745662}
   SightSpot: {fileID: 6747792095361403143}
+  PlayerByDefault: {fileID: 0}
   EnableSelfLamp: 1
   EnableSightLamp: 1
   FollowCollisionTag:
   - Walls
   - Static
-  LookBehindWalls: 1
-  SightInMovingDirection: 0
-  ClosestRadiusToPlayer: 0.8
+  LookBehindWalls: 0
+  SightInMovingDirection: 1
+  ClosestRadiusToPlayer: 0.3
   WaitAfterChaseEndDuration: 1
   CollisionTag: PatrolPoint
   PatrolPoints: []

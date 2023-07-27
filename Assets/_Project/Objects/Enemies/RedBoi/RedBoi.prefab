@@ -313,14 +313,15 @@ MonoBehaviour:
   ExcelemationMarkAttachment: {fileID: 8868244829791096296}
   SelfSpot: {fileID: 8563113180055495434}
   SightSpot: {fileID: 8563113178373677985}
+  PlayerByDefault: {fileID: 0}
   EnableSelfLamp: 1
   EnableSightLamp: 1
   FollowCollisionTag:
   - Walls
   - Static
-  LookBehindWalls: 1
-  SightInMovingDirection: 0
-  ClosestRadiusToPlayer: 0.9
+  LookBehindWalls: 0
+  SightInMovingDirection: 1
+  ClosestRadiusToPlayer: 0.5
   WaitAfterChaseEndDuration: 1
   CollisionTag: PatrolPoint
   PatrolPoints: []
