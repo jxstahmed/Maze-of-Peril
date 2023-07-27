@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5072570872044809374}
   - component: {fileID: 2888993730421993014}
   - component: {fileID: 8683525248517942778}
+  - component: {fileID: -6421115056144711557}
   m_Layer: 0
   m_Name: HealPotion
   m_TagString: Untagged
@@ -123,3 +124,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.08}
   m_Size: {x: 0.2, y: 0.16}
   m_Direction: 0
+--- !u!114 &-6421115056144711557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294276140781276307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d174bb5e6b1c0624b97e57548aa35a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
+  HealAmount: 0

@@ -49,47 +49,51 @@ MonoBehaviour:
   PlayerMovementRate: 0.3
   EnemyMovementRate: 0.5
   BoxMovementRate: 1
+  MenuClip:
+    clip: {fileID: 0}
+    volume: 1
+    delay: 0
   GameplayClip:
     clip: {fileID: 8300000, guid: d251ffb85bdb161408e0a0402c0b083c, type: 3}
     volume: 0.001
     delay: 0
   PlayerWalks:
   - clip: {fileID: 8300000, guid: bd5653e52c4636e4aa3b0ced8f49a18d, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 96860d4e7cdc1f746906da7b7bc7a388, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 97b97fae0b55ce141bff2005c510492e, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 9cd93e6b4948e0c4abc089546af87c38, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 9133d407969ea654a9589b2169db5382, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 3fb042d8273dfd141955633820660a4f, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: eb73ae3e299f426418476df5f1fb0f53, type: 3}
-    volume: -0.5
+    volume: 1
     delay: 0
   PlayerSprints:
   - clip: {fileID: 8300000, guid: 161d5a427e88d594f9906708ccdc5663, type: 3}
-    volume: -0.25
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: bd5653e52c4636e4aa3b0ced8f49a18d, type: 3}
-    volume: -0.25
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 3ec9ef3892d02044a9d62e412eb45ffb, type: 3}
-    volume: -0.25
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 35bda0c39b1fbe64196a669bfb99757d, type: 3}
-    volume: -0.25
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 7a5ff4a806216b14ab9dba35a4fb258c, type: 3}
-    volume: -0.25
+    volume: 1
     delay: 0
   PlayerGotHit:
     clip: {fileID: 8300000, guid: 07c3e6e1467acac40bc3f6ddf21d4e29, type: 3}
@@ -101,26 +105,26 @@ MonoBehaviour:
     delay: 0
   PlayerSlashSword1:
   - clip: {fileID: 8300000, guid: ed71f278b69335d4eb13ac1e63f925dc, type: 3}
-    volume: 0
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 75a04264342774647b9e78001c9a5e26, type: 3}
-    volume: 0
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: ac27a6ad14289b14fabd81e31d4e45c6, type: 3}
-    volume: 0
+    volume: 1
     delay: 0
   EnemyWalks:
   - clip: {fileID: 8300000, guid: 64a3500e0328dba43a0bc91e55dcef3f, type: 3}
-    volume: -0.75
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: e3edc2a270af5c04886ab9c5fa4fced6, type: 3}
-    volume: -0.75
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: 59dcb693bbd385e49aa6fa7ffd2f0f9f, type: 3}
-    volume: -0.75
+    volume: 1
     delay: 0
   - clip: {fileID: 8300000, guid: c3a0d384acb5b9a4d8af0bee5d2820a6, type: 3}
-    volume: -0.75
+    volume: 1
     delay: 0
   EnemyAttacks:
     clip: {fileID: 8300000, guid: 29161cfb97f62b14580974fc73c68b25, type: 3}
@@ -156,7 +160,7 @@ MonoBehaviour:
     delay: 0
   BoxIsMoving:
     clip: {fileID: 8300000, guid: 7e78ce25ba9292c438ea8e448dce4bd0, type: 3}
-    volume: -0.2
+    volume: 1
     delay: 0
   KeyIsCollected:
     clip: {fileID: 8300000, guid: bc7b0afd819982c41a7a2dfe63a404b1, type: 3}
