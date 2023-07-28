@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   CurrentLevel: 0
-  OverallHealth: 150
-  Health: 84
+  OverallHealth: 50
+  Health: 100
   OverallStamina: 100
-  Stamina: 100
+  Stamina: 91.4006
   Speed: 1
   StaminaRegenerationRate: 15
   HealthRegenerationRate: 0
@@ -27,8 +27,10 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 0
-  EquippedWeaponID: SwordGolden
+  EquippedWeaponID: SwordLava
   WeaponsIDsList:
   - SwordMeaty
   - SwordGolden
   - SwordChunky
+  - SwordLava
+  - SwordOnFire
