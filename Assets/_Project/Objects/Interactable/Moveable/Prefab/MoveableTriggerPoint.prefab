@@ -73,6 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushesIDs: []
+  NeedsIDs: []
+  Label: 
 --- !u!212 &8234707601610772859
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -113,7 +115,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1869315837
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 818b24572876f38418a766f00bbdab0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.3882353}
   m_FlipX: 0
