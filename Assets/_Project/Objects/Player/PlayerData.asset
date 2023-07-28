@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   CurrentLevel: 0
-  OverallHealth: 200
-  Health: 125
-  OverallStamina: 120
-  Stamina: 120
+  OverallHealth: 150
+  Health: 84
+  OverallStamina: 100
+  Stamina: 100
   Speed: 1
   StaminaRegenerationRate: 15
   HealthRegenerationRate: 0
-  SpeedStaminaReductionRate: 0.2
+  SpeedStaminaReductionRate: 0.1
   WalkFactor: 1.25
   RunFactor: 0.5
-  DamageFactor: 0.1
+  DamageFactor: 1
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
-  RegenerateStaminaCooldownWhenRun: 2
+  RegenerateStaminaCooldownWhenRun: 0
   EquippedWeaponID: SwordGolden
   WeaponsIDsList:
-  - SwordChunky
   - SwordMeaty
   - SwordGolden
+  - SwordChunky

@@ -17,7 +17,7 @@ MonoBehaviour:
   SwingType: 0
   Damage: 70
   PushForce: 10
-  StaminaReductionRate: 30
+  StaminaReductionRate: 95
   ComboInbetweenTime: 0.25
   MaxCombos: 1
   Position: {x: 0, y: 0}

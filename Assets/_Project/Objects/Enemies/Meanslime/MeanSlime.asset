@@ -17,7 +17,7 @@ MonoBehaviour:
   Prefab: {fileID: 7860374409171382065, guid: 84952da7a8ee3914cab2b1825b9a1a6f, type: 3}
   OverallHealth: 70
   Health: 70
-  Damage: 10
+  Damage: 20
   FollowSpeed: 1.1
   MaxSightRadius: 6
   FollowAfterLockedSightingForSeconds: 0.25

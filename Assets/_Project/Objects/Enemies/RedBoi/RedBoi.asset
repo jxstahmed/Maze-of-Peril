@@ -17,11 +17,11 @@ MonoBehaviour:
   Prefab: {fileID: 8563113178378357541, guid: 03a01a64a640eb4419ef3e2e79eac06d, type: 3}
   OverallHealth: 100
   Health: 100
-  Damage: 10
-  FollowSpeed: 1.2
-  MaxSightRadius: 5
-  FollowAfterLockedSightingForSeconds: 0.1
-  PatrolSpeed: 0.75
+  Damage: 20
+  FollowSpeed: 1.7
+  MaxSightRadius: 6
+  FollowAfterLockedSightingForSeconds: 0
+  PatrolSpeed: 1
   PatrolRadius: 40
   StaminaRegenerationRate: 0
   HealthRegenerationRate: 0
