@@ -15,9 +15,9 @@ MonoBehaviour:
   Name: GreenBoi
   Rank: 0
   Prefab: {fileID: 2705144798650876256, guid: b655cf98994df6d44baa15690ecb60ee, type: 3}
-  OverallHealth: 110
-  Health: 110
-  Damage: 25
+  OverallHealth: 140
+  Health: 140
+  Damage: 40
   FollowSpeed: 1.25
   MaxSightRadius: 5
   FollowAfterLockedSightingForSeconds: 0.1

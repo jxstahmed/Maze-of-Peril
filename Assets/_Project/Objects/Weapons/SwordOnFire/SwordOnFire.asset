@@ -15,11 +15,11 @@ MonoBehaviour:
   prefab: {fileID: 5830132402191328104, guid: f6ef36848359a5349901f3d0cc2f89de, type: 3}
   ID: SwordOnFire
   SwingType: 0
-  Damage: 25
-  PushForce: 6
-  StaminaReductionRate: 5
-  ComboInbetweenTime: 0.1
-  MaxCombos: 5
+  Damage: 50
+  PushForce: 8.5
+  StaminaReductionRate: 25
+  ComboInbetweenTime: 0.25
+  MaxCombos: 1
   Position: {x: 0, y: 0}
   HitsCount: 0
   KilledEnemies: 0

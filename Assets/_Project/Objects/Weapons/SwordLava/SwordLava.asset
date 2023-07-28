@@ -15,9 +15,9 @@ MonoBehaviour:
   prefab: {fileID: 3910160275981529821, guid: d3c0a8b29e3a7e54499f5331b4d6d2cc, type: 3}
   ID: SwordLava
   SwingType: 0
-  Damage: 55
+  Damage: 35
   PushForce: 7
-  StaminaReductionRate: 20
+  StaminaReductionRate: 33
   ComboInbetweenTime: 0.25
   MaxCombos: 1
   Position: {x: 0, y: 0}

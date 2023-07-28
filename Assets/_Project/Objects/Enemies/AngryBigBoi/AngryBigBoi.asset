@@ -29,4 +29,4 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 5
   RegenerateStaminaCooldownWhenRun: 2
-  AttackCooldown: 2.5
+  AttackCooldown: 1.5
