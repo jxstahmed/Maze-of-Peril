@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.Threading.Tasks;
 using NaughtyAttributes;
+using static Cinemachine.DocumentationSortingAttribute;
+using System.Drawing;
 
 public class GameManager : MonoBehaviour
 {
@@ -66,18 +68,27 @@ public class GameManager : MonoBehaviour
     {
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
-
-        
-        if(ResetScriptableAfterRun)
-        {
-            ResetScriptableValues();
-        }
     }
 
-    private void ResetScriptableValues()
+    public void ResetScriptableValues()
     {
+        // Weapons
         PlayerData.EquippedWeaponID = "";
         PlayerData.WeaponsIDsList.Clear();
+
+        // Level options
+        if (MenuManager.Instance != null && Settings != null && Settings.LevelsOptions != null && Settings.LevelsOptions.Count > 0)
+        {
+            int currentLevel = MenuManager.Instance.GetCurrentLevel();
+            if (currentLevel > 0)
+            {
+                for (int i = 0; i < Settings.LevelsOptions.Count; i++)
+                {
+                    Settings.LevelsOptions[i].player_health = Settings.LevelsOptions[i].player_health_original;
+                    Settings.LevelsOptions[i].player_stamina = Settings.LevelsOptions[i].player_stamina_original;
+                }
+            }
+        }
     }
 
 
@@ -118,13 +129,41 @@ public class GameManager : MonoBehaviour
     
     public void AffectPlayerStaminaSize(float size)
     {
-        PlayerData.OverallStamina += size;
+        if (MenuManager.Instance != null && Settings != null && Settings.LevelsOptions != null && Settings.LevelsOptions.Count > 0)
+        {
+            int currentLevel = MenuManager.Instance.GetCurrentLevel();
+            if (currentLevel > 0)
+            {
+                for(int i =0; i < Settings.LevelsOptions.Count; i++)
+                {
+                    if (Settings.LevelsOptions[i].level_number == currentLevel)
+                    {
+                        Settings.LevelsOptions[i].player_stamina += size;
+                        break;
+                    }
+                }
+            }
+        }
     } 
 
     
     public void AffectPlayerHealthSize(float size)
     {
-        PlayerData.OverallHealth += size;
+        if (MenuManager.Instance != null && Settings != null && Settings.LevelsOptions != null && Settings.LevelsOptions.Count > 0)
+        {
+            int currentLevel = MenuManager.Instance.GetCurrentLevel();
+            if (currentLevel > 0)
+            {
+                for (int i = 0; i < Settings.LevelsOptions.Count; i++)
+                {
+                    if (Settings.LevelsOptions[i].level_number == currentLevel)
+                    {
+                        Settings.LevelsOptions[i].player_health += size;
+                        break;
+                    }
+                }
+            }
+        }
     } 
 
     

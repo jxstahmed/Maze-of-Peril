@@ -133,13 +133,12 @@ public class ObjectiveManager : MonoBehaviour
 
     private void ValidateEndScreen(string ID)
     {
-
-        if (!ID.Equals(GameManager.Instance.Settings.LEVEL_1_END_ID)) return;
-
-        Debug.Log("END");
         if (MenuManager.Instance != null)
         {
-            MenuManager.Instance.OpenLevelEndView();
+            if (ID.Equals(GameManager.Instance.Settings.LEVEL_1_END_ID) || ID.Equals(GameManager.Instance.Settings.LEVEL_2_END_ID) || ID.Equals(GameManager.Instance.Settings.LEVEL_3_END_ID))
+            {
+                MenuManager.Instance.OpenLevelEndView();
+            }
         }
     }
 

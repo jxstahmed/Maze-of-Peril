@@ -9,9 +9,7 @@ public class PlayerStats : ScriptableObject
     public int CurrentLevel;
     
     [Header("Stats")]
-    public float OverallHealth;
     public float Health;
-    public float OverallStamina;
     public float Stamina;
     public float Speed;
 

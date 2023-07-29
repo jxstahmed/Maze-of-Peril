@@ -71,8 +71,14 @@ public class Player : MonoBehaviour
         sprite_renderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
 
-        PlayerData.Health = PlayerData.OverallHealth;
-        PlayerData.Stamina = PlayerData.OverallStamina;
+        PlayerData.Health = GameManager.Instance.GetLevelDifficultyOptions().player_health;
+        PlayerData.Stamina = GameManager.Instance.GetLevelDifficultyOptions().player_stamina;
+
+        // Reset if level 1 and it's restarted
+        if(GameManager.Instance.ResetScriptableAfterRun && MenuManager.Instance.GetCurrentLevel() == 1)
+        {
+            GameManager.Instance.ResetScriptableValues();
+        }
 
         ApplyEquippedWeapon();
         AudioManager.Instance.CreateTimer("player", AudioManager.Instance.PlayerMovementRate);
@@ -423,8 +429,8 @@ public class Player : MonoBehaviour
 
     private void PlayerUI()
     {
-        PlayerUIHealth.value = PlayerData.Health > 0 ? PlayerData.Health / PlayerData.OverallHealth : 0;
-        PlayerUIStamina.value = PlayerData.Stamina > 0 ? PlayerData.Stamina / PlayerData.OverallStamina : 0;
+        PlayerUIHealth.value = PlayerData.Health > 0 ? PlayerData.Health / GameManager.Instance.GetLevelDifficultyOptions().player_health : 0;
+        PlayerUIStamina.value = PlayerData.Stamina > 0 ? PlayerData.Stamina / GameManager.Instance.GetLevelDifficultyOptions().player_stamina : 0;
     }
 
 
@@ -494,7 +500,7 @@ public class Player : MonoBehaviour
 
         Debug.Log("New health is: " + newHealth);
 
-        if (newHealth > PlayerData.OverallHealth) newHealth = PlayerData.OverallHealth;
+        if (newHealth > GameManager.Instance.GetLevelDifficultyOptions().player_health) newHealth = GameManager.Instance.GetLevelDifficultyOptions().player_health;
         else if (newHealth < 0) newHealth = 0;
         
         PlayerData.Health = newHealth;
@@ -504,7 +510,7 @@ public class Player : MonoBehaviour
     {
         float newstamina = PlayerData.Stamina + stamina;
 
-        if (newstamina > PlayerData.OverallStamina) newstamina = PlayerData.OverallStamina;
+        if (newstamina > GameManager.Instance.GetLevelDifficultyOptions().player_stamina) newstamina = GameManager.Instance.GetLevelDifficultyOptions().player_stamina;
         else if (newstamina < 0) newstamina = 0;
 
         PlayerData.Stamina = newstamina;

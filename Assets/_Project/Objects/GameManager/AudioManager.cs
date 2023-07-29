@@ -214,7 +214,7 @@ public class AudioManager : MonoBehaviour
         if (customClip.clip == null) return;
 
         if (customClip.delay > 0) StartCoroutine(PlayDelayedOnPoint(customClip, transform, customClip.delay));
-        else AudioSource.PlayClipAtPoint(customClip.clip, transform.position, (Settings.FXAudioLevel + customClip.volume) / 2);
+        else AudioSource.PlayClipAtPoint(customClip.clip, transform.position, (Settings.FXAudioLevel * customClip.volume) / 2);
     }
 
     public void PlayeFromAudioInstance(AudioSource audiosrc, CustomClip customClip, bool toggle = true)
@@ -224,7 +224,7 @@ public class AudioManager : MonoBehaviour
         if (customClip.clip == null) return;
 
         audiosrc.clip = customClip.clip;
-        audiosrc.volume = (Settings.FXAudioLevel + customClip.volume) / 2;
+        audiosrc.volume = (Settings.FXAudioLevel * customClip.volume) / 2;
 
         if (toggle)
         {
@@ -250,7 +250,7 @@ public class AudioManager : MonoBehaviour
         }
 
         if (customClip.delay > 0) StartCoroutine(PlayDelayedOneShot(audiosrc, customClip, customClip.delay));
-        else audiosrc.PlayOneShot(customClip.clip, (Settings.FXAudioLevel + customClip.volume) / 2);
+        else audiosrc.PlayOneShot(customClip.clip, (Settings.FXAudioLevel * customClip.volume) / 2);
 
 
     }
@@ -258,14 +258,14 @@ public class AudioManager : MonoBehaviour
     IEnumerator PlayDelayedOneShot(AudioSource audiosrc, CustomClip customClip, float delay)
     {
         yield return new WaitForSeconds(delay);
-        audiosrc.PlayOneShot(customClip.clip, (Settings.FXAudioLevel + customClip.volume) / 2);
+        audiosrc.PlayOneShot(customClip.clip, (Settings.FXAudioLevel * customClip.volume) / 2);
     }
     
 
     IEnumerator PlayDelayedOnPoint(CustomClip customClip, Transform transform, float delay)
     {
         yield return new WaitForSeconds(delay);
-        AudioSource.PlayClipAtPoint(customClip.clip, transform.position, (Settings.FXAudioLevel + customClip.volume) / 2);
+        AudioSource.PlayClipAtPoint(customClip.clip, transform.position, (Settings.FXAudioLevel * customClip.volume) / 2);
     }
 
 

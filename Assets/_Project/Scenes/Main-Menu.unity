@@ -124,6 +124,84 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &165627054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 165627056}
+  - component: {fileID: 165627055}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &165627055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165627054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfde0d460a99f5d428de2852b4670ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResetScriptableAfterRun: 1
+  TextLabelPrefab: {fileID: 307811124599940625, guid: 5ec625b21317fb749b44477ddf7f685f,
+    type: 3}
+  PlayerTag: Player
+  EnemyTag: Enemy
+  StaticTag: Static
+  Settings: {fileID: 11400000, guid: c37205ea22757224da0701275d4555b6, type: 2}
+  WeaponsPackData: {fileID: 11400000, guid: b60aac07c749f3d41800792b5045aca6, type: 2}
+  PlayerData: {fileID: 11400000, guid: 84b998424f0f35a4cb44e61901054640, type: 2}
+  Enemies:
+  - {fileID: 11400000, guid: 255fd03920d1ba446bd2a1fa6cd05c79, type: 2}
+  - {fileID: 11400000, guid: 53296de43cba8584aabda5fee0e88e7d, type: 2}
+  - {fileID: 11400000, guid: 7c9e7b763c89702419548e6adbf7ace5, type: 2}
+  - {fileID: 11400000, guid: 0ac7d22de95ba74458a6fcaf07f8d693, type: 2}
+  - {fileID: 11400000, guid: ad0a007908365d643af539561bcd647f, type: 2}
+  Keys:
+  - {fileID: 11400000, guid: 3ecc4aba949a0b14cb5b70e0465eb325, type: 2}
+  - {fileID: 11400000, guid: f88d2e895d4b9d842919e4b1ad3e3cfb, type: 2}
+  - {fileID: 11400000, guid: 9c8b6cb75d72c054db9e325b17fcf9c6, type: 2}
+  - {fileID: 11400000, guid: 693b9278c29cfd848adb75481112f358, type: 2}
+  - {fileID: 11400000, guid: 825de2b071b5a084ebd8b9591b2c70d0, type: 2}
+  - {fileID: 11400000, guid: a377387df67ef8843a25050061b034ef, type: 2}
+  HealthPotion: {fileID: 7294276140781276307, guid: 601b31b37545d8e43846775b272fd4d0,
+    type: 3}
+  HealthSizePotion: {fileID: 7294276140781276307, guid: 02f8f092c5b144f4daf7e5d402bda64a,
+    type: 3}
+  StaminaSizePotion: {fileID: 7294276140781276307, guid: 2022a3b65345094409f9059f2c32ddce,
+    type: 3}
+  CanSlowMoAfterHit: 0
+  slowMotionTimeScale: 0.2
+  SlowMotionDuration: 0
+  CanShakeCameraAfterHit: 1
+  ShakeDuration: 0.1
+  ShakeIntensity: 0.5
+--- !u!4 &165627056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165627054}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 51.97341, y: 1.4886675, z: 0.45104456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339393613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5879227689314316168, guid: 6c37d950ad222254da4a76e6f374f7d1,

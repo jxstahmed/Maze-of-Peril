@@ -12,8 +12,11 @@ public class GameSettings : ScriptableObject
     public int SCENE_MAIN = 0;
     public int SCENE_LEVEL_1 = 1;
     public int SCENE_LEVEL_2 = 2;
+    public int SCENE_LEVEL_3 = 3;
 
     public string LEVEL_1_END_ID = "";
+    public string LEVEL_2_END_ID = "";
+    public string LEVEL_3_END_ID = "";
 
     [Header("Values")]
     public float MusicAudioLevel = 1;
@@ -64,6 +67,11 @@ public class GameSettings : ScriptableObject
 
 
         [SerializeField] public int level_number;
+
+        [SerializeField] public float player_health_original = 50f;
+        [SerializeField] public float player_health = 50f;
+        [SerializeField] public float player_stamina = 100f;
+        [SerializeField] public float player_stamina_original = 100f;
 
         [SerializeField] public float enemy_speed_factor = 1f;
         [SerializeField] public float enemy_damage_factor = 1f;
