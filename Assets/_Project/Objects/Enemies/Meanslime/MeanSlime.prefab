@@ -298,7 +298,7 @@ MonoBehaviour:
   - Walls
   - Static
   LookBehindWalls: 0
-  SightInMovingDirection: 1
+  SightInMovingDirection: 0
   ClosestRadiusToPlayer: 0.5
   WaitAfterChaseEndDuration: 1
   CollisionTag: PatrolPoint

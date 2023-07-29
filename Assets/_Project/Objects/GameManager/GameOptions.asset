@@ -15,9 +15,9 @@ MonoBehaviour:
   LevelsOptions:
   - level_number: 1
     player_health_original: 50
-    player_health: 50
+    player_health: 100
     player_stamina: 100
-    player_stamina_original: 50
+    player_stamina_original: 100
     enemy_speed_factor: 1
     enemy_damage_factor: 1
     player_stamina_increase_factor: 1
@@ -27,10 +27,10 @@ MonoBehaviour:
     weapon_damage_factor: 1
     weapon_reduction_factor: 1
   - level_number: 2
-    player_health_original: 50
-    player_health: 50
+    player_health_original: 100
+    player_health: 150
     player_stamina: 100
-    player_stamina_original: 50
+    player_stamina_original: 100
     enemy_speed_factor: 1
     enemy_damage_factor: 1
     player_stamina_increase_factor: 1
@@ -40,10 +40,10 @@ MonoBehaviour:
     weapon_damage_factor: 1
     weapon_reduction_factor: 1
   - level_number: 3
-    player_health_original: 50
-    player_health: 50
+    player_health_original: 150
+    player_health: 150
     player_stamina: 100
-    player_stamina_original: 50
+    player_stamina_original: 100
     enemy_speed_factor: 1
     enemy_damage_factor: 1
     player_stamina_increase_factor: 1
@@ -59,15 +59,15 @@ MonoBehaviour:
   LEVEL_1_END_ID: L1_Door3
   LEVEL_2_END_ID: L2_Door8
   LEVEL_3_END_ID: L3_Exit
-  MusicAudioLevel: 0.1
-  FXAudioLevel: 0.1
+  MusicAudioLevel: 0
+  FXAudioLevel: 1
   PlayerBloodFeedback: 1
   EnemyBloodFeedback: 1
   ObjectiveLabel:
-    text_color: {r: 1, g: 1, b: 1, a: 1}
+    text_color: {r: 0.8280011, g: 1, b: 0.8254717, a: 1}
     text_speed: 0.6
-    fade_out_time: 1.7
-    text_size: 6
+    fade_out_time: 2
+    text_size: 8
   PlayerBloodFeedbackLabel:
     text_color: {r: 1, g: 0, b: 0, a: 1}
     text_speed: 0.3

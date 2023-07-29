@@ -125,6 +125,7 @@ public class MenuManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+        AudioManager.Instance.ToggleGamePlayAudio(true);
         Time.timeScale = 1f;
     }
     public void OpenMainMenu()
@@ -363,6 +364,10 @@ public class MenuManager : MonoBehaviour
         else if (currentScene == GameOptions.SCENE_LEVEL_2)
         {
             currentLevel = 2;
+        }
+        else if (currentScene == GameOptions.SCENE_LEVEL_3)
+        {
+            currentLevel = 3;
         }
 
         return currentLevel;
