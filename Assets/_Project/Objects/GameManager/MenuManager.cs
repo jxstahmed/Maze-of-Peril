@@ -28,6 +28,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] bool StartMenuMusic = false;
 
     [SerializeField] Camera cam;
+
+    private string nestedMenuOriginal = "";
     void Awake()
     {
         Instance = this;
@@ -76,6 +78,7 @@ public class MenuManager : MonoBehaviour
     }
     public void StartLevel(int level)
     {
+        GameManager.Instance.ResetScriptableValues();
         Time.timeScale = 1f;
         if (level == 1)
         {
@@ -144,6 +147,8 @@ public class MenuManager : MonoBehaviour
 
         AudioManager.Instance.ToggleMenuAudio(true);
 
+        nestedMenuOriginal = "main";
+
         if (Menus)
             Menus.SetActive(true);
 
@@ -171,6 +176,8 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0f;
 
         AudioManager.Instance.ToggleMenuAudio(true);
+
+        nestedMenuOriginal = "pause";
 
         if (Menus)
             Menus.SetActive(true);
@@ -241,6 +248,8 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0f;
         AudioManager.Instance.ToggleMenuAudio(true);
 
+        nestedMenuOriginal = "death";
+
         if (Menus)
             Menus.SetActive(true);
 
@@ -270,6 +279,9 @@ public class MenuManager : MonoBehaviour
         audioSource.clip = AudioManager.Instance.levelComplete.clip;
         audioSource.volume = AudioManager.Instance.Settings.FXAudioLevel;
         audioSource.Play();
+
+        nestedMenuOriginal = "end";
+
         if (Menus)
             Menus.SetActive(true);
 
@@ -320,8 +332,31 @@ public class MenuManager : MonoBehaviour
     {
         if (from == "credits" || from == "options" || from == "controls")
         {
-            if (Menu)
-                Menu.SetActive(true);
+
+            if(DeathView)
+            DeathView.SetActive(false);
+            if(LevelEndView)
+            LevelEndView.SetActive(false);
+            if(Menu)
+            Menu.SetActive(false);
+
+            if (nestedMenuOriginal == "death")
+            {
+                if (DeathView)
+                    DeathView.SetActive(true);
+
+
+            }
+            else if (nestedMenuOriginal == "end")
+            {
+                if (LevelEndView)
+                    LevelEndView.SetActive(true);
+            } else
+            {
+                if (Menu)
+                    Menu.SetActive(true);
+            }
+
 
             if (OptionsView)
                 OptionsView.SetActive(false);
@@ -329,11 +364,6 @@ public class MenuManager : MonoBehaviour
             if (CreditsView)
                 CreditsView.SetActive(false);
 
-            if (DeathView)
-                DeathView.SetActive(false);
-
-            if (LevelEndView)
-                LevelEndView.SetActive(false);
 
             if (ControlsView)
                 ControlsView.SetActive(false);

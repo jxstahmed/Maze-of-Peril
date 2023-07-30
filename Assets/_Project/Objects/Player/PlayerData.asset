@@ -25,9 +25,5 @@ MonoBehaviour:
   IncrementEverySeconds: 1
   RegenerateHealthCooldownWhenHit: 2
   RegenerateStaminaCooldownWhenRun: 0
-  EquippedWeaponID: SwordLava
-  WeaponsIDsList:
-  - SwordMeaty
-  - SwordGolden
-  - SwordChunky
-  - SwordLava
+  EquippedWeaponID: 
+  WeaponsIDsList: []

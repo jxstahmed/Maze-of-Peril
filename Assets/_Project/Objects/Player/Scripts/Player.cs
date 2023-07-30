@@ -490,6 +490,7 @@ public class Player : MonoBehaviour
         //hasToggledWeaponKey = true;
         //IsWeaponShown = false;
         HideWeapon();
+        WeaponObject.SetActive(IsWeaponShown);
 
 
         IsDead = true;

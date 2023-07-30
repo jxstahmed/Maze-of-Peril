@@ -220,6 +220,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2197410009826522789, guid: 6c37d950ad222254da4a76e6f374f7d1,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenMainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 2885082609087437863, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: m_AnchorMax.y
