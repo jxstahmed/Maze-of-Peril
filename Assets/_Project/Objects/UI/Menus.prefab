@@ -407,7 +407,7 @@ MonoBehaviour:
   DeathView: {fileID: 3713599869431478893}
   LevelEndView: {fileID: 3713599868700549915}
   ControlsView: {fileID: 5879227689314316168}
-  StartControlsView: {fileID: 0}
+  StartControlsView: {fileID: 721785978788204541}
   MusicSlider: {fileID: 3713599868386832297}
   FXSlider: {fileID: 3713599868255738975}
   GameOptions: {fileID: 11400000, guid: c37205ea22757224da0701275d4555b6, type: 2}
