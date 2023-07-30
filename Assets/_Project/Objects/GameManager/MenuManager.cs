@@ -211,7 +211,12 @@ public class MenuManager : MonoBehaviour
             Menu.SetActive(false);
 
         if (OptionsView)
+        {
             OptionsView.SetActive(true);
+            MusicSlider.value = GameOptions.MusicAudioLevel;
+            FXSlider.value = GameOptions.FXAudioLevel;
+        }
+            
 
         if (CreditsView)
             CreditsView.SetActive(false);
