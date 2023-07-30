@@ -69,7 +69,13 @@ public class GameManager : MonoBehaviour
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
 
-        ResetScriptableValues();
+        try
+        {
+
+        } catch
+        {
+            ResetScriptableValues();
+        }
 
         // Reset if level 1 and it's restarted
         if (ResetScriptableAfterRun && MenuManager.Instance.GetCurrentLevel() == 1)
