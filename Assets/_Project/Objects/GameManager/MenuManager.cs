@@ -78,7 +78,11 @@ public class MenuManager : MonoBehaviour
     }
     public void StartLevel(int level)
     {
-        GameManager.Instance.ResetScriptableValues();
+        try
+        {
+            GameManager.Instance.ResetScriptableValues();
+        } catch { }
+
         Time.timeScale = 1f;
         if (level == 1)
         {
