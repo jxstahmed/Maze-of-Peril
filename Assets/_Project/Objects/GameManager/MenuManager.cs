@@ -38,11 +38,11 @@ public class MenuManager : MonoBehaviour
     public void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        MusicSlider.value = GameOptions.MusicAudioLevel;
+        MusicSlider.value = GameOptions.MusicAudioLevel * 10;
         MusicSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("music"); });
 
 
-        FXSlider.value = GameOptions.FXAudioLevel;
+        FXSlider.value = GameOptions.FXAudioLevel * 2;
         FXSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("fx"); });
 
         StartCoroutine(Validate());
@@ -212,8 +212,8 @@ public class MenuManager : MonoBehaviour
 
         if (OptionsView)
         {
-            MusicSlider.value = GameOptions.MusicAudioLevel;
-            FXSlider.value = GameOptions.FXAudioLevel;
+            MusicSlider.value = GameOptions.MusicAudioLevel * 10;
+            FXSlider.value = GameOptions.FXAudioLevel * 2;
             OptionsView.SetActive(true);
         }
 
