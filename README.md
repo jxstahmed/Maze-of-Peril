@@ -24,7 +24,7 @@ The game is tested on a Windows 10 operating system.
 3.  Open `Maze of Peril Fear or Fight.exe`
 
 #### Option B: Play the Game in your Webbrowser 
-1.  Visit this Website(https://jxstahmed.itch.io/)
+1.  Visit this [Website](https://jxstahmed.itch.io/)
 2.  Click on the Game "Maze of Peril: Fear or Fight"
 3.  Click `Run Game`
 
