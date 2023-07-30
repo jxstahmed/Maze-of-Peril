@@ -503,6 +503,7 @@ MonoBehaviour:
   DeathView: {fileID: 3713599869431478893}
   LevelEndView: {fileID: 3713599868700549915}
   ControlsView: {fileID: 5879227689314316168}
+  StartControlsView: {fileID: 1569335134700117142}
   MusicSlider: {fileID: 3713599868386832297}
   FXSlider: {fileID: 3713599868255738975}
   GameOptions: {fileID: 11400000, guid: c37205ea22757224da0701275d4555b6, type: 2}
@@ -4563,7 +4564,7 @@ PrefabInstance:
     - target: {fileID: 4576356616482503411, guid: 1c0423ae6e6c0cd4ea2b74d5ac0ca11f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4576356616482503411, guid: 1c0423ae6e6c0cd4ea2b74d5ac0ca11f,
         type: 3}
@@ -4583,7 +4584,7 @@ PrefabInstance:
     - target: {fileID: 4576356616482503411, guid: 1c0423ae6e6c0cd4ea2b74d5ac0ca11f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartLevel
+      value: HideStartControlsTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 4576356616482503411, guid: 1c0423ae6e6c0cd4ea2b74d5ac0ca11f,
         type: 3}

@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject DeathView;
     [SerializeField] public GameObject LevelEndView;
     [SerializeField] public GameObject ControlsView;
+    [SerializeField] public GameObject StartControlsView;
 
     [Header("Sliders")]
     [SerializeField] public Slider MusicSlider;
@@ -46,6 +47,13 @@ public class MenuManager : MonoBehaviour
         FXSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("fx"); });
 
         StartCoroutine(Validate());
+
+        if(GetCurrentLevel() == 1 && !GameOptions.LEVEL_1_TUTORIAL_SHOWN)
+        {
+            GameOptions.LEVEL_1_TUTORIAL_SHOWN = true;
+            OpenStartControlsTutorial();
+        }
+            
     }
 
     private IEnumerator Validate()
@@ -73,8 +81,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(GameOptions.SCENE_LEVEL_1);
-        AudioManager.Instance.ToggleGamePlayAudio(true);
+        StartLevel(1);
     }
     public void StartLevel(int level)
     {
@@ -106,6 +113,8 @@ public class MenuManager : MonoBehaviour
             OpenMainMenu();
         }
     }
+
+
     public void StartNextLevel()
     {
         AudioManager.Instance.Timers = new List<AudioManager.CustomTimer>();
@@ -377,6 +386,49 @@ public class MenuManager : MonoBehaviour
             if (ControlsView)
                 ControlsView.SetActive(false);
         }
+    }
+
+    public void OpenStartControlsTutorial()
+    {
+        Time.timeScale = 0f;
+
+        AudioManager.Instance.ToggleMenuAudio(true);
+
+        Debug.Log("Starting ss");
+
+
+        if (Menus)
+            Menus.SetActive(true);
+
+        if (Menu)
+            Menu.SetActive(false);
+
+        if (OptionsView)
+            OptionsView.SetActive(false);
+
+        if (CreditsView)
+            CreditsView.SetActive(false);
+        
+
+        if (StartControlsView)
+            StartControlsView.SetActive(true);
+
+        if (DeathView)
+            DeathView.SetActive(false);
+
+        if (LevelEndView)
+            LevelEndView.SetActive(false);
+
+        if (ControlsView)
+            ControlsView.SetActive(false);
+    }
+
+    public void HideStartControlsTutorial()
+    {
+        if (StartControlsView)
+            StartControlsView.SetActive(false);
+
+        ResumeGame();
     }
 
     public void ResumeGame()

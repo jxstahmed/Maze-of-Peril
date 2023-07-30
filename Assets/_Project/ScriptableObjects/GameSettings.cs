@@ -9,6 +9,8 @@ public class GameSettings : ScriptableObject
     public List<LevelOption> LevelsOptions; 
 
     [Header("Scenes")]
+    public bool LEVEL_1_TUTORIAL_SHOWN = false;
+
     public int SCENE_MAIN = 0;
     public int SCENE_LEVEL_1 = 1;
     public int SCENE_LEVEL_2 = 2;
