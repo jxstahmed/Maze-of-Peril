@@ -12,6 +12,7 @@ public class HealthSizePotionController : MonoBehaviour
     {
         if (other.CompareTag(GameManager.Instance.PlayerTag))
         {
+            AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PotionIsPickedUp1, gameObject.transform);
             GameManager.Instance.AffectPlayerHealthSize(HealthSizeAmount);
             ObjectiveManager.Instance.CollectPotion(ID);
             GameObject.Destroy(gameObject);

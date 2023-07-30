@@ -50,12 +50,16 @@ MonoBehaviour:
   EnemyMovementRate: 0.5
   BoxMovementRate: 1
   MenuClip:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: cece461fff666a4d6b9ffa1c405c1891, type: 3}
     volume: 1
     delay: 0
   GameplayClip:
-    clip: {fileID: 8300000, guid: d251ffb85bdb161408e0a0402c0b083c, type: 3}
-    volume: 0.001
+    clip: {fileID: 8300000, guid: f7bf2764b031e7145a30431f6497036a, type: 3}
+    volume: 1
+    delay: 0
+  levelComplete:
+    clip: {fileID: 8300000, guid: 050342abcb3e00941887507406aec2ed, type: 3}
+    volume: 5
     delay: 0
   PlayerWalks:
   - clip: {fileID: 8300000, guid: bd5653e52c4636e4aa3b0ced8f49a18d, type: 3}
@@ -96,22 +100,22 @@ MonoBehaviour:
     volume: 1
     delay: 0
   PlayerGotHit:
-    clip: {fileID: 8300000, guid: 07c3e6e1467acac40bc3f6ddf21d4e29, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 8d76a0b8fecb2c74d853f6cabac0debd, type: 3}
+    volume: 3
     delay: 0
   PlayerDies:
-    clip: {fileID: 8300000, guid: 7451fd3c40bc12e4182189fbba692fbe, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 6a834c71e8a6c50489448b04abc0d29a, type: 3}
+    volume: 4
     delay: 0
   PlayerSlashSword1:
   - clip: {fileID: 8300000, guid: ed71f278b69335d4eb13ac1e63f925dc, type: 3}
-    volume: 1
+    volume: 4
     delay: 0
   - clip: {fileID: 8300000, guid: 75a04264342774647b9e78001c9a5e26, type: 3}
-    volume: 1
+    volume: 4
     delay: 0
   - clip: {fileID: 8300000, guid: ac27a6ad14289b14fabd81e31d4e45c6, type: 3}
-    volume: 1
+    volume: 4
     delay: 0
   EnemyWalks:
   - clip: {fileID: 8300000, guid: 64a3500e0328dba43a0bc91e55dcef3f, type: 3}
@@ -128,54 +132,66 @@ MonoBehaviour:
     delay: 0
   EnemyAttacks:
     clip: {fileID: 8300000, guid: 29161cfb97f62b14580974fc73c68b25, type: 3}
-    volume: 1
+    volume: 4
     delay: 0
   EnemyGotHit:
     clip: {fileID: 8300000, guid: b6f204a5757464f4c89520d65d9704b7, type: 3}
-    volume: 1
+    volume: 3
     delay: 0
   EnemyDies:
     clip: {fileID: 8300000, guid: 7451fd3c40bc12e4182189fbba692fbe, type: 3}
-    volume: 1
+    volume: 4
     delay: 0
   ObjectNotYetUnlocked:
     clip: {fileID: 0}
     volume: 1
     delay: 0
   ChestOpens:
-    clip: {fileID: 8300000, guid: c4104b40d2ed6c140909f1e7b938f124, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: caac9b67fdddfd34aa5f7b6bfcc86e05, type: 3}
+    volume: 5
     delay: 0
   ChestCloses:
     clip: {fileID: 8300000, guid: a5159bca967dde8469c48b3abfbd4d1d, type: 3}
     volume: 1
     delay: 0
   DoorOpens:
-    clip: {fileID: 8300000, guid: 7c9e6953297b7e84789be9496c56f577, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: adfb477aa2d8f44f1a8f3ffc61b6ccd5, type: 3}
+    volume: 4
     delay: 0
   DoorCloses:
     clip: {fileID: 8300000, guid: e8fab34e64cb6b347a3e1cecbe51a075, type: 3}
     volume: 1
+    delay: 0
+  DoorIsLocked:
+    clip: {fileID: 8300000, guid: 8e595c3f717e1324b9c32a2198029cee, type: 3}
+    volume: 4
     delay: 0
   BoxIsMoving:
     clip: {fileID: 8300000, guid: 7e78ce25ba9292c438ea8e448dce4bd0, type: 3}
     volume: 1
     delay: 0
   KeyIsCollected:
-    clip: {fileID: 8300000, guid: bc7b0afd819982c41a7a2dfe63a404b1, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 2acfc5e9665663546894905a5e1284e1, type: 3}
+    volume: 6
     delay: 0
-  PotionIsPickedUp:
-    clip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  PotionIsPickedUp1:
+    clip: {fileID: 8300000, guid: 47b7fffc7879c5a478fe50fd39af433f, type: 3}
+    volume: 6
+    delay: 0
+  PotionIsPickedUp2:
+    clip: {fileID: 0}
     volume: 1
     delay: 0
   WeaponIsPickedUp:
-    clip: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
-    volume: 0
+    clip: {fileID: 8300000, guid: db9500609d3e28f4b984298318394899, type: 3}
+    volume: 5
     delay: 0
   EnemyIsPickedUp:
     clip: {fileID: 8300000, guid: 13d3a1ceffa95094193105e242f2822a, type: 3}
+    volume: 1
+    delay: 0
+  MenuClick:
+    clip: {fileID: 8300000, guid: 9b05bf85194a6994e87a326b55b12087, type: 3}
     volume: 1
     delay: 0
   Timers: []
@@ -191,7 +207,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.008
   m_Pitch: 1
   Loop: 0
   Mute: 0

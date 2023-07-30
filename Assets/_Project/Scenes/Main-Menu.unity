@@ -202,11 +202,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &339393613 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5879227689314316168, guid: 6c37d950ad222254da4a76e6f374f7d1,
+--- !u!20 &729423118 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1475287968149445443, guid: 3041e70bc1fd7c848b467d293f0f7767,
     type: 3}
-  m_PrefabInstance: {fileID: 1199288908}
+  m_PrefabInstance: {fileID: 1475287968032826172}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1199288908
 PrefabInstance:
@@ -215,11 +215,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 805356490694732436, guid: 6c37d950ad222254da4a76e6f374f7d1,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenControlsView
-      objectReference: {fileID: 0}
     - target: {fileID: 977732596957622681, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: m_IsActive
@@ -237,14 +232,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3713599867874991447, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
-      propertyPath: Menu
+      propertyPath: cam
       value: 
-      objectReference: {fileID: 977732595792020437}
-    - target: {fileID: 3713599867874991447, guid: 6c37d950ad222254da4a76e6f374f7d1,
-        type: 3}
-      propertyPath: ControlsView
-      value: 
-      objectReference: {fileID: 339393613}
+      objectReference: {fileID: 729423118}
     - target: {fileID: 3713599867874991447, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: StartMenuMusic
@@ -395,11 +385,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3748722076129543164, guid: 6c37d950ad222254da4a76e6f374f7d1,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: controls
-      objectReference: {fileID: 0}
     - target: {fileID: 4545401863590837879, guid: 6c37d950ad222254da4a76e6f374f7d1,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -414,11 +399,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6307293127290634162, guid: 6c37d950ad222254da4a76e6f374f7d1,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenControlsView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c37d950ad222254da4a76e6f374f7d1, type: 3}
@@ -484,31 +464,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
-        type: 3}
-      propertyPath: MenuClip.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: cece461fff666a4d6b9ffa1c405c1891, type: 3}
-    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
-        type: 3}
-      propertyPath: MenuClip.delay
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
-        type: 3}
-      propertyPath: MenuClip.volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
-        type: 3}
-      propertyPath: GameplayClip.delay
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8093860291548884052, guid: cb46833ae553e9049a481e085c6e1e60,
-        type: 3}
-      propertyPath: GameplayClip.volume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8093860291548884053, guid: cb46833ae553e9049a481e085c6e1e60,
         type: 3}
       propertyPath: m_Name
@@ -531,12 +486,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &977732595792020437 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 977732596957622681, guid: 6c37d950ad222254da4a76e6f374f7d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1199288908}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1475287968032826172
 PrefabInstance:
   m_ObjectHideFlags: 0

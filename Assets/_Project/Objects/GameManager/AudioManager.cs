@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
     [Header("Overall")]
     [SerializeField] public CustomClip MenuClip;
     [SerializeField] public CustomClip GameplayClip;
+    [SerializeField] public CustomClip levelComplete;
 
     [Header("Player")]
     [SerializeField] public List<CustomClip> PlayerWalks;
@@ -41,13 +42,17 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public CustomClip ChestCloses;
     [SerializeField] public CustomClip DoorOpens;
     [SerializeField] public CustomClip DoorCloses;
+    [SerializeField] public CustomClip DoorIsLocked;
 
     [SerializeField] public CustomClip BoxIsMoving;
     [SerializeField] public CustomClip KeyIsCollected;
 
-    [SerializeField] public CustomClip PotionIsPickedUp;
+    [SerializeField] public CustomClip PotionIsPickedUp1;
+    [SerializeField] public CustomClip PotionIsPickedUp2;
     [SerializeField] public CustomClip WeaponIsPickedUp;
     [SerializeField] public CustomClip EnemyIsPickedUp;
+
+    [SerializeField] public CustomClip MenuClick;
 
     [Header("Feedback")]
     [SerializeField] public List<CustomTimer> Timers = new List<CustomTimer>();
@@ -164,7 +169,6 @@ public class AudioManager : MonoBehaviour
         if (active)
         {
 
-
             audioSource.clip = MenuClip.clip;
             audioSource.volume = (Settings.MusicAudioLevel * MenuClip.volume);
             audioSource.loop = true;
@@ -192,6 +196,7 @@ public class AudioManager : MonoBehaviour
 
         if(active)
         {
+
             audioSource.clip = GameplayClip.clip;
             audioSource.loop = true;
             audioSource.volume = (Settings.MusicAudioLevel * GameplayClip.volume);

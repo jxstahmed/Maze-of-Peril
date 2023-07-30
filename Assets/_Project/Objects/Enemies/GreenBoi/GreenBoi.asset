@@ -18,7 +18,7 @@ MonoBehaviour:
   OverallHealth: 140
   Health: 140
   Damage: 40
-  FollowSpeed: 1.25
+  FollowSpeed: 1.5
   MaxSightRadius: 5
   FollowAfterLockedSightingForSeconds: 0.1
   PatrolSpeed: 0.8

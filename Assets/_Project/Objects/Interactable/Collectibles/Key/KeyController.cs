@@ -26,6 +26,7 @@ public class KeyController : MonoBehaviour
     {
         if (other.tag.Contains(GameManager.Instance.PlayerTag))
         {
+            AudioManager.Instance.PlayFromPosition(AudioManager.Instance.KeyIsCollected, gameObject.transform);
             ObjectiveManager.Instance.CollectKey(ID);
             Destroy(gameObject);
         }

@@ -343,6 +343,7 @@ public class GameManager : MonoBehaviour
         public string ID;
         public int value;
     }
+    
 }
 
 

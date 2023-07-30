@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
 {
 
     public static MenuManager Instance;
+    private AudioSource audioSource;
 
     [Header("Menus")]
     [SerializeField] public GameObject Menus;
@@ -26,6 +27,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameSettings GameOptions;
     [SerializeField] bool StartMenuMusic = false;
 
+    [SerializeField] Camera cam;
     void Awake()
     {
         Instance = this;
@@ -33,7 +35,7 @@ public class MenuManager : MonoBehaviour
 
     public void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         MusicSlider.value = GameOptions.MusicAudioLevel;
         MusicSlider.onValueChanged.AddListener(delegate { OnSliderValueChanged("music"); });
 
@@ -58,12 +60,12 @@ public class MenuManager : MonoBehaviour
     {
         if (type == "music")
         {
-            GameOptions.MusicAudioLevel = MusicSlider.value;
+            GameOptions.MusicAudioLevel = MusicSlider.value/10;
             AudioManager.Instance.ToggleMenuAudio(true);
         }
         else if (type == "fx")
         {
-            GameOptions.FXAudioLevel = FXSlider.value;
+            GameOptions.FXAudioLevel = FXSlider.value/2;
         }
     }
 
@@ -99,9 +101,9 @@ public class MenuManager : MonoBehaviour
     }
     public void StartNextLevel()
     {
+        AudioManager.Instance.Timers = new List<AudioManager.CustomTimer>();
         Scene scene = SceneManager.GetActiveScene();
         Time.timeScale = 1f;
-
         int currentLevel = -1;
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         if (currentScene == GameOptions.SCENE_LEVEL_1)
@@ -123,9 +125,11 @@ public class MenuManager : MonoBehaviour
 
     public void RestartScene()
     {
+        AudioManager.Instance.Timers = new List<AudioManager.CustomTimer>();
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
         AudioManager.Instance.ToggleGamePlayAudio(true);
+ 
         Time.timeScale = 1f;
     }
     public void OpenMainMenu()
@@ -263,7 +267,9 @@ public class MenuManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         AudioManager.Instance.ToggleMenuAudio(true);
-
+        audioSource.clip = AudioManager.Instance.levelComplete.clip;
+        audioSource.volume = AudioManager.Instance.Settings.FXAudioLevel;
+        audioSource.Play();
         if (Menus)
             Menus.SetActive(true);
 
@@ -288,11 +294,8 @@ public class MenuManager : MonoBehaviour
 
     public void OpenControlsView()
     {
-        Time.timeScale = 0f;
-        AudioManager.Instance.ToggleMenuAudio(true);
-
-        if (Menus)
-            Menus.SetActive(true);
+        //Time.timeScale = 0f;
+        //AudioManager.Instance.ToggleMenuAudio(true);
 
         if (Menu)
             Menu.SetActive(false);
@@ -372,5 +375,10 @@ public class MenuManager : MonoBehaviour
 
         return currentLevel;
     }
-
+    public void playSound()
+    {
+        audioSource.clip = AudioManager.Instance.MenuClick.clip;
+        audioSource.volume = AudioManager.Instance.Settings.FXAudioLevel;
+        audioSource.Play();
+    }
 }

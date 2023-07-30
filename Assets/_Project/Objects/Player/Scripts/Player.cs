@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
     private AudioSource audioSource;
     private Animator animator;
     private SpriteRenderer sprite_renderer;
+    private Shader shaderGUItext;
+    private Shader shaderSpritesDefault;
+    private Material material;
     private Rigidbody2D rigidBody;
     private float internalIncrementTimer = 0f;
     private float internalStaminaCooldownTimer = 0f;
@@ -66,6 +69,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        material = GetComponent<SpriteRenderer>().material;
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default"); // or whatever sprite shader is being used
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         sprite_renderer = GetComponent<SpriteRenderer>();
@@ -133,7 +139,19 @@ public class Player : MonoBehaviour
             PlayerStatsIncrement();
         }
     }
-
+    void WhiteSprite()
+    {
+        Debug.LogWarning("changing to white");
+        sprite_renderer.material.shader = shaderGUItext;
+        sprite_renderer.color = Color.white;
+    }
+    void NormalSprite()
+    {
+        Debug.LogWarning("changing back to normal");
+        sprite_renderer.material.shader = shaderSpritesDefault;
+        sprite_renderer.color = Color.white;
+        animator.SetTrigger("defaultSprite");
+    }
     private void PlayerAudio()
     {
         if (isPlayerMoving)
@@ -451,7 +469,8 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.PlayerBloodFeedbackLabel, "" + enemyDamage, transform);
         }
-        
+
+        animator.SetTrigger("takeDamage");
         AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerGotHit, gameObject.transform);
 
         Debug.Log("Damage is: " + enemyDamage);
@@ -479,7 +498,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isDead", true);
         StartCoroutine(ShowDeathScreen());
     }
-
+    
     private IEnumerator ShowDeathScreen()
     {
         yield return new WaitForSeconds(1.5f);

@@ -140,6 +140,7 @@ public class GateController : MonoBehaviour
                 if (Label != null && Label != "")
                 {
                     GameManager.Instance.InitiateLabel(GameManager.Instance.Settings.ObjectiveLabel, Label, transform);
+                    AudioManager.Instance.PlayFromPosition(AudioManager.Instance.DoorIsLocked, gameObject.transform);
                 }
                 Debug.Log("Gate:OnTriggerEnter2D, Not HasIDs");
             }

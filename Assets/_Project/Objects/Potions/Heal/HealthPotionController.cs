@@ -12,6 +12,7 @@ public class HealthPotionController : MonoBehaviour
     {
         if (other.CompareTag(GameManager.Instance.PlayerTag))
         {
+            AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PotionIsPickedUp1, gameObject.transform);
             GameManager.Instance.AffectPlayerHealth(HealAmount);
             ObjectiveManager.Instance.CollectPotion(ID);
             GameObject.Destroy(gameObject);
