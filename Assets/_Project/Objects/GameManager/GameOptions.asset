@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349d993e117325549b9418aa57ed9072, type: 3}
+  m_Name: GameOptions
+  m_EditorClassIdentifier: 
+  LevelsOptions:
+  - level_number: 1
+    player_health_original: 50
+    player_health: 100
+    player_stamina: 100
+    player_stamina_original: 100
+    enemy_speed_factor: 1
+    enemy_damage_factor: 1
+    player_stamina_increase_factor: 1
+    player_blood_increase_factor: 1
+    player_speed_factor: 1
+    player_speed_reduction_rate_factor: 1
+    weapon_damage_factor: 1
+    weapon_reduction_factor: 1
+  - level_number: 2
+    player_health_original: 100
+    player_health: 150
+    player_stamina: 100
+    player_stamina_original: 100
+    enemy_speed_factor: 1
+    enemy_damage_factor: 1
+    player_stamina_increase_factor: 1
+    player_blood_increase_factor: 1
+    player_speed_factor: 1
+    player_speed_reduction_rate_factor: 1
+    weapon_damage_factor: 1
+    weapon_reduction_factor: 1
+  - level_number: 3
+    player_health_original: 150
+    player_health: 150
+    player_stamina: 100
+    player_stamina_original: 100
+    enemy_speed_factor: 1
+    enemy_damage_factor: 1
+    player_stamina_increase_factor: 1
+    player_blood_increase_factor: 1
+    player_speed_factor: 1
+    player_speed_reduction_rate_factor: 1
+    weapon_damage_factor: 1
+    weapon_reduction_factor: 1
+  LEVEL_1_TUTORIAL_SHOWN: 0
+  SCENE_MAIN: 0
+  SCENE_LEVEL_1: 1
+  SCENE_LEVEL_2: 2
+  SCENE_LEVEL_3: 3
+  LEVEL_1_END_ID: L1_Door3
+  LEVEL_2_END_ID: L2_Door8
+  LEVEL_3_END_ID: L3_Exit
+  MusicAudioLevel: 0
+  FXAudioLevel: 1
+  PlayerBloodFeedback: 1
+  EnemyBloodFeedback: 1
+  ObjectiveLabel:
+    text_color: {r: 0.8280011, g: 1, b: 0.8254717, a: 1}
+    text_speed: 0.6
+    fade_out_time: 2
+    text_size: 8
+  PlayerBloodFeedbackLabel:
+    text_color: {r: 1, g: 0, b: 0, a: 1}
+    text_speed: 0.3
+    fade_out_time: 0.9
+    text_size: 8
+  EnemyBloodFeedbackLabel:
+    text_color: {r: 1, g: 0, b: 0, a: 1}
+    text_speed: 0.3
+    fade_out_time: 0.9
+    text_size: 8

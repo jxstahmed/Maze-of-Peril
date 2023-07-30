@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3bb30c48889d24e9d1489516b25ae4, type: 3}
+  m_Name: MeanSlime
+  m_EditorClassIdentifier: 
+  Name: MeanSlime
+  Rank: 0
+  Prefab: {fileID: 7860374409171382065, guid: 84952da7a8ee3914cab2b1825b9a1a6f, type: 3}
+  OverallHealth: 70
+  Health: 70
+  Damage: 20
+  FollowSpeed: 1.1
+  MaxSightRadius: 6
+  FollowAfterLockedSightingForSeconds: 0.25
+  PatrolSpeed: 0.85
+  PatrolRadius: 40
+  StaminaRegenerationRate: 0
+  HealthRegenerationRate: 0
+  SpeedStaminaReductionRate: 0
+  IncrementEverySeconds: 1
+  RegenerateHealthCooldownWhenHit: 2
+  RegenerateStaminaCooldownWhenRun: 2
+  AttackCooldown: 1
