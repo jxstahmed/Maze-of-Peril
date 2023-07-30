@@ -23,7 +23,12 @@ The game is tested on a Windows 10 operating system.
 2.  Unzip the file
 3.  Open `Maze of Peril Fear or Fight.exe`
 
-#### Option B: Open the Game in Editor and build it
+#### Option B: Play the Game in your Webbrowser 
+1.  Visit this Website(https://jxstahmed.itch.io/)
+2.  Click on the Game "Maze of Peril: Fear or Fight"
+3.  Click `Run Game`
+
+#### Option C: Open the Game in Editor and build it
 
 1. Clone the Github repository into a folder
 2. Open Unity Hub, Click on Open in the top right corner and then add project from disk
