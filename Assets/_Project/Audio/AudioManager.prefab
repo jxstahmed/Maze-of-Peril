@@ -59,7 +59,7 @@ MonoBehaviour:
     delay: 0
   levelComplete:
     clip: {fileID: 8300000, guid: 050342abcb3e00941887507406aec2ed, type: 3}
-    volume: 5
+    volume: 3
     delay: 0
   PlayerWalks:
   - clip: {fileID: 8300000, guid: bd5653e52c4636e4aa3b0ced8f49a18d, type: 3}
@@ -156,7 +156,7 @@ MonoBehaviour:
     delay: 0
   DoorOpens:
     clip: {fileID: 8300000, guid: adfb477aa2d8f44f1a8f3ffc61b6ccd5, type: 3}
-    volume: 4
+    volume: 5
     delay: 0
   DoorCloses:
     clip: {fileID: 8300000, guid: e8fab34e64cb6b347a3e1cecbe51a075, type: 3}
