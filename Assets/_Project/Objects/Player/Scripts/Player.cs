@@ -80,11 +80,7 @@ public class Player : MonoBehaviour
         PlayerData.Health = GameManager.Instance.GetLevelDifficultyOptions().player_health;
         PlayerData.Stamina = GameManager.Instance.GetLevelDifficultyOptions().player_stamina;
 
-        // Reset if level 1 and it's restarted
-        if(GameManager.Instance.ResetScriptableAfterRun && MenuManager.Instance.GetCurrentLevel() == 1)
-        {
-            GameManager.Instance.ResetScriptableValues();
-        }
+    
 
         ApplyEquippedWeapon();
         AudioManager.Instance.CreateTimer("player", AudioManager.Instance.PlayerMovementRate);
@@ -490,8 +486,12 @@ public class Player : MonoBehaviour
     private void KillPlayer()
     {
         AudioManager.Instance.PlayFromPosition(AudioManager.Instance.PlayerDies, gameObject.transform);
-        hasToggledWeaponKey = true;
-        IsWeaponShown = false;
+
+        //hasToggledWeaponKey = true;
+        //IsWeaponShown = false;
+        HideWeapon();
+
+
         IsDead = true;
         StopPlayer();
         GameManager.Instance.StopEnemies(true);

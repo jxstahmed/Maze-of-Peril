@@ -68,15 +68,27 @@ public class GameManager : MonoBehaviour
     {
         startTimeScale = Time.timeScale;
         startFixedDeltaTime = Time.fixedDeltaTime;
+
+        ResetScriptableValues();
+
+        // Reset if level 1 and it's restarted
+        if (ResetScriptableAfterRun && MenuManager.Instance.GetCurrentLevel() == 1)
+        {
+            ResetLevelValues();
+        }
     }
 
     public void ResetScriptableValues()
     {
-        // Weapons
-        PlayerData.EquippedWeaponID = "";
-        PlayerData.WeaponsIDsList.Clear();
 
-        // Level options
+        // Clear collected ids on start
+        ObjectiveManager.Instance.CollectedKeys.Clear();
+
+
+        // Audios
+        AudioManager.Instance.Timers.Clear();
+
+        // Level options, if level 1, then reset the weapons
         if (MenuManager.Instance != null && Settings != null && Settings.LevelsOptions != null && Settings.LevelsOptions.Count > 0)
         {
             int currentLevel = MenuManager.Instance.GetCurrentLevel();
@@ -89,6 +101,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ResetLevelValues()
+    {
+        // Weapons
+        PlayerData.EquippedWeaponID = "";
+        PlayerData.WeaponsIDsList.Clear();
     }
 
 
