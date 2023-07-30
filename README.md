@@ -38,4 +38,4 @@ The game is tested on a Windows 10 operating system.
 
 ## Links
 
-Project Link  - [Github](https://github.com/jxstahmed/)
+Project Link  - [Github](https://github.com/jxstahmed/Maze-of-Peril)
